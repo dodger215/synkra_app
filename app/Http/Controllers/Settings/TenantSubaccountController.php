@@ -15,6 +15,32 @@ class TenantSubaccountController extends Controller
         return view('settings.subaccounts.index', compact('subaccounts'));
     }
 
+    public function resolve(Request $request)
+    {
+        $request->validate([
+            'account_number' => ['required', 'string'],
+            'bank_code' => ['required', 'string'],
+        ]);
+
+        $response = \Illuminate\Support\Facades\Http::withToken(config('services.paystack.secret_key'))
+            ->get("https://api.paystack.co/bank/resolve", [
+                'account_number' => $request->account_number,
+                'bank_code' => $request->bank_code,
+            ]);
+
+        if ($response->successful()) {
+            return response()->json([
+                'success' => true,
+                'account_name' => $response->json('data.account_name')
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => $response->json('message') ?? 'Could not verify account details.'
+        ], 400);
+    }
+
     public function store(Request $request)
     {
         $tenant = Auth::user()->tenant;
@@ -24,11 +50,12 @@ class TenantSubaccountController extends Controller
             'bank_name' => ['nullable', 'string', 'max:100'],
             'account_number' => ['required', 'string', 'max:20'],
             'account_name' => ['nullable', 'string', 'max:255'],
-            'percentage_charge' => ['required', 'numeric', 'min:0', 'max:100'],
             'settlement_bank' => ['nullable', 'string', 'max:100'],
             'currency' => ['required', 'string', 'max:3'],
             'settlement_schedule' => ['required', 'string', 'in:AUTO,MANUAL'],
         ]);
+
+        $validated['percentage_charge'] = 0;
 
         $tenant->subaccounts()->create($validated);
 
@@ -44,13 +71,14 @@ class TenantSubaccountController extends Controller
             'bank_name' => ['nullable', 'string', 'max:100'],
             'account_number' => ['required', 'string', 'max:20'],
             'account_name' => ['nullable', 'string', 'max:255'],
-            'percentage_charge' => ['required', 'numeric', 'min:0', 'max:100'],
             'settlement_bank' => ['nullable', 'string', 'max:100'],
             'currency' => ['required', 'string', 'max:3'],
             'settlement_schedule' => ['required', 'string', 'in:AUTO,MANUAL'],
             'is_active' => ['boolean'],
             'metadata' => ['nullable', 'array'],
         ]);
+
+        $validated['percentage_charge'] = 0;
 
         $subaccount->update($validated);
 

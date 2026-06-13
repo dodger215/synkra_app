@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Ramsey\Uuid\Uuid;
 
-#[Fillable(['tenant_id', 'name', 'email', 'password', 'google_id', 'role', 'permissions'])]
+#[Fillable(['tenant_id', 'name', 'email', 'phone_number', 'mfa_type', 'mfa_code', 'mfa_expires_at', 'mfa_verified', 'password', 'google_id', 'role', 'permissions'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {

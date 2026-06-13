@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+/* Import FontAwesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -7,3 +9,107 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+:root {
+  /* Brand Colors Default */
+  --primary: #F97316;      /* Orange */
+  --primary-hover: #EA580C;
+  --secondary: #14B8A6;    /* Teal */
+  --secondary-hover: #0F9F93;
+}
+
+/* Light Theme (Default) */
+:root, [data-theme="light"] {
+  --background: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-secondary: #F8FAFC;
+
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+
+  --border: #E2E8F0;
+  --divider: #F1F5F9;
+
+  --primary: #F97316;
+  --primary-hover: #EA580C;
+  --secondary: #14B8A6;
+  --secondary-hover: #0F9F93;
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  /* Element Specific */
+  --active-menu: #FFF7ED;
+  --active-menu-border: #F97316;
+  --headings: #0F172A;
+  --body-text: #475569;
+  --inputs-bg: #FFFFFF;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --background: #000000;
+  --surface: #111111;
+  --surface-secondary: #1A1A1A;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+
+  --border: #262626;
+  --divider: #171717;
+
+  --primary: #FB923C;
+  --primary-hover: #EA580C;
+  --secondary: #2DD4BF;
+  --secondary-hover: #0F9F93;
+
+  --success: #4ADE80;
+  --warning: #FBBF24;
+  --danger: #F87171;
+
+  /* Element Specific */
+  --active-menu: rgba(249, 115, 22, 0.15);
+  --active-menu-border: #FB923C;
+  --headings: #FFFFFF;
+  --body-text: #A1A1AA;
+  --inputs-bg: #111111;
+}
+
+/* System Dark Theme Fallback (prevents flash of light mode if JS is slow) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #000000;
+    --surface: #111111;
+    --surface-secondary: #1A1A1A;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A1A1AA;
+    --border: #262626;
+    --divider: #171717;
+    --primary: #FB923C;
+    --primary-hover: #EA580C;
+    --secondary: #2DD4BF;
+    --secondary-hover: #0F9F93;
+    --success: #4ADE80;
+    --warning: #FBBF24;
+    --danger: #F87171;
+    --active-menu: rgba(249, 115, 22, 0.15);
+    --active-menu-border: #FB923C;
+    --headings: #FFFFFF;
+    --body-text: #A1A1AA;
+    --inputs-bg: #111111;
+  }
+}
+
+/* General Layout/Base Overrides */
+body {
+  background-color: var(--background);
+  color: var(--body-text);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--headings);
+}
+

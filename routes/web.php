@@ -50,6 +50,19 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
+// MFA Verification Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/verify-mfa', [\App\Http\Controllers\Auth\MfaController::class, 'showVerifyForm'])->name('mfa.verify');
+    Route::post('/verify-mfa', [\App\Http\Controllers\Auth\MfaController::class, 'verify'])->name('mfa.verify.submit');
+    Route::post('/resend-mfa', [\App\Http\Controllers\Auth\MfaController::class, 'resend'])->name('mfa.resend');
+});
+
+// Dashboard Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/metrics', [\App\Http\Controllers\DashboardController::class, 'metrics'])->name('dashboard.metrics');
+});
+
 // Settings Routes
 Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(function () {
     // Profile
@@ -79,6 +92,7 @@ Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(functi
     // Subaccounts (Billing/Payments)
     Route::middleware('permission:settings,manage_billing')->group(function () {
         Route::get('/subaccounts', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'index'])->name('subaccounts.index');
+        Route::post('/subaccounts/resolve', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'resolve'])->name('subaccounts.resolve');
         Route::post('/subaccounts', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'store'])->name('subaccounts.store');
         Route::post('/subaccounts/{id}', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'update'])->name('subaccounts.update');
         Route::delete('/subaccounts/{id}', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'destroy'])->name('subaccounts.destroy');
@@ -193,3 +207,8 @@ Route::middleware(['auth'])->prefix('supply-chain')->name('supply_chain.')->grou
         Route::post('/alert/{id}/resolve', [ForecastController::class, 'resolveAlert'])->name('resolve');
     });
 });
+
+Route::get('/ui', function () {
+    return view('ui.index');
+});
+

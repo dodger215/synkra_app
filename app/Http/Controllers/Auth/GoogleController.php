@@ -83,7 +83,7 @@ class GoogleController extends Controller
 
             Auth::login($user);
 
-            return redirect()->intended('/');
+            return redirect()->intended('dashboard');
             
         } catch (\Exception $e) {
             return redirect('/')->with('error', 'Authentication failed or was canceled.');

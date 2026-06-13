@@ -22,7 +22,9 @@ class CheckPermission
             abort(403, 'Unauthorized access.');
         }
 
-        if ($user->role === \App\Enums\UserRole::OWNER || $user->role === \App\Enums\UserRole::ADMIN) {
+        $roleValue = $user->role instanceof \App\Enums\UserRole ? $user->role->value : $user->role;
+
+        if ($roleValue === \App\Enums\UserRole::OWNER->value || $roleValue === \App\Enums\UserRole::ADMIN->value) {
             return $next($request);
         }
 

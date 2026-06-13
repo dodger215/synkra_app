@@ -11,9 +11,10 @@ class TenantController extends Controller
 {
     public function edit()
     {
-        return view('settings.tenant.edit', [
-            'tenant' => Auth::user()->tenant,
-        ]);
+        $tenant = Auth::user()->tenant;
+        $tenantServices = $tenant->services->keyBy('service_name');
+
+        return view('settings.tenant.edit', compact('tenant', 'tenantServices'));
     }
 
     public function update(Request $request)
@@ -27,10 +28,38 @@ class TenantController extends Controller
                 Rule::unique('tenants')->ignore($tenant->id),
             ],
             'settings' => ['nullable', 'array'],
+            'services' => ['nullable', 'array'],
         ]);
 
-        $tenant->update($validated);
+        $tenant->update([
+            'name' => $validated['name'],
+            'subdomain' => $validated['subdomain'] ?? null,
+            'settings' => $validated['settings'] ?? null,
+        ]);
 
-        return back()->with('status', 'Workspace settings updated successfully.');
+        $allModules = ['ecommerce', 'pos', 'inventory', 'crm', 'marketing', 'supply_chain', 'reporting'];
+        
+        foreach ($allModules as $module) {
+            $isActive = isset($validated['services'][$module]['is_active']) && $validated['services'][$module]['is_active'] == '1';
+            $subCategory = $request->input("services.{$module}.sub_category", null);
+            
+            $service = $tenant->services()->where('service_name', $module)->first();
+            if ($service) {
+                $service->update([
+                    'is_active' => $isActive,
+                    'sub_category' => $subCategory,
+                    'activated_at' => ($isActive && !$service->is_active) ? now() : $service->activated_at,
+                ]);
+            } else {
+                $tenant->services()->create([
+                    'service_name' => $module,
+                    'is_active' => $isActive,
+                    'sub_category' => $subCategory,
+                    'activated_at' => $isActive ? now() : null
+                ]);
+            }
+        }
+
+        return back()->with('status', 'Workspace settings and modules updated successfully.');
     }
 }

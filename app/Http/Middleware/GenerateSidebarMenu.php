@@ -36,13 +36,28 @@ class GenerateSidebarMenu
                 'payments' => ['label' => 'Payments', 'icon' => 'fa-solid fa-credit-card', 'url' => '#'],
                 'ecommerce' => ['label' => 'E-Commerce', 'icon' => 'fa-solid fa-store', 'url' => '#'],
                 'reports' => ['label' => 'Reports', 'icon' => 'fa-solid fa-chart-line', 'url' => '#'],
-                'settings' => ['label' => 'Settings', 'icon' => 'fa-solid fa-gear', 'url' => route('settings.workspace.edit')],
+                // 'settings' => ['label' => 'Settings', 'icon' => 'fa-solid fa-gear', 'url' => route('settings.workspace.edit')],
             ];
 
             // Always add dashboard
             $sidebarMenu[] = ['label' => 'Dashboard', 'icon' => 'fa-solid fa-house', 'url' => url('dashboard')];
 
+            $activeServices = $user->tenant ? $user->tenant->services()->where('is_active', true)->pluck('service_name')->toArray() : [];
+            $serviceMap = [
+                'inventory' => 'inventory',
+                'pos' => 'pos',
+                'marketing' => 'marketing',
+                'crm' => 'crm',
+                'supply_chain' => 'supply_chain',
+                'ecommerce' => 'ecommerce',
+                'reports' => 'reporting',
+            ];
+
             foreach ($modules as $moduleName => $actions) {
+                if (isset($serviceMap[$moduleName]) && !in_array($serviceMap[$moduleName], $activeServices)) {
+                    continue;
+                }
+
                 $hasAccess = false;
                 
                 if ($isOwnerOrAdmin) {
@@ -63,11 +78,21 @@ class GenerateSidebarMenu
                     $item = $moduleMetadata[$moduleName];
                     $subitems = [];
                     
+                    $addedLabels = [];
+                    
                     // Add specific accessible actions as submenus, mapping to real routes
                     foreach ($actions as $action => $default) {
                         if ($isOwnerOrAdmin || (isset($userPermissions[$moduleName][$action]) && $userPermissions[$moduleName][$action])) {
+                            
+                            // We only want to generate sidebar links for main "view" or "manage" entries.
+                            // Ignore specific CRUD actions so the sidebar isn't cluttered with "Create X", "Edit X"
+                            if (preg_match('/^(create|edit|delete|approve|report|dispose|process|verify|export|resolve|void|refund|close|track|sync|handle|initiate|reconcile|adjust|log|send|abandoned|publish|schedule|import)_/', $action)) {
+                                continue;
+                            }
+
                             $route = '#';
-                            $label = ucwords(str_replace('_', ' ', $action));
+                            $label = ucwords(str_replace(['view_', 'manage_', 'open_'], '', $action));
+                            $label = ucwords(str_replace('_', ' ', $label));
 
                             // Map actions to defined application routes
                             if ($moduleName === 'inventory') {
@@ -80,15 +105,15 @@ class GenerateSidebarMenu
                             } elseif ($moduleName === 'pos') {
                                 if ($action === 'view_orders') {
                                     $route = route('product_service.pos.orders');
-                                    $label = 'View Orders';
+                                    $label = 'Orders';
                                 }
                                 elseif ($action === 'view_sessions') {
                                     $route = route('product_service.pos.sessions');
-                                    $label = 'View Sessions';
+                                    $label = 'Sessions';
                                 }
                                 elseif ($action === 'open_session') {
                                     $route = route('product_service.pos.index');
-                                    $label = 'Launch POS Terminal';
+                                    $label = 'Launch POS';
                                 }
                             } elseif ($moduleName === 'supply_chain') {
                                 if ($action === 'view_suppliers') $route = route('supply_chain.suppliers.index');
@@ -96,14 +121,25 @@ class GenerateSidebarMenu
                                 elseif ($action === 'view_receiving_reports') $route = route('supply_chain.receiving.index');
                                 elseif ($action === 'view_forecasts') $route = route('supply_chain.forecast.index');
                             } elseif ($moduleName === 'settings') {
-                                if ($action === 'view_company_settings') $route = route('settings.workspace.edit');
-                                elseif ($action === 'view_billing') $route = route('settings.subaccounts.index');
-                                elseif ($action === 'manage_tenants') $route = route('settings.services.index');
+                                if ($action === 'view_company_settings') {
+                                    $route = route('settings.workspace.edit');
+                                    $label = 'Workspace';
+                                }
+                                elseif ($action === 'view_billing') {
+                                    $route = route('settings.subaccounts.index');
+                                    $label = 'Billing';
+                                }
+                                elseif ($action === 'manage_tenants') {
+                                    $route = route('settings.services.index');
+                                    $label = 'Tenants';
+                                }
                             }
 
-                            // Include all subitems so the developer can visually see the layout.
-                            // If a route hasn't been built yet, it will fallback to '#'
-                            $subitems[] = ['label' => $label, 'url' => $route];
+                            // Only add the label if we haven't already added it
+                            if (!in_array($label, $addedLabels)) {
+                                $subitems[] = ['label' => $label, 'url' => $route];
+                                $addedLabels[] = $label;
+                            }
                         }
                     }
                     

@@ -20,17 +20,14 @@
     <tbody>
       @foreach($rows as $row)
         <tr>
-          @foreach($row as $key => $cell)
+          @foreach($row as $cell)
             <td>
-              @if(strtolower($cell) == 'active')
+              @if($cell instanceof \Illuminate\Contracts\Support\Htmlable)
+                {!! $cell !!}
+              @elseif(is_string($cell) && strtolower($cell) === 'active')
                 <span class="synkra-badge-pill synkra-badge-success">Active</span>
-              @elseif(strtolower($cell) == 'inactive')
+              @elseif(is_string($cell) && strtolower($cell) === 'inactive')
                 <span class="synkra-badge-pill synkra-badge-danger">Inactive</span>
-              @elseif($key === count($row) - 1 && $cell === 'Actions')
-                <div class="synkra-table-actions">
-                  <button type="button" class="synkra-table-action-btn" title="Edit"><i class="fa-regular fa-pen-to-square"></i></button>
-                  <button type="button" class="synkra-table-action-btn" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
-                </div>
               @else
                 {{ $cell }}
               @endif

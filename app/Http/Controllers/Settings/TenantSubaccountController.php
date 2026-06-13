@@ -11,8 +11,14 @@ class TenantSubaccountController extends Controller
 {
     public function index()
     {
-        $subaccounts = Auth::user()->tenant->subaccounts;
-        return view('settings.subaccounts.index', compact('subaccounts'));
+        $subaccount = Auth::user()->tenant->subaccounts()->first();
+
+        // Dashboard Metrics (Ready for real DB hookups)
+        $transactionsCount = $subaccount ? $subaccount->transactions()->count() : 0;
+        $totalRevenue = $subaccount ? $subaccount->transactions()->sum('amount') : 0;
+        $totalPayouts = $subaccount ? $subaccount->payouts()->sum('amount') : 0;
+
+        return view('settings.subaccounts.index', compact('subaccount', 'transactionsCount', 'totalRevenue', 'totalPayouts'));
     }
 
     public function resolve(Request $request)

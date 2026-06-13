@@ -634,25 +634,43 @@ class StocksManagementController extends Controller implements HasMiddleware
             'name' => 'required|string|max:255',
             'location_type' => 'required|string|max:255',
             'address' => 'nullable|string',
-            'is_default' => 'boolean',
-            'is_active' => 'boolean',
+            'is_default' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $tenantId = Auth::user()->tenant_id;
+        $isDefault = $request->boolean('is_default');
+        $isActive = $request->boolean('is_active', true);
 
         // If setting as default, unset others
-        if ($request->is_default) {
+        if ($isDefault) {
             StockLocation::where('tenant_id', $tenantId)->update(['is_default' => false]);
         }
 
-        StockLocation::create([
+        $location = StockLocation::create([
             'tenant_id' => $tenantId,
             'name' => $request->name,
             'location_type' => $request->location_type,
             'address' => $request->address,
-            'is_default' => $request->is_default ?? false,
-            'is_active' => $request->is_active ?? true,
+            'is_default' => $isDefault,
+            'is_active' => $isActive,
         ]);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success'  => true,
+                'message'  => "Location '{$location->name}' created successfully.",
+                'location' => ['id' => $location->id, 'name' => $location->name],
+            ], 201);
+        }
+
+        if ($request->boolean('from_product')) {
+            $draft = session()->get('product_create_draft', []);
+            $draft['stock_location_id'] = $location->id;
+            session()->put('product_create_draft', $draft);
+            return redirect()->route('product_service.products.create')
+                ->with('success', "Location '{$location->name}' created! Your product draft has been restored.");
+        }
 
         return redirect()->route('product_service.stocks.locations.index')->with('success', 'Location created successfully.');
     }
@@ -663,14 +681,16 @@ class StocksManagementController extends Controller implements HasMiddleware
             'name' => 'required|string|max:255',
             'location_type' => 'required|string|max:255',
             'address' => 'nullable|string',
-            'is_default' => 'boolean',
-            'is_active' => 'boolean',
+            'is_default' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $tenantId = Auth::user()->tenant_id;
         $location = StockLocation::where('tenant_id', $tenantId)->findOrFail($id);
+        $isDefault = $request->boolean('is_default');
+        $isActive = $request->boolean('is_active');
 
-        if ($request->is_default && !$location->is_default) {
+        if ($isDefault && !$location->is_default) {
             StockLocation::where('tenant_id', $tenantId)->update(['is_default' => false]);
         }
 
@@ -678,8 +698,8 @@ class StocksManagementController extends Controller implements HasMiddleware
             'name' => $request->name,
             'location_type' => $request->location_type,
             'address' => $request->address,
-            'is_default' => $request->is_default ?? false,
-            'is_active' => $request->is_active ?? true,
+            'is_default' => $isDefault,
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('product_service.stocks.locations.index')->with('success', 'Location updated successfully.');

@@ -2,6 +2,7 @@
   $name = $name ?? 'switch';
   $id = $id ?? 'switch_' . uniqid();
   $label = $label ?? '';
+  $value = $value ?? '1';
   $checked = ($checked ?? false) ? 'checked' : '';
   $isLoading = $isLoading ?? false;
   $onChange = $onChange ?? '';
@@ -13,6 +14,7 @@
     type="checkbox" 
     name="{{ $name }}" 
     id="{{ $id }}" 
+    value="{{ $value }}"
     {{ $checked }} 
     {{ $isLoading ? 'disabled' : '' }}
     class="synkra-switch-input"

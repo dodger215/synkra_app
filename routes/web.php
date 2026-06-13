@@ -94,7 +94,7 @@ Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(functi
         Route::get('/subaccounts', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'index'])->name('subaccounts.index');
         Route::post('/subaccounts/resolve', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'resolve'])->name('subaccounts.resolve');
         Route::post('/subaccounts', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'store'])->name('subaccounts.store');
-        Route::post('/subaccounts/{id}', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'update'])->name('subaccounts.update');
+        Route::put('/subaccounts/{id}', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'update'])->name('subaccounts.update');
         Route::delete('/subaccounts/{id}', [\App\Http\Controllers\Settings\TenantSubaccountController::class, 'destroy'])->name('subaccounts.destroy');
     });
 });
@@ -106,30 +106,39 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
 
     // Products (InventoryController handles CRUD for products)
     Route::resource('products', InventoryController::class);
+    // Save product draft to session before quick-creating a category
+    Route::post('/products/draft/save', function (\Illuminate\Http\Request $request) {
+        session()->put('product_create_draft', $request->except(['_token']));
+        return redirect()->route('product_service.categories.create', ['from_product' => 1]);
+    })->middleware('auth')->name('products.draft.save');
+
+    // Add to routes file
+
+
 
     // Stocks Management
     Route::prefix('stocks')->name('stocks.')->group(function () {
         Route::get('/', [StocksManagementController::class, 'index'])->name('index');
         Route::get('/movements', [StocksManagementController::class, 'movements'])->name('movements');
-        
+
         Route::get('/receive/create', [StocksManagementController::class, 'createReceive'])->name('receive.create');
         Route::post('/receive', [StocksManagementController::class, 'storeReceive'])->name('receive.store');
-        
+
         Route::get('/issue/create', [StocksManagementController::class, 'createIssue'])->name('issue.create');
         Route::post('/issue', [StocksManagementController::class, 'storeIssue'])->name('issue.store');
-        
+
         Route::get('/transfer/create', [StocksManagementController::class, 'createTransfer'])->name('transfer.create');
         Route::post('/transfer', [StocksManagementController::class, 'storeTransfer'])->name('transfer.store');
-        
+
         Route::get('/adjustment/create', [StocksManagementController::class, 'createAdjustment'])->name('adjustment.create');
         Route::post('/adjustment', [StocksManagementController::class, 'storeAdjustment'])->name('adjustment.store');
-        
+
         Route::get('/damage/create', [StocksManagementController::class, 'createDamage'])->name('damage.create');
         Route::post('/damage', [StocksManagementController::class, 'storeDamage'])->name('damage.store');
-        
+
         Route::get('/count/create', [StocksManagementController::class, 'createCount'])->name('count.create');
         Route::post('/count', [StocksManagementController::class, 'storeCount'])->name('count.store');
-        
+
         Route::get('/return/create', [StocksManagementController::class, 'createReturn'])->name('return.create');
         Route::post('/return', [StocksManagementController::class, 'storeReturn'])->name('return.store');
 
@@ -140,7 +149,7 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
 
         Route::get('/bins', [StocksManagementController::class, 'bins'])->name('bins.index');
         Route::post('/bins', [StocksManagementController::class, 'storeBin'])->name('bins.store');
-        
+
         Route::get('/{id}', [StocksManagementController::class, 'show'])->name('show');
     });
 
@@ -150,11 +159,11 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
         Route::post('/session/open', [PosController::class, 'openSession'])->name('session.open');
         Route::post('/session/close', [PosController::class, 'closeSession'])->name('session.close');
         Route::post('/checkout', [PosController::class, 'checkout'])->name('checkout');
-        
+
         Route::get('/orders', [PosController::class, 'orders'])->name('orders');
         Route::get('/orders/{id}', [PosController::class, 'showOrder'])->name('order.show');
         Route::get('/sessions', [PosController::class, 'sessions'])->name('sessions');
-        
+
         // POS Device Integrations
         Route::post('/device/connect', [PosController::class, 'connectDevice'])->name('device.connect');
         Route::post('/device/test-print', [PosController::class, 'testPrint'])->name('device.test-print');
@@ -177,7 +186,7 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
         Route::get('/stock-bins', [ExportController::class, 'stockBins'])->name('stock_bins');
         Route::get('/pos-orders', [ExportController::class, 'posOrders'])->name('pos_orders');
         Route::get('/pos-sessions', [ExportController::class, 'posSessions'])->name('pos_sessions');
-        
+
         Route::get('/all-stocks', [ExportController::class, 'allStocks'])->name('all_stocks');
         Route::get('/all-pos', [ExportController::class, 'allPos'])->name('all_pos');
     });

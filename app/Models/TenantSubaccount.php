@@ -29,4 +29,5 @@ class TenantSubaccount extends Model
     public function store() { return $this->belongsTo(EcommerceStore::class, 'store_id'); }
     public function verifications() { return $this->hasMany(SubaccountVerification::class, 'subaccount_id'); }
     public function transactions() { return $this->hasMany(SubaccountTransaction::class, 'subaccount_id'); }
+    public function payouts() { return $this->hasMany(TenantPayout::class, 'subaccount_id'); }
 }

@@ -27,6 +27,17 @@ class Product extends Model
         'images' => 'array',
     ];
 
+    public function imageUrl(int $index = 0): ?string
+    {
+        $images = $this->images ?? [];
+
+        if (! isset($images[$index])) {
+            return null;
+        }
+
+        return '/storage/' . ltrim($images[$index], '/');
+    }
+
     public function tenant() { return $this->belongsTo(Tenant::class); }
     public function category() { return $this->belongsTo(ProductCategory::class, 'category_id'); }
     public function stockBalances() { return $this->hasMany(StockBalance::class); }

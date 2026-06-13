@@ -9,7 +9,7 @@
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Google Fonts: Instrument Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
     @else
         <link rel="stylesheet" href="{{ asset('css/app.css') ?? '/css/app.css' }}">
     @endif
-    
+
     <style>
         body {
             font-family: 'Instrument Sans', sans-serif;
@@ -31,6 +31,15 @@
             padding: 0;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         .synkra-layout-wrapper {
@@ -47,11 +56,13 @@
             min-height: 100vh;
         }
 
+
+
         /* When sidebar is collapsed */
         .synkra-main-wrapper.expanded {
             margin-left: 112px; /* 80 width + 16 left + 16 gap */
         }
-        
+
         /* For guest views or when unauthenticated */
         .synkra-main-wrapper.full-width {
             margin-left: 0;
@@ -76,12 +87,15 @@
 <body>
     <!-- Global Page Loader -->
     <x-ui.loader />
+    <div class="background-pattern">
+        <x-ui.grid />
+    </div>
 
     <div class="synkra-layout-wrapper">
         @auth
             <!-- Sidebar Navigation -->
             <x-ui.sidebar />
-            
+
             <div class="synkra-main-wrapper" id="synkraMainContent">
                 <!-- Top Navbar -->
                 <x-ui.navbar />
@@ -107,7 +121,7 @@
         @php
             $user = auth()->user();
             $hasSubaccounts = $user->tenant ? $user->tenant->subaccounts()->exists() : true;
-            
+
             $roleValue = $user->role instanceof \App\Enums\UserRole ? $user->role->value : $user->role;
             $isOwnerOrAdmin = $roleValue === \App\Enums\UserRole::OWNER->value || $roleValue === \App\Enums\UserRole::ADMIN->value;
             $canManageBilling = $isOwnerOrAdmin || (isset($user->permissions['settings']['manage_billing']) && $user->permissions['settings']['manage_billing']);
@@ -122,18 +136,18 @@
                       <i class="fa-solid fa-triangle-exclamation fa-bounce" style="--fa-animation-duration: 2s; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1;"></i>
                   </div>
                   <h2 style="color: var(--headings); margin: 0 0 0.5rem 0; font-size: 1.35rem;">Missing Billing Details</h2>
-                  
+
                   @if($canManageBilling)
                     <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">You have not configured your billing subaccounts yet. You must set up your subaccounts to start accepting payments securely across your workspace.</p>
                   @else
                     <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Your workspace has not configured its billing subaccounts yet. Please contact your workspace administrator to set up subaccounts and start accepting payments securely.</p>
                   @endif
               </div>
-              
+
               <x-slot:footer>
                 <div style="display: flex; gap: 1rem; width: 100%; justify-content: center; margin-top: 1.5rem;">
                   <button type="button" class="synkra-btn synkra-btn-secondary" style="background: var(--surface-secondary); border: none; color: var(--text-primary); cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; flex: 1;" onclick="closeSynkraModal('missingSubaccountsModal')">Remind Me Later</button>
-                  
+
                   @if($canManageBilling)
                   <a href="{{ route('settings.subaccounts.index') }}" style="text-decoration: none; flex: 1;">
                     <button type="button" class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; width: 100%;">Set up Subaccounts</button>

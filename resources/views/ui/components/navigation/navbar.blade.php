@@ -12,7 +12,7 @@
     <button class="synkra-mobile-toggle-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
       <i class="fa-solid fa-bars"></i>
     </button>
-    
+
     <div class="synkra-desktop-only">
       <x-ui.breadcrumb />
     </div>
@@ -23,9 +23,9 @@
       <x-ui.search placeholder="Search workspace, orders, items..." />
     </div>
   </div>
-  
+
   <div class="synkra-navbar-right">
-    
+
     <x-ui.dropdown id="notificationsDropdown">
         <x-slot:trigger>
             <button class="synkra-navbar-icon-btn">
@@ -67,7 +67,7 @@
             Your inbox is empty
         </div>
     </x-ui.dropdown>
-    
+
     <x-ui.dropdown id="profileDropdown">
         <x-slot:trigger>
             <div class="synkra-navbar-profile">
@@ -83,12 +83,12 @@
             <strong style="color: var(--headings); font-size: 0.95rem;">{{ $user->name }}</strong>
             <span style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px; display: block;">{{ $user->email }}</span>
         </x-slot:header>
-        
+
         <a href="{{ route('settings.profile.edit') }}" class="synkra-ui-dropdown-item">
             <i class="fa-solid fa-user" style="width: 16px;"></i> Profile Settings
         </a>
         <a href="{{ route('settings.workspace.edit') }}" class="synkra-ui-dropdown-item">
-            <i class="fa-solid fa-building" style="width: 16px;"></i> Workspace Settings
+            <i class="fa-solid fa-building" style="width: 16px;"></i> Shop Settings
         </a>
         <a href="{{ route('settings.subaccounts.index') }}" class="synkra-ui-dropdown-item">
             <i class="fa-solid fa-credit-card" style="width: 16px;"></i> Billing & Payouts
@@ -246,9 +246,9 @@
 }
 
 @media (max-width: 768px) {
-  .synkra-navbar { 
-    padding: 0 1rem; 
-    margin: 16px; 
+  .synkra-navbar {
+    padding: 0 1rem;
+    margin: 16px;
   }
   .synkra-mobile-toggle-btn { display: block; }
   .synkra-desktop-only { display: none; }

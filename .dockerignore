@@ -2,7 +2,7 @@ node_modules
 vendor
 .git
 .idea
-.env.example
+
 storage/*.key
 storage/framework/cache/data/*
 storage/framework/sessions/*

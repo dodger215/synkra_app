@@ -15,7 +15,6 @@ if [ ! -f /var/www/database/database.sqlite ]; then
 fi
 
 # Set permissions for storage and cache
-# We do this here because bind mounts from host can overwrite permissions set during build
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/database
 chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
 
@@ -30,4 +29,6 @@ php artisan migrate --force
 # Link storage
 php artisan storage:link
 
-exec php-fpm
+# Run Laravel on 0.0.0.0
+echo "Starting Laravel server on 0.0.0.0:8000..."
+exec php artisan serve --host=0.0.0.0 --port=8000

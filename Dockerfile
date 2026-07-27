@@ -35,9 +35,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy existing application directory contents
 COPY . .
 
-# Copy .env file
-COPY .env .env
-
 # Copy compiled assets from the assets stage
 COPY --from=assets /app/public/build ./public/build
 

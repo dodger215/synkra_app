@@ -1,27 +1,35 @@
-<nav class="synkra-breadcrumb" aria-label="breadcrumb">
-  <ol class="synkra-breadcrumb-list">
-    <li class="synkra-breadcrumb-item">
-      <a href="/dashboard" class="synkra-breadcrumb-link">
+<nav class="flowexa-breadcrumb" aria-label="breadcrumb">
+  <ol class="flowexa-breadcrumb-list">
+    <li class="flowexa-breadcrumb-item">
+      <a href="/dashboard" class="flowexa-breadcrumb-link">
         <i class="fa-solid fa-house"></i>
       </a>
     </li>
-    @php 
-      $segments = request()->segments(); 
-      $url = ''; 
+    @php
+      $segments = request()->segments();
+      $url = '';
     @endphp
     @foreach($segments as $segment)
-      @php $url .= '/'.$segment; @endphp
-      <li class="synkra-breadcrumb-separator">
+      @php
+        $url .= '/'.$segment;
+        // UUIDs are typically 36 chars. Any segment > 20 is likely an ID we want to shorten.
+        if (strlen($segment) > 20 || preg_match('/^[a-f0-9]{8}-/i', $segment)) {
+            $displaySegment = substr($segment, 0, 5) . '...';
+        } else {
+            $displaySegment = ucfirst(str_replace('-', ' ', $segment));
+        }
+      @endphp
+      <li class="flowexa-breadcrumb-separator">
         <i class="fa-solid fa-chevron-right"></i>
       </li>
       @if($loop->last)
-        <li class="synkra-breadcrumb-item active" aria-current="page">
-          {{ ucfirst(str_replace('-', ' ', $segment)) }}
+        <li class="flowexa-breadcrumb-item active" aria-current="page">
+          {{ $displaySegment }}
         </li>
       @else
-        <li class="synkra-breadcrumb-item">
-          <a href="{{ $url }}" class="synkra-breadcrumb-link">
-            {{ ucfirst(str_replace('-', ' ', $segment)) }}
+        <li class="flowexa-breadcrumb-item">
+          <a href="{{ $url }}" class="flowexa-breadcrumb-link">
+            {{ $displaySegment }}
           </a>
         </li>
       @endif
@@ -30,14 +38,14 @@
 </nav>
 
 <style>
-.synkra-breadcrumb {
+.flowexa-breadcrumb {
   display: flex;
   align-items: center;
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
-.synkra-breadcrumb-list {
+.flowexa-breadcrumb-list {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -46,18 +54,19 @@
   list-style: none;
 }
 
-.synkra-breadcrumb-item {
+.flowexa-breadcrumb-item {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
-.synkra-breadcrumb-item.active {
+.flowexa-breadcrumb-item.active {
   color: var(--headings);
   font-weight: 600;
   letter-spacing: 0.3px;
 }
 
-.synkra-breadcrumb-link {
+.flowexa-breadcrumb-link {
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s;
@@ -65,11 +74,11 @@
   align-items: center;
 }
 
-.synkra-breadcrumb-link:hover {
+.flowexa-breadcrumb-link:hover {
   color: var(--primary);
 }
 
-.synkra-breadcrumb-separator {
+.flowexa-breadcrumb-separator {
   color: var(--text-secondary);
   opacity: 0.5;
   font-size: 0.65rem;

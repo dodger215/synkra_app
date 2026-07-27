@@ -8,12 +8,12 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-qty-wrapper {{ $class }}">
-  <label for="{{ $id }}" class="synkra-qty-label">{{ $label }}</label>
-  <div class="synkra-qty-controls">
+<div class="flowexa-qty-wrapper {{ $class }}">
+  <label for="{{ $id }}" class="flowexa-qty-label">{{ $label }}</label>
+  <div class="flowexa-qty-controls">
     <button
       type="button"
-      class="synkra-qty-btn synkra-qty-decrement"
+      class="flowexa-qty-btn flowexa-qty-decrement"
       onclick="document.getElementById('{{ $id }}').stepDown(); document.getElementById('{{ $id }}').dispatchEvent(new Event('change'))"
       aria-label="Decrease quantity"
     >
@@ -26,12 +26,12 @@
       min="{{ $min }}"
       max="{{ $max }}"
       value="{{ $value }}"
-      class="synkra-qty-input"
+      class="flowexa-qty-input"
       required
     />
     <button
       type="button"
-      class="synkra-qty-btn synkra-qty-increment"
+      class="flowexa-qty-btn flowexa-qty-increment"
       onclick="document.getElementById('{{ $id }}').stepUp(); document.getElementById('{{ $id }}').dispatchEvent(new Event('change'))"
       aria-label="Increase quantity"
     >
@@ -41,20 +41,20 @@
 </div>
 
 <style>
-.synkra-qty-wrapper {
+.flowexa-qty-wrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   width: fit-content;
 }
 
-.synkra-qty-label {
+.flowexa-qty-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--headings);
 }
 
-.synkra-qty-controls {
+.flowexa-qty-controls {
   display: flex;
   align-items: center;
   border: 1px solid var(--border);
@@ -64,7 +64,7 @@
   width: fit-content;
 }
 
-.synkra-qty-btn {
+.flowexa-qty-btn {
   background-color: var(--surface-secondary);
   border: none;
   color: var(--text-secondary);
@@ -78,16 +78,16 @@
   transition: all 0.2s ease;
 }
 
-.synkra-qty-btn:hover {
+.flowexa-qty-btn:hover {
   background-color: var(--border);
   color: var(--text-primary);
 }
 
-.synkra-qty-btn:active {
+.flowexa-qty-btn:active {
   background-color: var(--divider);
 }
 
-.synkra-qty-input {
+.flowexa-qty-input {
   width: 60px;
   height: 40px;
   border: none;
@@ -102,8 +102,8 @@
   -moz-appearance: textfield;
 }
 
-.synkra-qty-input::-webkit-outer-spin-button,
-.synkra-qty-input::-webkit-inner-spin-button {
+.flowexa-qty-input::-webkit-outer-spin-button,
+.flowexa-qty-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

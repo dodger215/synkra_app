@@ -9,7 +9,7 @@
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Google Fonts: Instrument Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,9 @@
     @else
         <link rel="stylesheet" href="{{ asset('css/app.css') ?? '/css/app.css' }}">
     @endif
-    
+
+    @stack('styles')
+
     <style>
         body {
             font-family: 'Instrument Sans', sans-serif;
@@ -42,12 +44,12 @@
             z-index: -1;
         }
 
-        .synkra-layout-wrapper {
+        .flowexa-layout-wrapper {
             display: flex;
             min-height: 100vh;
         }
 
-        .synkra-main-wrapper {
+        .flowexa-main-wrapper {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -57,16 +59,16 @@
         }
 
         /* When sidebar is collapsed */
-        .synkra-main-wrapper.expanded {
+        .flowexa-main-wrapper.expanded {
             margin-left: 80px; /* Width of collapsed sidebar */
         }
-        
+
         /* For guest views or when unauthenticated */
-        .synkra-main-wrapper.full-width {
+        .flowexa-main-wrapper.full-width {
             margin-left: 0;
         }
 
-        .synkra-main-content {
+        .flowexa-main-content {
             padding: 2rem;
             flex-grow: 1;
             overflow-y: auto;
@@ -79,10 +81,11 @@
         <x-ui.grid />
     </div>
 
-    <div class="synkra-layout-wrapper">
+    <div class="flowexa-layout-wrapper">
         {{ $slot ?? '' }}
         @yield('content')
     </div>
 
+    @stack('scripts')
 </body>
 </html>

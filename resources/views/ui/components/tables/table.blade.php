@@ -8,8 +8,8 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-table-container {{ $class }}">
-  <table class="synkra-table">
+<div class="flowexa-table-container {{ $class }}">
+  <table class="flowexa-table">
     <thead>
       <tr>
         @foreach($headers as $header)
@@ -25,9 +25,9 @@
               @if($cell instanceof \Illuminate\Contracts\Support\Htmlable)
                 {!! $cell !!}
               @elseif(is_string($cell) && strtolower($cell) === 'active')
-                <span class="synkra-badge-pill synkra-badge-success">Active</span>
+                <span class="flowexa-badge-pill flowexa-badge-success">Active</span>
               @elseif(is_string($cell) && strtolower($cell) === 'inactive')
-                <span class="synkra-badge-pill synkra-badge-danger">Inactive</span>
+                <span class="flowexa-badge-pill flowexa-badge-danger">Inactive</span>
               @else
                 {{ $cell }}
               @endif
@@ -40,7 +40,7 @@
 </div>
 
 <style>
-.synkra-table-container {
+.flowexa-table-container {
   width: 100%;
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -49,7 +49,7 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
 }
 
-.synkra-table {
+.flowexa-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
@@ -57,7 +57,7 @@
   color: var(--body-text);
 }
 
-.synkra-table th {
+.flowexa-table th {
   background-color: var(--surface-secondary);
   color: var(--text-secondary);
   font-weight: 700;
@@ -69,26 +69,26 @@
   user-select: none;
 }
 
-.synkra-table td {
+.flowexa-table td {
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--divider);
   vertical-align: middle;
 }
 
-.synkra-table tbody tr:last-child td {
+.flowexa-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.synkra-table tbody tr:hover {
+.flowexa-table tbody tr:hover {
   background-color: var(--surface-secondary);
 }
 
-.synkra-table-actions {
+.flowexa-table-actions {
   display: flex;
   gap: 0.5rem;
 }
 
-.synkra-table-action-btn {
+.flowexa-table-action-btn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -98,13 +98,13 @@
   transition: all 0.2s;
 }
 
-.synkra-table-action-btn:hover {
+.flowexa-table-action-btn:hover {
   color: var(--primary);
   background-color: var(--surface);
 }
 
 /* Badge helpers if used inside the table */
-.synkra-badge-pill {
+.flowexa-badge-pill {
   display: inline-flex;
   align-items: center;
   padding: 2px 8px;
@@ -113,12 +113,12 @@
   font-weight: 700;
 }
 
-.synkra-badge-success {
+.flowexa-badge-success {
   background-color: rgba(34, 197, 94, 0.1);
   color: #166534;
 }
 
-.synkra-badge-danger {
+.flowexa-badge-danger {
   background-color: rgba(239, 68, 68, 0.1);
   color: #991b1b;
 }

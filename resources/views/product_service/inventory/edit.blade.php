@@ -1,6 +1,6 @@
 <x-layouts.app title="Edit Product">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:1100px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:1100px;margin:0 auto;">
             <div style="margin-bottom:1.5rem;">
                 <a href="{{ route('product_service.products.index') }}" style="color:var(--text-secondary);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Inventory
@@ -26,7 +26,7 @@
                     <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                         {{-- Basic Info --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Basic Information</h3>
                             <div style="display:flex;flex-direction:column;gap:1.1rem;">
 
@@ -68,7 +68,7 @@
                         </div>
 
                         {{-- Pricing --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Pricing</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
                                 <div>
@@ -93,7 +93,7 @@
                         </div>
 
                         {{-- Inventory Limits --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Inventory Limits</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                                 <div>
@@ -124,7 +124,7 @@
                         </div>
 
                         {{-- Dimensions --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Dimensions (Optional)</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
                                 <div>
@@ -149,7 +149,7 @@
                         </div>
 
                         {{-- Attributes --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Product Attributes</h3>
                                 <button type="button" onclick="addAttributeField()" style="background:var(--surface-secondary);border:1px solid var(--border);border-radius:6px;padding:.3rem .75rem;font-size:.75rem;color:var(--primary);cursor:pointer;">
@@ -175,7 +175,7 @@
                         </div>
 
                         {{-- Image Upload --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="margin-bottom:1.25rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Product Images</h3>
                             </div>
@@ -221,7 +221,7 @@
                     <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                         {{-- Organisation --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Organisation</h3>
 
                             <div style="margin-bottom:1.1rem;">
@@ -253,7 +253,7 @@
                         </div>
 
                         {{-- Physical --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Physical Details</h3>
                             <div style="display:flex;flex-direction:column;gap:1rem;">
                                 <div>
@@ -272,7 +272,7 @@
                         </div>
 
                         {{-- Status --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="margin-bottom:1rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Status</h3>
                             </div>

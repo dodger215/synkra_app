@@ -14,20 +14,20 @@
   $fullWidth = $fullWidth ?? false;
 @endphp
 
-<div class="synkra-input-group {{ $class }}" id="group_{{ $id }}">
-  <label for="{{ $id }}" class="synkra-input-label">
+<div class="flowexa-input-group {{ $class }}" id="group_{{ $id }}">
+  <label for="{{ $id }}" class="flowexa-input-label">
     {{ $label }}
     @if($required)
-      <span class="synkra-input-required">*</span>
+      <span class="flowexa-input-required">*</span>
     @endif
   </label>
-  <div class="synkra-input-container {{ $isLoading ? 'synkra-input-loading' : '' }}">
+  <div class="flowexa-input-container {{ $isLoading ? 'flowexa-input-loading' : '' }}">
     @if($icon)
-      <span class="synkra-input-icon synkra-input-icon-normal">
+      <span class="flowexa-input-icon flowexa-input-icon-normal">
         <i class="{{ $icon }}"></i>
       </span>
     @endif
-    <span class="synkra-input-icon synkra-input-icon-spinner" style="display: none;">
+    <span class="flowexa-input-icon flowexa-input-icon-spinner" style="display: none;">
       <i class="fa-solid fa-circle-notch fa-spin"></i>
     </span>
     <input
@@ -38,45 +38,45 @@
       placeholder="{{ $placeholder }}"
       {{ $required }}
       {{ $isLoading ? 'readonly' : '' }}
-      class="synkra-input-field {{ ($icon || $isLoading) ? 'synkra-input-has-icon' : '' }} {{ $type === 'password' ? 'synkra-input-has-eye' : '' }}"
+      class="flowexa-input-field {{ ($icon || $isLoading) ? 'flowexa-input-has-icon' : '' }} {{ $type === 'password' ? 'flowexa-input-has-eye' : '' }}"
       @if($onInput) oninput="{{ $onInput }}" @endif
     />
     @if($type === 'password')
-      <span class="synkra-input-eye" onclick="toggleSynkraPasswordVisibility('{{ $id }}', this)">
+      <span class="flowexa-input-eye" onclick="toggleflowexaPasswordVisibility('{{ $id }}', this)">
         <i class="fa-regular fa-eye"></i>
       </span>
     @endif
   </div>
   @if($description)
-    <p class="synkra-input-desc">{{ $description }}</p>
+    <p class="flowexa-input-desc">{{ $description }}</p>
   @endif
 </div>
 
 <script>
-if (typeof toggleSynkraInputLoading !== 'function') {
-  function toggleSynkraInputLoading(inputId, isLoading) {
+if (typeof toggleflowexaInputLoading !== 'function') {
+  function toggleflowexaInputLoading(inputId, isLoading) {
     const group = document.getElementById('group_' + inputId);
     const input = document.getElementById(inputId);
     if (!group || !input) return;
-    
-    const container = group.querySelector('.synkra-input-container');
+
+    const container = group.querySelector('.flowexa-input-container');
     if (isLoading) {
-      container.classList.add('synkra-input-loading');
+      container.classList.add('flowexa-input-loading');
       input.setAttribute('readonly', 'true');
-      input.classList.add('synkra-input-has-icon');
+      input.classList.add('flowexa-input-has-icon');
     } else {
-      container.classList.remove('synkra-input-loading');
+      container.classList.remove('flowexa-input-loading');
       input.removeAttribute('readonly');
       // Remove padding if it didn't originally have an icon
-      if (!group.querySelector('.synkra-input-icon-normal')) {
-        input.classList.remove('synkra-input-has-icon');
+      if (!group.querySelector('.flowexa-input-icon-normal')) {
+        input.classList.remove('flowexa-input-has-icon');
       }
     }
   }
 }
 
-if (typeof toggleSynkraPasswordVisibility !== 'function') {
-  function toggleSynkraPasswordVisibility(inputId, eyeBtn) {
+if (typeof toggleflowexaPasswordVisibility !== 'function') {
+  function toggleflowexaPasswordVisibility(inputId, eyeBtn) {
     const input = document.getElementById(inputId);
     const icon = eyeBtn.querySelector('i');
     if (!input || !icon) return;
@@ -95,7 +95,7 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
 </script>
 
 <style>
-.synkra-input-group {
+.flowexa-input-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -104,7 +104,7 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
   margin-bottom: 1rem;
 }
 
-.synkra-input-label {
+.flowexa-input-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--headings);
@@ -113,18 +113,18 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
   gap: 2px;
 }
 
-.synkra-input-required {
+.flowexa-input-required {
   color: var(--danger);
 }
 
-.synkra-input-container {
+.flowexa-input-container {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.synkra-input-field {
+.flowexa-input-field {
   width: 100%;
   border-radius: 8px;
   padding: 0.625rem 0.75rem;
@@ -137,17 +137,17 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
   transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
 
-.synkra-input-field::placeholder {
+.flowexa-input-field::placeholder {
   color: var(--text-secondary);
   opacity: 0.7;
 }
 
-.synkra-input-field:focus:not([readonly]) {
+.flowexa-input-field:focus:not([readonly]) {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
 
-.synkra-input-icon {
+.flowexa-input-icon {
   position: absolute;
   left: 0.75rem;
   color: var(--text-secondary);
@@ -158,15 +158,15 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
   justify-content: center;
 }
 
-.synkra-input-has-icon {
+.flowexa-input-has-icon {
   padding-left: 2.25rem;
 }
 
-.synkra-input-has-eye {
+.flowexa-input-has-eye {
   padding-right: 2.5rem;
 }
 
-.synkra-input-eye {
+.flowexa-input-eye {
   position: absolute;
   right: 0.75rem;
   color: var(--text-secondary);
@@ -179,27 +179,27 @@ if (typeof toggleSynkraPasswordVisibility !== 'function') {
   z-index: 5;
 }
 
-.synkra-input-eye:hover {
+.flowexa-input-eye:hover {
   color: var(--primary);
 }
 
-.synkra-input-desc {
+.flowexa-input-desc {
   font-size: 0.75rem;
   color: var(--text-secondary);
   margin: 0;
 }
 
 /* Loading State */
-.synkra-input-loading .synkra-input-icon-normal {
+.flowexa-input-loading .flowexa-input-icon-normal {
   display: none;
 }
 
-.synkra-input-loading .synkra-input-icon-spinner {
+.flowexa-input-loading .flowexa-input-icon-spinner {
   display: flex !important;
   color: var(--primary);
 }
 
-.synkra-input-loading .synkra-input-field {
+.flowexa-input-loading .flowexa-input-field {
   opacity: 0.7;
   cursor: wait;
 }

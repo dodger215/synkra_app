@@ -3,14 +3,14 @@
         <meta name="description" content="Manage your billing details and payment subaccounts.">
     </x-slot:head>
 
-    <div class="synkra-dashboard-container" style="padding: 2rem;">
+    <div class="flowexa-dashboard-container" style="padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <div>
                 <h1 style="color: var(--headings); margin: 0 0 0.5rem 0;">Payout Dashboard</h1>
                 <p style="color: var(--text-secondary); margin: 0;">Manage your settlement account and view financial metrics.</p>
             </div>
             @if(!$subaccount)
-            <button class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;" onclick="openSynkraModal('addSubaccountModal')">
+            <button class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;" onclick="openflowexaModal('addSubaccountModal')">
                 <i class="fa-solid fa-plus" style="margin-right: 8px;"></i> Add Subaccount
             </button>
             @endif
@@ -27,9 +27,9 @@
         @if($subaccount)
             <!-- Financial Dashboard Grid -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                
+
                 <!-- Status Card -->
-                <div class="synkra-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+                <div class="flowexa-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
                     <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); color: var(--success); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                         <i class="fa-solid fa-building-columns"></i>
                     </div>
@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Transactions -->
-                <div class="synkra-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+                <div class="flowexa-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
                     <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                         <i class="fa-solid fa-money-bill-transfer"></i>
                     </div>
@@ -56,7 +56,7 @@
                 </div>
 
                 <!-- Revenue -->
-                <div class="synkra-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+                <div class="flowexa-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
                     <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
@@ -67,7 +67,7 @@
                 </div>
 
                 <!-- Payouts -->
-                <div class="synkra-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+                <div class="flowexa-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
                     <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); color: #8b5cf6; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
@@ -79,11 +79,11 @@
             </div>
 
             <!-- Account Details Card -->
-            <div class="synkra-card" style="padding: 2rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+            <div class="flowexa-card" style="padding: 2rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h3 style="margin: 0; color: var(--headings); font-size: 1.2rem;">Settlement Account Details</h3>
                     <div style="display: flex; gap: 0.5rem;">
-                        <button type="button" style="background: rgba(59, 130, 246, 0.1); border: none; color: #3b82f6; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s;" onclick="openSynkraModal('editSubaccountModal')">
+                        <button type="button" style="background: rgba(59, 130, 246, 0.1); border: none; color: #3b82f6; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s;" onclick="openflowexaModal('editSubaccountModal')">
                             <i class="fa-solid fa-pen" style="margin-right: 5px;"></i> Edit
                         </button>
                         <form action="{{ route('settings.subaccounts.destroy', $subaccount->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this settlement account? All future payouts will be halted.');">
@@ -94,7 +94,7 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1.5rem; background: var(--surface-secondary); border-radius: 12px;">
                     <div>
                         <span style="display: block; font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Bank / Provider</span>
@@ -121,7 +121,7 @@
                 <form id="editSubaccountForm" action="{{ route('settings.subaccounts.update', $subaccount->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    
+
                     <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0; margin-bottom: 1.5rem;">Update your banking details for receiving payouts.</p>
 
                     <!-- Active Toggle -->
@@ -151,7 +151,7 @@
                     </div>
 
                     <input type="hidden" id="edit_account_type_toggle" value="bank">
-                    
+
                     <input type="hidden" name="bank_code" id="edit_final_bank_code" value="{{ $subaccount->bank_code }}">
                     <input type="hidden" name="bank_name" id="edit_final_bank_name" value="{{ $subaccount->bank_name }}">
                     <input type="hidden" name="account_number" id="edit_final_account_number" value="{{ $subaccount->account_number }}">
@@ -179,7 +179,7 @@
                     </div>
 
                     <div style="margin-bottom: 1.5rem; display: flex; justify-content: flex-end;">
-                        <button type="button" class="synkra-btn" style="background: var(--surface-secondary); border: 1px solid var(--border); padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; color: var(--text-primary); font-weight: 600; display: flex; align-items: center; transition: all 0.2s;" onclick="verifyEditAccount()" id="btnEditVerify">
+                        <button type="button" class="flowexa-btn" style="background: var(--surface-secondary); border: 1px solid var(--border); padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; color: var(--text-primary); font-weight: 600; display: flex; align-items: center; transition: all 0.2s;" onclick="verifyEditAccount()" id="btnEditVerify">
                             <i class="fa-solid fa-shield-check" style="margin-right: 8px; color: var(--primary);"></i> Re-Verify Account
                         </button>
                     </div>
@@ -212,8 +212,8 @@
                 </form>
 
                 <x-slot:footer>
-                    <button type="button" class="synkra-btn synkra-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeSynkraModal('editSubaccountModal')">Cancel</button>
-                    <button type="button" id="btnEditSaveAccount" class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;" onclick="document.getElementById('editSubaccountForm').submit()">Save Changes</button>
+                    <button type="button" class="flowexa-btn flowexa-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeflowexaModal('editSubaccountModal')">Cancel</button>
+                    <button type="button" id="btnEditSaveAccount" class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;" onclick="document.getElementById('editSubaccountForm').submit()">Save Changes</button>
                 </x-slot:footer>
             </x-ui.modal>
         @else
@@ -224,7 +224,7 @@
                 </div>
                 <h3 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 1.25rem;">No Settlement Account Configured</h3>
                 <p style="margin: 0 0 2rem 0; color: var(--text-secondary); max-width: 400px; margin-left: auto; margin-right: auto;">You need to link a bank account or mobile money wallet to receive your payouts from sales.</p>
-                <button class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;" onclick="openSynkraModal('addSubaccountModal')">
+                <button class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;" onclick="openflowexaModal('addSubaccountModal')">
                     <i class="fa-solid fa-link" style="margin-right: 8px;"></i> Link Account Now
                 </button>
             </div>
@@ -236,7 +236,7 @@
     <x-ui.modal id="addSubaccountModal" triggerId="addSubaccountModal-trigger-btn" title="Add Settlement Account">
         <form id="addSubaccountForm" action="{{ route('settings.subaccounts.store') }}" method="POST">
             @csrf
-            
+
             <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0; margin-bottom: 1.5rem;">Enter the banking details where you wish to receive your payouts.</p>
 
             <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; background: var(--surface-secondary); padding: 0.35rem; border-radius: 12px;">
@@ -245,7 +245,7 @@
             </div>
 
             <input type="hidden" id="account_type_toggle" value="bank">
-            
+
             <!-- Hidden inputs that actually submit the valid data -->
             <input type="hidden" name="bank_code" id="final_bank_code">
             <input type="hidden" name="bank_name" id="final_bank_name">
@@ -274,7 +274,7 @@
             </div>
 
             <div style="margin-bottom: 1.5rem; display: flex; justify-content: flex-end;">
-                <button type="button" class="synkra-btn" style="background: var(--surface-secondary); border: 1px solid var(--border); padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; color: var(--text-primary); font-weight: 600; display: flex; align-items: center; transition: all 0.2s;" onclick="verifyAccount()" id="btnVerify">
+                <button type="button" class="flowexa-btn" style="background: var(--surface-secondary); border: 1px solid var(--border); padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; color: var(--text-primary); font-weight: 600; display: flex; align-items: center; transition: all 0.2s;" onclick="verifyAccount()" id="btnVerify">
                     <i class="fa-solid fa-shield-check" style="margin-right: 8px; color: var(--primary);"></i> Verify Account
                 </button>
             </div>
@@ -328,8 +328,8 @@
         </form>
 
         <x-slot:footer>
-            <button type="button" class="synkra-btn synkra-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeSynkraModal('addSubaccountModal')">Cancel</button>
-            <button type="button" id="btnSaveAccount" class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: not-allowed; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; opacity: 0.5;" disabled onclick="document.getElementById('addSubaccountForm').submit()">Save Account</button>
+            <button type="button" class="flowexa-btn flowexa-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeflowexaModal('addSubaccountModal')">Cancel</button>
+            <button type="button" id="btnSaveAccount" class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: not-allowed; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; opacity: 0.5;" disabled onclick="document.getElementById('addSubaccountForm').submit()">Save Account</button>
         </x-slot:footer>
     </x-ui.modal>
 
@@ -340,26 +340,26 @@
             document.getElementById('btnSaveAccount').disabled = true;
             document.getElementById('btnSaveAccount').style.opacity = '0.5';
             document.getElementById('btnSaveAccount').style.cursor = 'not-allowed';
-            
+
             if(type === 'bank') {
                 document.getElementById('bankSection').style.display = 'block';
                 document.getElementById('momoSection').style.display = 'none';
-                
+
                 document.getElementById('btnTypeBank').style.background = 'var(--surface)';
                 document.getElementById('btnTypeBank').style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
                 document.getElementById('btnTypeBank').style.color = 'var(--text-primary)';
-                
+
                 document.getElementById('btnTypeMomo').style.background = 'transparent';
                 document.getElementById('btnTypeMomo').style.boxShadow = 'none';
                 document.getElementById('btnTypeMomo').style.color = 'var(--text-secondary)';
             } else {
                 document.getElementById('bankSection').style.display = 'none';
                 document.getElementById('momoSection').style.display = 'block';
-                
+
                 document.getElementById('btnTypeMomo').style.background = 'var(--surface)';
                 document.getElementById('btnTypeMomo').style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
                 document.getElementById('btnTypeMomo').style.color = 'var(--text-primary)';
-                
+
                 document.getElementById('btnTypeBank').style.background = 'transparent';
                 document.getElementById('btnTypeBank').style.boxShadow = 'none';
                 document.getElementById('btnTypeBank').style.color = 'var(--text-secondary)';
@@ -369,7 +369,7 @@
         async function verifyAccount() {
             const type = document.getElementById('account_type_toggle').value;
             let bankCode, accNum, bankName;
-            
+
             if (type === 'bank') {
                 bankCode = document.getElementById('input_bank_code').value;
                 accNum = document.getElementById('input_bank_account').value;
@@ -400,18 +400,18 @@
                     body: JSON.stringify({ bank_code: bankCode, account_number: accNum })
                 });
                 const data = await res.json();
-                
+
                 if(data.success) {
                     document.getElementById('verifiedAccountNameDisplay').innerText = data.account_name;
-                    
+
                     // Fill the hidden fields that will actually be submitted
                     document.getElementById('final_account_name').value = data.account_name;
                     document.getElementById('final_bank_code').value = bankCode;
                     document.getElementById('final_account_number').value = accNum;
                     document.getElementById('final_bank_name').value = bankName;
-                    
+
                     document.getElementById('verificationResult').style.display = 'block';
-                    
+
                     const saveBtn = document.getElementById('btnSaveAccount');
                     saveBtn.disabled = false;
                     saveBtn.style.opacity = '1';
@@ -434,26 +434,26 @@
             document.getElementById('btnEditSaveAccount').disabled = true;
             document.getElementById('btnEditSaveAccount').style.opacity = '0.5';
             document.getElementById('btnEditSaveAccount').style.cursor = 'not-allowed';
-            
+
             if(type === 'bank') {
                 document.getElementById('editBankSection').style.display = 'block';
                 document.getElementById('editMomoSection').style.display = 'none';
-                
+
                 document.getElementById('editBtnTypeBank').style.background = 'var(--surface)';
                 document.getElementById('editBtnTypeBank').style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
                 document.getElementById('editBtnTypeBank').style.color = 'var(--text-primary)';
-                
+
                 document.getElementById('editBtnTypeMomo').style.background = 'transparent';
                 document.getElementById('editBtnTypeMomo').style.boxShadow = 'none';
                 document.getElementById('editBtnTypeMomo').style.color = 'var(--text-secondary)';
             } else {
                 document.getElementById('editBankSection').style.display = 'none';
                 document.getElementById('editMomoSection').style.display = 'block';
-                
+
                 document.getElementById('editBtnTypeMomo').style.background = 'var(--surface)';
                 document.getElementById('editBtnTypeMomo').style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
                 document.getElementById('editBtnTypeMomo').style.color = 'var(--text-primary)';
-                
+
                 document.getElementById('editBtnTypeBank').style.background = 'transparent';
                 document.getElementById('editBtnTypeBank').style.boxShadow = 'none';
                 document.getElementById('editBtnTypeBank').style.color = 'var(--text-secondary)';
@@ -463,7 +463,7 @@
         async function verifyEditAccount() {
             const type = document.getElementById('edit_account_type_toggle').value;
             let bankCode, accNum, bankName;
-            
+
             if (type === 'bank') {
                 bankCode = document.getElementById('edit_input_bank_code').value;
                 accNum = document.getElementById('edit_input_bank_account').value;
@@ -494,17 +494,17 @@
                     body: JSON.stringify({ bank_code: bankCode, account_number: accNum })
                 });
                 const data = await res.json();
-                
+
                 if(data.success) {
                     document.getElementById('editVerifiedAccountNameDisplay').innerText = data.account_name;
-                    
+
                     document.getElementById('edit_final_account_name').value = data.account_name;
                     document.getElementById('edit_final_bank_code').value = bankCode;
                     document.getElementById('edit_final_account_number').value = accNum;
                     document.getElementById('edit_final_bank_name').value = bankName;
-                    
+
                     document.getElementById('editVerificationResult').style.display = 'block';
-                    
+
                     const saveBtn = document.getElementById('btnEditSaveAccount');
                     saveBtn.disabled = false;
                     saveBtn.style.opacity = '1';

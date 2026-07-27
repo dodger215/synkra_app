@@ -5,17 +5,17 @@
   $class = $class ?? '';
 @endphp
 
-<button type="button" class="synkra-cart-btn {{ $class }}" data-tooltip="PRICE {{ $price }}">
-  <div class="synkra-cart-btn-wrapper">
-    <div class="synkra-cart-text">{{ $text }}</div>
-    <span class="synkra-cart-icon">
+<button type="button" class="flowexa-cart-btn {{ $class }}" data-tooltip="PRICE {{ $price }}">
+  <div class="flowexa-cart-btn-wrapper">
+    <div class="flowexa-cart-text">{{ $text }}</div>
+    <span class="flowexa-cart-icon">
       <i class="{{ $icon }}"></i>
     </span>
   </div>
 </button>
 
 <style>
-.synkra-cart-btn {
+.flowexa-cart-btn {
   --width: 140px;
   --height: 42px;
   --tooltip-height: 35px;
@@ -34,7 +34,7 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-.synkra-cart-btn::before {
+.flowexa-cart-btn::before {
   position: absolute;
   content: attr(data-tooltip);
   width: var(--tooltip-width);
@@ -51,7 +51,7 @@
   box-shadow: 0 10px 15px rgba(0,0,0,0.1);
 }
 
-.synkra-cart-btn::after {
+.flowexa-cart-btn::after {
   position: absolute;
   content: "";
   width: 0;
@@ -62,15 +62,15 @@
   bottom: calc(100% + var(--gap-between-tooltip-to-button) - 8px);
 }
 
-.synkra-cart-btn::after,
-.synkra-cart-btn::before {
+.flowexa-cart-btn::after,
+.flowexa-cart-btn::before {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 
-.synkra-cart-btn-wrapper {
+.flowexa-cart-btn-wrapper {
   overflow: hidden;
   position: absolute;
   width: 100%;
@@ -80,7 +80,7 @@
   color: #fff;
 }
 
-.synkra-cart-text {
+.flowexa-cart-text {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +94,7 @@
   transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-cart-icon {
+.flowexa-cart-icon {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -107,30 +107,30 @@
   transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-cart-btn:hover {
+.flowexa-cart-btn:hover {
   background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
-.synkra-cart-btn:hover .synkra-cart-text {
+.flowexa-cart-btn:hover .flowexa-cart-text {
   top: -100%;
 }
 
-.synkra-cart-btn:hover .synkra-cart-icon {
+.flowexa-cart-btn:hover .flowexa-cart-icon {
   top: 0;
 }
 
-.synkra-cart-btn:hover::before,
-.synkra-cart-btn:hover::after {
+.flowexa-cart-btn:hover::before,
+.flowexa-cart-btn:hover::after {
   opacity: 1;
   visibility: visible;
 }
 
-.synkra-cart-btn:hover::after {
+.flowexa-cart-btn:hover::after {
   bottom: calc(100% + var(--gap-between-tooltip-to-button) - 16px);
 }
 
-.synkra-cart-btn:hover::before {
+.flowexa-cart-btn:hover::before {
   bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 4px);
 }
 </style>

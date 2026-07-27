@@ -76,7 +76,7 @@ class PosConnectionService
     /**
      * Print a fully formatted receipt from a PosOrder model.
      */
-    public function printOrderReceipt(PosDevice $device, PosOrder $order, string $storeName = 'Synkra POS'): bool
+    public function printOrderReceipt(PosDevice $device, PosOrder $order, string $storeName = 'flowexa POS'): bool
     {
         $formatter = new ReceiptFormatter();
         $rawContent = $formatter->format($order, $storeName);

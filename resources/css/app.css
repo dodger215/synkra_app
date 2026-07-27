@@ -45,6 +45,39 @@
   --headings: #0F172A;
   --body-text: #475569;
   --inputs-bg: #FFFFFF;
+
+  /* Shop Prototype Colors */
+  --surface-dim: #dadadb;
+  --surface-container-highest: #e2e2e3;
+  --on-surface: #1a1c1d;
+  --on-primary: #ffffff;
+  --surface-container-low: #f3f3f4;
+  --surface-tint: #5f5e5e;
+  --on-tertiary-fixed: #1c1b1a;
+  --inverse-surface: #2f3132;
+  --on-secondary-fixed: #07006c;
+  --surface-bright: #f9f9fa;
+  --surface-container: #eeeeef;
+  --tertiary-fixed-dim: #cac6c4;
+  --secondary-fixed-dim: #c0c1ff;
+  --primary-container: #1c1b1b;
+  --inverse-on-surface: #f0f1f2;
+  --error-container: #ffdad6;
+  --outline-variant: #c4c7c7;
+  --surface-variant: #e2e2e3;
+  --on-primary-fixed-variant: #474746;
+  --on-surface-variant: #444748;
+  --tertiary-container: #1c1b1a;
+  --secondary-container: #6063ee;
+  --surface-container-lowest: #ffffff;
+  --primary-fixed: #e5e2e1;
+  --tertiary-fixed: #e6e2df;
+  --surface-container-high: #e8e8e9;
+  --on-tertiary-fixed-variant: #484645;
+  --on-primary-container: #858383;
+  --on-secondary-container: #fffbff;
+  --on-secondary-fixed-variant: #2f2ebe;
+  --outline: #747878;
 }
 
 /* Dark Theme */

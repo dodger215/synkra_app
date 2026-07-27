@@ -26,7 +26,7 @@ class UserDemoSeeder extends Seeder
 
         // 2. Owner User (Full Access)
         User::firstOrCreate(
-            ['email' => 'owner@synkra.test'],
+            ['email' => 'owner@flowexa.test'],
             [
                 'tenant_id' => $tenant->id,
                 'name' => 'Sarah Owner',
@@ -38,7 +38,7 @@ class UserDemoSeeder extends Seeder
 
         // 3. Manager User (High Access)
         User::firstOrCreate(
-            ['email' => 'manager@synkra.test'],
+            ['email' => 'manager@flowexa.test'],
             [
                 'tenant_id' => $tenant->id,
                 'name' => 'Mike Manager',
@@ -55,7 +55,7 @@ class UserDemoSeeder extends Seeder
 
         // 4. Inventory Clerk User
         User::firstOrCreate(
-            ['email' => 'clerk@synkra.test'],
+            ['email' => 'clerk@flowexa.test'],
             [
                 'tenant_id' => $tenant->id,
                 'name' => 'Alex Clerk',
@@ -70,7 +70,7 @@ class UserDemoSeeder extends Seeder
 
         // 5. Cashier User
         User::firstOrCreate(
-            ['email' => 'cashier@synkra.test'],
+            ['email' => 'cashier@flowexa.test'],
             [
                 'tenant_id' => $tenant->id,
                 'name' => 'Chris Cashier',

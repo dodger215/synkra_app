@@ -21,7 +21,7 @@ class UserInvitation extends Mailable
         $tenantName = $this->invite->tenant->name;
 
         return new Envelope(
-            subject: "{$inviterName} invited you to join {$tenantName} on Synkra",
+            subject: "{$inviterName} invited you to join {$tenantName} on flowexa",
         );
     }
 

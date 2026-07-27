@@ -1,9 +1,9 @@
 <x-mail::message>
-# Verify Your Synkra Account
+# Verify Your flowexa Account
 
 Hi there!
 
-Thank you for registering your workspace with Synkra. To ensure your account's security, please use the following 6-digit verification code to complete your registration.
+Thank you for registering your workspace with flowexa. To ensure your account's security, please use the following 6-digit verification code to complete your registration.
 
 <x-mail::panel>
 <div style="text-align: center; font-size: 2rem; letter-spacing: 0.5rem; font-weight: bold; color: #4F46E5;">

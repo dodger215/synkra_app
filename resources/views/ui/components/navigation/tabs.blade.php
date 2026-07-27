@@ -9,18 +9,18 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-tabs-container {{ $class }}" id="{{ $id }}">
-  <div class="synkra-tabs-list" role="tablist">
+<div class="flowexa-tabs-container {{ $class }}" id="{{ $id }}">
+  <div class="flowexa-tabs-list" role="tablist">
     @foreach($tabs as $tab)
       <button
         type="button"
         role="tab"
         aria-selected="{{ $activeTab == $tab['id'] ? 'true' : 'false' }}"
-        class="synkra-tab-trigger {{ $activeTab == $tab['id'] ? 'synkra-tab-active' : '' }}"
-        onclick="switchSynkraTab(this, '{{ $tab['id'] }}', '{{ $id }}')"
+        class="flowexa-tab-trigger {{ $activeTab == $tab['id'] ? 'flowexa-tab-active' : '' }}"
+        onclick="switchflowexaTab(this, '{{ $tab['id'] }}', '{{ $id }}')"
       >
         @if(isset($tab['icon']) && $tab['icon'])
-          <i class="{{ $tab['icon'] }} synkra-tab-icon"></i>
+          <i class="{{ $tab['icon'] }} flowexa-tab-icon"></i>
         @endif
         <span>{{ $tab['label'] }}</span>
       </button>
@@ -29,19 +29,19 @@
 </div>
 
 <script>
-if (typeof switchSynkraTab !== 'function') {
-  function switchSynkraTab(buttonEl, tabId, containerId) {
+if (typeof switchflowexaTab !== 'function') {
+  function switchflowexaTab(buttonEl, tabId, containerId) {
     const container = document.getElementById(containerId);
-    const triggers = container.querySelectorAll('.synkra-tab-trigger');
-    
+    const triggers = container.querySelectorAll('.flowexa-tab-trigger');
+
     triggers.forEach(trigger => {
-      trigger.classList.remove('synkra-tab-active');
+      trigger.classList.remove('flowexa-tab-active');
       trigger.setAttribute('aria-selected', 'false');
     });
-    
-    buttonEl.classList.add('synkra-tab-active');
+
+    buttonEl.classList.add('flowexa-tab-active');
     buttonEl.setAttribute('aria-selected', 'true');
-    
+
     // Dispatch a custom event to allow developers to listen to tab switches
     container.dispatchEvent(new CustomEvent('tab-changed', { detail: { tabId: tabId } }));
   }
@@ -49,23 +49,23 @@ if (typeof switchSynkraTab !== 'function') {
 </script>
 
 <style>
-.synkra-tabs-container {
+.flowexa-tabs-container {
   width: 100%;
   border-bottom: 1px solid var(--border);
 }
 
-.synkra-tabs-list {
+.flowexa-tabs-list {
   display: flex;
   gap: 1.5rem;
   overflow-x: auto;
   scrollbar-width: none; /* Firefox */
 }
 
-.synkra-tabs-list::-webkit-scrollbar {
+.flowexa-tabs-list::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
-.synkra-tab-trigger {
+.flowexa-tab-trigger {
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
@@ -82,17 +82,17 @@ if (typeof switchSynkraTab !== 'function') {
   outline: none;
 }
 
-.synkra-tab-trigger:hover {
+.flowexa-tab-trigger:hover {
   color: var(--text-primary);
   border-bottom-color: var(--border);
 }
 
-.synkra-tab-active {
+.flowexa-tab-active {
   color: var(--primary) !important;
   border-bottom-color: var(--primary) !important;
 }
 
-.synkra-tab-icon {
+.flowexa-tab-icon {
   font-size: 1rem;
 }
 </style>

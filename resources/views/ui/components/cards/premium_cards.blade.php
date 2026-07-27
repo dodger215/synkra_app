@@ -6,31 +6,31 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-premium-container {{ $class }}">
-  <div class="synkra-premium-card">
-    <div class="synkra-premium-ribbon">
+<div class="flowexa-premium-container {{ $class }}">
+  <div class="flowexa-premium-card">
+    <div class="flowexa-premium-ribbon">
       <span>{{ $badgeText }}</span>
     </div>
-    <div class="synkra-premium-content">
-      <div class="synkra-premium-icon-wrapper">
+    <div class="flowexa-premium-content">
+      <div class="flowexa-premium-icon-wrapper">
         <i class="{{ $icon }}"></i>
       </div>
-      <h3 class="synkra-premium-title">{{ $title }}</h3>
-      <p class="synkra-premium-desc">{{ $description }}</p>
+      <h3 class="flowexa-premium-title">{{ $title }}</h3>
+      <p class="flowexa-premium-desc">{{ $description }}</p>
       {!! $slot ?? '' !!}
     </div>
   </div>
 </div>
 
 <style>
-.synkra-premium-container {
+.flowexa-premium-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.synkra-premium-card {
+.flowexa-premium-card {
   width: 100%;
   max-width: 280px;
   min-height: 300px;
@@ -48,13 +48,13 @@
   justify-content: space-between;
 }
 
-.synkra-premium-card:hover {
+.flowexa-premium-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(249, 115, 22, 0.12);
   border-color: var(--primary);
 }
 
-.synkra-premium-ribbon {
+.flowexa-premium-ribbon {
   position: absolute;
   top: 0;
   left: 0;
@@ -64,7 +64,7 @@
   pointer-events: none;
 }
 
-.synkra-premium-ribbon span {
+.flowexa-premium-ribbon span {
   position: absolute;
   display: block;
   width: 160px;
@@ -81,7 +81,7 @@
   transform: rotate(-45deg);
 }
 
-.synkra-premium-content {
+.flowexa-premium-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +90,7 @@
   color: var(--body-text);
 }
 
-.synkra-premium-icon-wrapper {
+.flowexa-premium-icon-wrapper {
   width: 54px;
   height: 54px;
   border-radius: 50%;
@@ -104,13 +104,13 @@
   transition: all 0.3s ease;
 }
 
-.synkra-premium-card:hover .synkra-premium-icon-wrapper {
+.flowexa-premium-card:hover .flowexa-premium-icon-wrapper {
   background-color: var(--primary);
   color: #ffffff;
   transform: scale(1.08);
 }
 
-.synkra-premium-title {
+.flowexa-premium-title {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--headings);
@@ -118,7 +118,7 @@
   margin-top: 0;
 }
 
-.synkra-premium-desc {
+.flowexa-premium-desc {
   font-size: 0.825rem;
   color: var(--text-secondary);
   line-height: 1.5;

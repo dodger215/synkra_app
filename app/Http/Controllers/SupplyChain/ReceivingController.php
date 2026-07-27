@@ -13,14 +13,19 @@ class ReceivingController extends Controller
     public function index()
     {
         $tenantId = Auth::user()->tenant_id;
-        $reports = ReceivingReport::with(['purchaseOrder', 'receiver'])->where('tenant_id', $tenantId)->get();
+        $reports = ReceivingReport::with(['purchaseOrder', 'receiver'])
+            ->whereHas('purchaseOrder', function($q) use ($tenantId) {
+                $q->where('tenant_id', $tenantId);
+            })->get();
         return view('supply_chain.receiving.index', compact('reports'));
     }
 
     public function create()
     {
         $tenantId = Auth::user()->tenant_id;
-        $purchaseOrders = PurchaseOrder::where('tenant_id', $tenantId)->whereIn('status', ['approved', 'partially_received'])->get();
+        $purchaseOrders = PurchaseOrder::where('tenant_id', $tenantId)
+            ->whereIn('status', ['approved', 'partially_received', 'shipped'])
+            ->get();
         return view('supply_chain.receiving.create', compact('purchaseOrders'));
     }
 
@@ -28,15 +33,17 @@ class ReceivingController extends Controller
     {
         $request->validate([
             'po_id' => 'required|exists:purchase_orders,id',
-            'received_date' => 'required|date',
+            'received_at' => 'required|date',
         ]);
 
-        $report = ReceivingReport::create(array_merge($request->all(), [
-            'tenant_id' => Auth::user()->tenant_id,
-            'receipt_number' => 'RCV-' . strtoupper(uniqid()),
+        $report = ReceivingReport::create([
+            'po_id' => $request->po_id,
+            'received_at' => $request->received_at,
+            'notes' => $request->notes,
+            'receiving_number' => 'RCV-' . strtoupper(uniqid()),
             'received_by' => Auth::id(),
-            'status' => 'draft',
-        ]));
+            'status' => 'pending',
+        ]);
 
         return redirect()->route('supply_chain.receiving.show', $report->id)->with('success', 'Receiving report created.');
     }
@@ -44,8 +51,10 @@ class ReceivingController extends Controller
     public function show($id)
     {
         $tenantId = Auth::user()->tenant_id;
-        $report = ReceivingReport::with(['purchaseOrder.items', 'receiver'])
-            ->where('tenant_id', $tenantId)->findOrFail($id);
+        $report = ReceivingReport::with(['purchaseOrder.items.product', 'receiver'])
+            ->whereHas('purchaseOrder', function($q) use ($tenantId) {
+                $q->where('tenant_id', $tenantId);
+            })->findOrFail($id);
         return view('supply_chain.receiving.show', compact('report'));
     }
 }

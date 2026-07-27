@@ -42,7 +42,7 @@ class GoogleSheetsExporter
     /**
      * Export data to a NEW Google Sheet and return the spreadsheet URL.
      */
-    public function export(Collection $data, array $columns, array $headers, string $title = 'Synkra Export'): string
+    public function export(Collection $data, array $columns, array $headers, string $title = 'flowexa Export'): string
     {
         $service = $this->getService();
 

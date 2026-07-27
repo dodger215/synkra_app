@@ -6,11 +6,11 @@
   $class = $class ?? '';
 @endphp
 
-<label class="synkra-hamburger {{ $class }}" for="{{ $id }}">
-  <input 
-    type="checkbox" 
-    name="{{ $name }}" 
-    id="{{ $id }}" 
+<label class="flowexa-hamburger {{ $class }}" for="{{ $id }}">
+  <input
+    type="checkbox"
+    name="{{ $name }}"
+    id="{{ $id }}"
     {{ $checked }}
     @if($onChange) onchange="{{ $onChange }}" @endif
   >
@@ -21,24 +21,24 @@
 </label>
 
 <style>
-.synkra-hamburger {
+.flowexa-hamburger {
   cursor: pointer;
   display: inline-block;
   width: 36px;
   height: 36px;
 }
 
-.synkra-hamburger input {
+.flowexa-hamburger input {
   display: none;
 }
 
-.synkra-hamburger svg {
+.flowexa-hamburger svg {
   width: 100%;
   height: 100%;
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-hamburger .line {
+.flowexa-hamburger .line {
   fill: none;
   stroke: var(--text-primary);
   stroke-linecap: round;
@@ -48,15 +48,15 @@
               stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-hamburger .line-top-bottom {
+.flowexa-hamburger .line-top-bottom {
   stroke-dasharray: 12 63;
 }
 
-.synkra-hamburger input:checked + svg {
+.flowexa-hamburger input:checked + svg {
   transform: rotate(-45deg);
 }
 
-.synkra-hamburger input:checked + svg .line-top-bottom {
+.flowexa-hamburger input:checked + svg .line-top-bottom {
   stroke-dasharray: 20 300;
   stroke-dashoffset: -32.42;
 }

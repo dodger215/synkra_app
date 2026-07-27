@@ -20,17 +20,23 @@ use App\Models\Customer;
 use App\Models\StockBalance;
 use App\Models\StockMovement;
 use App\Models\StockMovementType;
+use App\Models\PosTable;
 use App\Services\Pos\PosConnectionService;
+use App\Services\ModuleFeatureService;
 
 class PosController extends Controller implements HasMiddleware
 {
+    public function __construct(
+        private readonly ModuleFeatureService $featureService
+    ) {}
+
     public static function middleware(): array
     {
         return [
-            new Middleware(CheckPermission::class . ':product_service,view', only: ['index', 'orders', 'sessions', 'showOrder', 'deviceStatus']),
+            new Middleware(CheckPermission::class . ':product_service,view', only: ['index', 'orders', 'sessions', 'showOrder', 'deviceStatus', 'dailySales', 'devices', 'drawerAccess', 'tables', 'kitchen']),
             new Middleware(CheckPermission::class . ':product_service,update', only: [
-                'openSession', 'closeSession', 'checkout', 'connectDevice', 
-                'testPrint', 'openDrawer', 'printOrderReceipt'
+                'openSession', 'closeSession', 'checkout', 'connectDevice',
+                'testPrint', 'openDrawer', 'printOrderReceipt', 'storeDevice'
             ]),
         ];
     }
@@ -52,13 +58,18 @@ class PosController extends Controller implements HasMiddleware
         $products = Product::where('tenant_id', $tenantId)->where('is_active', true)->get();
         $customers = Customer::where('tenant_id', $tenantId)->get();
 
-        return view('product_service.pos.index', compact('activeSession', 'devices', 'categories', 'products', 'customers'));
+        $tables = [];
+        if (in_array('pos.tables', $this->featureService->getEnabledFeatures())) {
+            $tables = PosTable::where('tenant_id', $tenantId)->get();
+        }
+
+        return view('product_service.pos.index', compact('activeSession', 'devices', 'categories', 'products', 'customers', 'tables'));
     }
 
     public function openSession(Request $request, PosConnectionService $posService)
     {
         $request->validate([
-            'pos_device_id' => 'required|exists:pos_devices,id',
+            'pos_device_id' => 'nullable|exists:pos_devices,id',
             'opening_balance' => 'required|numeric|min:0',
         ]);
 
@@ -75,9 +86,12 @@ class PosController extends Controller implements HasMiddleware
             return redirect()->back()->withErrors(['session' => 'You already have an active POS session.']);
         }
 
-        // Auto-connect to device
-        $device = PosDevice::where('tenant_id', $tenantId)->findOrFail($request->pos_device_id);
-        $deviceConnected = $posService->autoConnect($device);
+        // Auto-connect to device if selected
+        $deviceConnected = false;
+        if ($request->pos_device_id) {
+            $device = PosDevice::where('tenant_id', $tenantId)->findOrFail($request->pos_device_id);
+            $deviceConnected = $posService->autoConnect($device);
+        }
 
         $session = PosSession::create([
             'tenant_id' => $tenantId,
@@ -92,18 +106,21 @@ class PosController extends Controller implements HasMiddleware
         ]);
 
         // Auto-open cash drawer if device connected
-        if ($deviceConnected) {
+        if ($deviceConnected && $request->pos_device_id) {
             try {
+                $device = PosDevice::find($request->pos_device_id);
                 $posService->openCashDrawer($device);
             } catch (\Exception $e) {
-                // Non-fatal: log but don't block session opening
                 Log::warning("Could not open drawer on session start: " . $e->getMessage());
             }
         }
 
-        $message = $deviceConnected 
-            ? 'POS Session opened. Device connected.' 
-            : 'POS Session opened. Warning: Device could not be reached.';
+        $message = 'POS Session opened.';
+        if ($request->pos_device_id) {
+            $message .= $deviceConnected ? ' Device connected.' : ' Warning: Device could not be reached.';
+        } else {
+            $message .= ' Running in manual mode (No Hardware).';
+        }
 
         return redirect()->route('product_service.pos.index')->with('success', $message);
     }
@@ -160,24 +177,27 @@ class PosController extends Controller implements HasMiddleware
         DB::transaction(function () use ($request, $tenantId, $userId, $session) {
             $subtotal = 0;
             $totalDiscount = 0;
-            
+
             // Calculate totals
             foreach ($request->items as $item) {
                 $subtotal += ($item['quantity'] * $item['unit_price']);
                 $totalDiscount += ($item['discount_amount'] ?? 0);
             }
-            
+
             $taxAmount = 0; // Tax calculation logic would go here if needed
             $totalAmount = $subtotal - $totalDiscount + $taxAmount;
             $changeAmount = max(0, $request->paid_amount - $totalAmount);
 
             // Create Order
+            $orderStatus = in_array('pos.tables', $this->featureService->getEnabledFeatures()) ? 'pending' : 'completed';
+
             $order = PosOrder::create([
                 'tenant_id' => $tenantId,
                 'pos_session_id' => $session->id,
-                'order_number' => 'POS-' . strtoupper(uniqid()),
+                'order_number' => 'ORD-' . strtoupper(substr(uniqid(), -6)),
                 'customer_id' => $request->customer_id,
                 'order_type' => 'sale',
+                'status' => $orderStatus,
                 'subtotal' => $subtotal,
                 'discount_amount' => $totalDiscount,
                 'tax_amount' => $taxAmount,
@@ -209,7 +229,7 @@ class PosController extends Controller implements HasMiddleware
 
                 // Update Stock (assuming the device belongs to a specific location)
                 $locationId = $session->device->location_id ?? null;
-                
+
                 if ($locationId) {
                     $balance = StockBalance::firstOrCreate(
                         ['product_id' => $item['product_id'], 'location_id' => $locationId],
@@ -284,6 +304,122 @@ class PosController extends Controller implements HasMiddleware
         return view('product_service.pos.sessions', compact('sessions'));
     }
 
+    public function dailySales()
+    {
+        $tenantId = Auth::user()->tenant_id;
+        $sales = PosOrder::where('tenant_id', $tenantId)
+            ->whereDate('completed_at', now()->toDateString())
+            ->get();
+
+        $stats = [
+            'total_sales' => $sales->sum('total_amount'),
+            'order_count' => $sales->count(),
+            'cash_total' => $sales->where('payment_method', 'cash')->sum('total_amount'),
+            'card_total' => $sales->where('payment_method', 'card')->sum('total_amount'),
+        ];
+
+        return view('product_service.pos.daily_sales', compact('stats', 'sales'));
+    }
+
+    public function devices()
+    {
+        $tenantId = Auth::user()->tenant_id;
+        $devices = PosDevice::with('location')->where('tenant_id', $tenantId)->get();
+        $locations = \App\Models\StockLocation::where('tenant_id', $tenantId)->where('is_active', true)->get();
+
+        return view('product_service.pos.devices', compact('devices', 'locations'));
+    }
+
+    public function storeDevice(Request $request)
+    {
+        $request->validate([
+            'device_name' => 'required|string|max:100',
+            'location_id' => 'nullable|exists:stock_locations,id',
+            'connection_type' => 'required|string|in:network,usb',
+            'ip_address' => 'required_if:connection_type,network|nullable|ip',
+            'port' => 'required_if:connection_type,network|nullable|integer',
+            'serial_number' => 'nullable|string|max:100',
+        ]);
+
+        $tenantId = Auth::user()->tenant_id;
+
+        PosDevice::create([
+            'tenant_id' => $tenantId,
+            'device_name' => $request->device_name,
+            'location_id' => $request->location_id,
+            'connection_type' => $request->connection_type,
+            'ip_address' => $request->ip_address,
+            'port' => $request->port ?? 9100,
+            'serial_number' => $request->serial_number,
+            'status' => 'offline',
+        ]);
+
+        return redirect()->back()->with('success', 'Hardware device added successfully.');
+    }
+
+    public function drawerAccess()
+    {
+        $tenantId = Auth::user()->tenant_id;
+        $logs = \App\Models\PosDrawerAccess::with(['user', 'device'])
+            ->where('tenant_id', $tenantId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('product_service.pos.drawer_access', compact('logs'));
+    }
+
+    public function tables()
+    {
+        $tenantId = Auth::user()->tenant_id;
+        if (!$this->featureService->isFeatureEnabled('pos.tables')) {
+            abort(403, 'Restaurant Tables feature is not enabled for your workspace.');
+        }
+
+        $tables = PosTable::where('tenant_id', $tenantId)->get();
+        return view('product_service.pos.tables', compact('tables'));
+    }
+
+    public function storeTable(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'capacity' => 'required|integer|min:1',
+        ]);
+
+        PosTable::create([
+            'tenant_id' => Auth::user()->tenant_id,
+            'name' => $request->name,
+            'capacity' => $request->capacity,
+            'status' => 'available',
+        ]);
+
+        return redirect()->back()->with('success', 'Table added successfully.');
+    }
+
+    public function kitchen()
+    {
+        if (!$this->featureService->isFeatureEnabled('pos.kitchen_display')) {
+            abort(403, 'Kitchen Display feature is not enabled for your workspace.');
+        }
+
+        $tenantId = Auth::user()->tenant_id;
+        // In a real app, you'd fetch pending orders with 'food' items
+        $orders = PosOrder::with('items.product')->where('tenant_id', $tenantId)
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('product_service.pos.kitchen', compact('orders'));
+    }
+
+    public function completeKitchenOrder($id)
+    {
+        $order = PosOrder::where('tenant_id', Auth::user()->tenant_id)->findOrFail($id);
+        $order->update(['status' => 'completed']);
+
+        return redirect()->back()->with('success', 'Order marked as ready.');
+    }
+
     public function connectDevice(Request $request, PosConnectionService $posService)
     {
         $request->validate([
@@ -307,13 +443,13 @@ class PosController extends Controller implements HasMiddleware
         $request->validate([
             'pos_device_id' => 'required|exists:pos_devices,id',
         ]);
-        
+
         $device = PosDevice::where('tenant_id', Auth::user()->tenant_id)->findOrFail($request->pos_device_id);
-        
+
         try {
             $posService->printReceipt($device, [
                 'type' => 'test',
-                'content' => 'Test Receipt from Synkra',
+                'content' => 'Test Receipt from flowexa',
                 'date' => now()->toDateTimeString()
             ]);
             return redirect()->back()->with('success', 'Test print sent successfully.');
@@ -326,19 +462,37 @@ class PosController extends Controller implements HasMiddleware
     {
         $request->validate([
             'pos_device_id' => 'required|exists:pos_devices,id',
+            'reason' => 'nullable|string|max:255',
         ]);
 
-        $device = PosDevice::where('tenant_id', Auth::user()->tenant_id)->findOrFail($request->pos_device_id);
+        $tenantId = Auth::user()->tenant_id;
+        $userId = Auth::id();
+        $device = PosDevice::where('tenant_id', $tenantId)->findOrFail($request->pos_device_id);
 
         try {
             $posService->openCashDrawer($device);
+
+            // Log the access
+            $activeSession = PosSession::where('tenant_id', $tenantId)
+                ->where('cashier_id', $userId)
+                ->whereNull('ended_at')
+                ->first();
+
+            \App\Models\PosDrawerAccess::create([
+                'tenant_id' => $tenantId,
+                'pos_session_id' => $activeSession?->id,
+                'pos_device_id' => $device->id,
+                'user_id' => $userId,
+                'reason' => $request->reason ?? 'Manual open',
+            ]);
+
             return redirect()->back()->with('success', 'Cash drawer opened.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['device' => $e->getMessage()]);
         }
     }
 
-    public function printOrderReceipt($orderId, PosConnectionService $posService)
+    public function printOrderReceipt($orderId, PosConnectionService $posService, Request $request)
     {
         $tenantId = Auth::user()->tenant_id;
         $order = PosOrder::with(['items.product', 'customer', 'session.cashier', 'session.device'])
@@ -347,15 +501,16 @@ class PosController extends Controller implements HasMiddleware
 
         $device = $order->session->device ?? null;
 
-        if (!$device) {
-            return redirect()->back()->withErrors(['device' => 'No device associated with this order session.']);
+        // Force browser print if requested or no device
+        if ($request->has('browser') || !$device) {
+            return view('product_service.pos.receipt_print', compact('order'));
         }
 
         try {
             $posService->printOrderReceipt($device, $order);
-            return redirect()->back()->with('success', 'Receipt printed successfully.');
+            return redirect()->back()->with('success', 'Receipt sent to hardware printer.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['device' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['device' => 'Hardware print failed: ' . $e->getMessage() . '. Falling back to browser print.'])->with('fallback_print_url', route('product_service.pos.device.print-receipt', ['orderId' => $orderId, 'browser' => 1]));
         }
     }
 

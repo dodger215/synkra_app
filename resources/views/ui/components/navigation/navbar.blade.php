@@ -6,29 +6,29 @@
   $messageCount = session('message_count', 0);
 @endphp
 
-<header class="synkra-navbar">
-  <div class="synkra-navbar-left">
+<header class="flowexa-navbar">
+  <div class="flowexa-navbar-left">
     <!-- Mobile Hamburger Toggle -->
-    <button class="synkra-mobile-toggle-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
+    <button class="flowexa-mobile-toggle-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <div class="synkra-desktop-only">
+    <div class="flowexa-desktop-only">
       <x-ui.breadcrumb />
     </div>
   </div>
 
-  <div class="synkra-navbar-center synkra-desktop-only">
-    <div class="synkra-navbar-search-wrapper">
+  <div class="flowexa-navbar-center flowexa-desktop-only">
+    <div class="flowexa-navbar-search-wrapper">
       <x-ui.search placeholder="Search workspace, orders, items..." />
     </div>
   </div>
 
-  <div class="synkra-navbar-right">
+  <div class="flowexa-navbar-right">
 
     <x-ui.dropdown id="notificationsDropdown">
         <x-slot:trigger>
-            <button class="synkra-navbar-icon-btn">
+            <button class="flowexa-navbar-icon-btn">
                 <i class="fa-regular fa-bell"></i>
                 @if($hasNotifications)
                     <x-ui.badge count="{{ $notificationCount }}" type="danger" />
@@ -49,7 +49,7 @@
 
     <x-ui.dropdown id="messagesDropdown">
         <x-slot:trigger>
-            <button class="synkra-navbar-icon-btn">
+            <button class="flowexa-navbar-icon-btn">
                 <i class="fa-regular fa-envelope"></i>
                 @if($hasMessages)
                     <x-ui.badge count="{{ $messageCount }}" type="danger" />
@@ -68,15 +68,25 @@
         </div>
     </x-ui.dropdown>
 
+    {{-- Settings Icon --}}
+    <a href="{{ route('settings.index') }}" id="navSettingsLink"
+       title="Settings"
+       style="display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:1.2rem;text-decoration:none;transition:color .2s;position:relative;"
+       onmouseover="this.style.color='var(--primary)'"
+       onmouseout="this.style.color='var(--text-secondary)'"
+       @if(request()->routeIs('settings.*')) style="color:var(--primary)!important;" @endif>
+        <i class="fa-solid fa-gear" @if(request()->routeIs('settings.*')) style="animation:spin-slow 4s linear infinite;" @endif></i>
+    </a>
+
     <x-ui.dropdown id="profileDropdown">
         <x-slot:trigger>
-            <div class="synkra-navbar-profile">
-                <div class="synkra-avatar">{{ substr($user->name, 0, 1) }}</div>
-                <div class="synkra-profile-info">
-                    <span class="synkra-profile-name">{{ $user->name }}</span>
-                    <span class="synkra-profile-role">{{ auth()->check() ? ucfirst(auth()->user()->role->value ?? 'Guest') : 'Guest' }}</span>
+            <div class="flowexa-navbar-profile">
+                <div class="flowexa-avatar">{{ substr($user->name, 0, 1) }}</div>
+                <div class="flowexa-profile-info">
+                    <span class="flowexa-profile-name">{{ $user->name }}</span>
+                    <span class="flowexa-profile-role">{{ auth()->check() ? ucfirst(auth()->user()->role->value ?? 'Guest') : 'Guest' }}</span>
                 </div>
-                <i class="fa-solid fa-chevron-down synkra-profile-chevron"></i>
+                <i class="fa-solid fa-chevron-down flowexa-profile-chevron"></i>
             </div>
         </x-slot:trigger>
         <x-slot:header>
@@ -84,19 +94,19 @@
             <span style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px; display: block;">{{ $user->email }}</span>
         </x-slot:header>
 
-        <a href="{{ route('settings.profile.edit') }}" class="synkra-ui-dropdown-item">
+        <a href="{{ route('settings.profile.edit') }}" class="flowexa-ui-dropdown-item">
             <i class="fa-solid fa-user" style="width: 16px;"></i> Profile Settings
         </a>
-        <a href="{{ route('settings.workspace.edit') }}" class="synkra-ui-dropdown-item">
+        <a href="{{ route('settings.workspace.edit') }}" class="flowexa-ui-dropdown-item">
             <i class="fa-solid fa-building" style="width: 16px;"></i> Shop Settings
         </a>
-        <a href="{{ route('settings.subaccounts.index') }}" class="synkra-ui-dropdown-item">
-            <i class="fa-solid fa-credit-card" style="width: 16px;"></i> Billing & Payouts
+        <a href="{{ route('settings.subaccounts.index') }}" class="flowexa-ui-dropdown-item">
+            <i class="fa-solid fa-credit-card" style="width: 16px;"></i> Account Settings
         </a>
-        <div class="synkra-ui-dropdown-divider"></div>
+        <div class="flowexa-ui-dropdown-divider"></div>
         <form method="POST" action="{{ route('logout') }}" id="logoutForm" style="margin: 0;">
             @csrf
-            <button type="submit" class="synkra-ui-dropdown-item danger">
+            <button type="submit" class="flowexa-ui-dropdown-item danger">
                 <i class="fa-solid fa-right-from-bracket" style="width: 16px;"></i> Sign Out
             </button>
         </form>
@@ -105,7 +115,7 @@
 </header>
 
 <style>
-.synkra-navbar {
+.flowexa-navbar {
   height: 70px;
   background-color: rgba(var(--surface-rgb, 255, 255, 255), 0.85); /* Fallback */
   backdrop-filter: blur(12px);
@@ -119,37 +129,37 @@
   padding: 0 1.5rem;
   position: sticky;
   top: 16px;
-  z-index: 40;
+  z-index: 20;
   box-shadow: 0 8px 30px -4px rgba(0,0,0,0.06); /* Soft modern shadow */
 }
 
 /* Use JS to inject RGB variables for surface if needed, or rely on pure var(--surface) if it supports transparency */
-[data-theme="dark"] .synkra-navbar {
+[data-theme="dark"] .flowexa-navbar {
   background-color: rgba(17, 17, 17, 0.85);
 }
-:root, [data-theme="light"] .synkra-navbar {
+:root, [data-theme="light"] .flowexa-navbar {
   background-color: rgba(255, 255, 255, 0.85);
 }
 
-.synkra-navbar-left {
+.flowexa-navbar-left {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   flex: 1;
 }
 
-.synkra-navbar-center {
+.flowexa-navbar-center {
   flex: 1;
   display: flex;
   justify-content: center;
 }
 
-.synkra-navbar-search-wrapper {
+.flowexa-navbar-search-wrapper {
   width: 100%;
   max-width: 450px;
 }
 
-.synkra-navbar-right {
+.flowexa-navbar-right {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -157,7 +167,7 @@
   flex: 1;
 }
 
-.synkra-navbar-icon-btn {
+.flowexa-navbar-icon-btn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -168,11 +178,11 @@
   padding: 0;
 }
 
-.synkra-navbar-icon-btn:hover {
+.flowexa-navbar-icon-btn:hover {
   color: var(--primary);
 }
 
-.synkra-navbar-badge {
+.flowexa-navbar-badge {
   position: absolute;
   top: -5px;
   right: -5px;
@@ -185,7 +195,7 @@
   border: 2px solid var(--surface);
 }
 
-.synkra-navbar-profile {
+.flowexa-navbar-profile {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -195,11 +205,11 @@
   transition: opacity 0.2s;
 }
 
-.synkra-navbar-profile:hover {
+.flowexa-navbar-profile:hover {
   opacity: 0.8;
 }
 
-.synkra-avatar {
+.flowexa-avatar {
   width: 36px;
   height: 36px;
   background-color: var(--primary);
@@ -212,29 +222,29 @@
   font-size: 1rem;
 }
 
-.synkra-profile-info {
+.flowexa-profile-info {
   display: flex;
   flex-direction: column;
 }
 
-.synkra-profile-name {
+.flowexa-profile-name {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--headings);
 }
 
-.synkra-profile-role {
+.flowexa-profile-role {
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
-.synkra-profile-chevron {
+.flowexa-profile-chevron {
   font-size: 0.7rem;
   color: var(--text-secondary);
   margin-left: 5px;
 }
 
-.synkra-mobile-toggle-btn {
+.flowexa-mobile-toggle-btn {
   display: none;
   background: transparent;
   border: none;
@@ -246,15 +256,22 @@
 }
 
 @media (max-width: 768px) {
-  .synkra-navbar {
+  .flowexa-navbar {
     padding: 0 1rem;
     margin: 16px;
   }
-  .synkra-mobile-toggle-btn { display: block; }
-  .synkra-desktop-only { display: none; }
-  .synkra-profile-info { display: none; }
-  .synkra-navbar-profile { padding-left: 0; border-left: none; gap: 0; }
-  .synkra-navbar-right { gap: 1rem; }
+  .flowexa-mobile-toggle-btn { display: block; }
+  .flowexa-desktop-only { display: none; }
+  .flowexa-profile-info { display: none; }
+  .flowexa-navbar-profile { padding-left: 0; border-left: none; gap: 0; }
+  .flowexa-navbar-right { gap: 1rem; }
 }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+#navSettingsLink { outline: none; }
 
 </style>

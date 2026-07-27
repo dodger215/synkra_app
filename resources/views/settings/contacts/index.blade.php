@@ -3,13 +3,13 @@
         <meta name="description" content="Manage your company contact details and social links.">
     </x-slot:head>
 
-    <div class="synkra-dashboard-container" style="padding: 2rem;">
+    <div class="flowexa-dashboard-container" style="padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <div>
                 <h1 style="color: var(--headings); margin: 0 0 0.5rem 0;">Company Contacts</h1>
                 <p style="color: var(--text-secondary); margin: 0;">Manage your official phone numbers, emails, and social media profiles.</p>
             </div>
-            <button class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;" onclick="openSynkraModal('addContactModal')">
+            <button class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600;" onclick="openflowexaModal('addContactModal')">
                 <i class="fa-solid fa-plus" style="margin-right: 8px;"></i> Add Contact
             </button>
         </div>
@@ -24,7 +24,7 @@
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem;">
             @forelse($contacts as $contact)
-                <div class="synkra-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+                <div class="flowexa-card" style="padding: 1.5rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--surface-secondary); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.25rem;">
@@ -46,11 +46,11 @@
                             <x-ui.badge type="primary">Primary</x-ui.badge>
                         @endif
                     </div>
-                    
+
                     <div style="margin-bottom: 1.5rem; padding: 1rem; background: var(--surface-secondary); border-radius: 12px;">
                         <span style="display: block; font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Handle / Value</span>
                         <strong style="color: var(--text-primary); font-size: 1.05rem;">{{ $contact->handle ?? 'N/A' }}</strong>
-                        
+
                         @if($contact->url)
                             <div style="margin-top: 0.5rem; border-top: 1px dashed var(--border); padding-top: 0.5rem;">
                                 <a href="{{ $contact->url }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none;"><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 4px;"></i> {{ $contact->url }}</a>
@@ -72,7 +72,7 @@
                     </div>
                     <h3 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 1.25rem;">No Contacts Found</h3>
                     <p style="margin: 0 0 2rem 0; color: var(--text-secondary); max-width: 400px; margin-left: auto; margin-right: auto;">Add official communication channels so your customers and partners can reach you.</p>
-                    <button class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;" onclick="openSynkraModal('addContactModal')">Add First Contact</button>
+                    <button class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;" onclick="openflowexaModal('addContactModal')">Add First Contact</button>
                 </div>
             @endforelse
         </div>
@@ -83,7 +83,7 @@
     <x-ui.modal id="addContactModal" triggerId="addContactModal-trigger-btn" title="Add Contact Method">
         <form id="addContactForm" action="{{ route('settings.contacts.store') }}" method="POST">
             @csrf
-            
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                     <label style="font-size: 0.85rem; font-weight: 500; color: var(--text-primary);">Platform / Type</label>
@@ -102,7 +102,7 @@
             </div>
 
             <div style="margin-bottom: 1rem;">
-                <x-ui.input name="handle" label="Handle / Value" placeholder="e.g. +1 555-0198 or @synkra" required />
+                <x-ui.input name="handle" label="Handle / Value" placeholder="e.g. +1 555-0198 or @flowexa" required />
             </div>
 
             <div style="margin-bottom: 1rem;">
@@ -116,8 +116,8 @@
         </form>
 
         <x-slot:footer>
-            <button type="button" class="synkra-btn synkra-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeSynkraModal('addContactModal')">Cancel</button>
-            <button type="button" class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;" onclick="document.getElementById('addContactForm').submit()">Save Contact</button>
+            <button type="button" class="flowexa-btn flowexa-btn-secondary" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px;" onclick="closeflowexaModal('addContactModal')">Cancel</button>
+            <button type="button" class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;" onclick="document.getElementById('addContactForm').submit()">Save Contact</button>
         </x-slot:footer>
     </x-ui.modal>
 </x-layouts.app>

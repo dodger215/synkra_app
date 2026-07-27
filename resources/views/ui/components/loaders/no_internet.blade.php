@@ -4,31 +4,31 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-offline-wrapper {{ $class }}" id="synkraOfflineState">
-  <div class="synkra-offline-icon-container">
-    <i class="fa-solid fa-wifi synkra-offline-icon"></i>
-    <div class="synkra-offline-slash"></div>
+<div class="flowexa-offline-wrapper {{ $class }}" id="flowexaOfflineState">
+  <div class="flowexa-offline-icon-container">
+    <i class="fa-solid fa-wifi flowexa-offline-icon"></i>
+    <div class="flowexa-offline-slash"></div>
   </div>
-  <h2 class="synkra-offline-title">{{ $title }}</h2>
-  <p class="synkra-offline-message">{{ $message }}</p>
-  <button class="synkra-offline-retry" onclick="window.location.reload()">
+  <h2 class="flowexa-offline-title">{{ $title }}</h2>
+  <p class="flowexa-offline-message">{{ $message }}</p>
+  <button class="flowexa-offline-retry" onclick="window.location.reload()">
     <i class="fa-solid fa-rotate-right"></i> Try Again
   </button>
 </div>
 
 <script>
 window.addEventListener('online', () => {
-  const offlineWrapper = document.getElementById('synkraOfflineState');
+  const offlineWrapper = document.getElementById('flowexaOfflineState');
   if (offlineWrapper) offlineWrapper.style.display = 'none';
 });
 window.addEventListener('offline', () => {
-  const offlineWrapper = document.getElementById('synkraOfflineState');
+  const offlineWrapper = document.getElementById('flowexaOfflineState');
   if (offlineWrapper) offlineWrapper.style.display = 'flex';
 });
 </script>
 
 <style>
-.synkra-offline-wrapper {
+.flowexa-offline-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@ window.addEventListener('offline', () => {
   margin: 0 auto;
 }
 
-.synkra-offline-icon-container {
+.flowexa-offline-icon-container {
   position: relative;
   font-size: 3.5rem;
   color: var(--text-secondary);
@@ -54,11 +54,11 @@ window.addEventListener('offline', () => {
   justify-content: center;
 }
 
-.synkra-offline-icon {
-  animation: synkra-wifi-pulse 2s infinite alternate;
+.flowexa-offline-icon {
+  animation: flowexa-wifi-pulse 2s infinite alternate;
 }
 
-.synkra-offline-slash {
+.flowexa-offline-slash {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -70,20 +70,20 @@ window.addEventListener('offline', () => {
   border: 3px solid var(--surface-secondary);
 }
 
-.synkra-offline-title {
+.flowexa-offline-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--headings);
   margin: 0 0 0.5rem 0;
 }
 
-.synkra-offline-message {
+.flowexa-offline-message {
   color: var(--text-secondary);
   font-size: 0.95rem;
   margin: 0 0 1.5rem 0;
 }
 
-.synkra-offline-retry {
+.flowexa-offline-retry {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -97,22 +97,22 @@ window.addEventListener('offline', () => {
   transition: all 0.2s;
 }
 
-.synkra-offline-retry:hover {
+.flowexa-offline-retry:hover {
   background: var(--text-primary);
   color: var(--background);
   border-color: var(--text-primary);
 }
 
-.synkra-offline-retry:hover i {
-  animation: synkra-spin 1s linear infinite;
+.flowexa-offline-retry:hover i {
+  animation: flowexa-spin 1s linear infinite;
 }
 
-@keyframes synkra-wifi-pulse {
+@keyframes flowexa-wifi-pulse {
   0% { opacity: 0.4; transform: scale(0.9); }
   100% { opacity: 0.8; transform: scale(1); }
 }
 
-@keyframes synkra-spin {
+@keyframes flowexa-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }

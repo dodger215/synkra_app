@@ -1,24 +1,24 @@
-<div class="synkra-auth-container">
-    <div class="synkra-auth-card-wrapper">
-        <div class="synkra-auth-card-header">
+<div class="flowexa-auth-container">
+    <div class="flowexa-auth-card-wrapper">
+        <div class="flowexa-auth-card-header">
             @if(isset($header))
                 {{ $header }}
             @else
-                <div class="synkra-auth-logo">
+                <div class="flowexa-auth-logo">
                     <i class="fa-solid fa-cube text-primary"></i>
-                    <span class="synkra-auth-brand">Synkra</span>
+                    <span class="flowexa-auth-brand">flowexa</span>
                 </div>
             @endif
         </div>
 
-        <div class="synkra-auth-card-body">
+        <div class="flowexa-auth-card-body">
             {{ $slot }}
         </div>
     </div>
 </div>
 
 <style>
-.synkra-auth-container {
+.flowexa-auth-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@
     width: 100%;
 }
 
-.synkra-auth-card-wrapper {
+.flowexa-auth-card-wrapper {
     background-color: var(--surface);
     border: transparent;
     border-radius: 26px;
@@ -39,25 +39,25 @@
     z-index: 10;
 }
 
-.synkra-auth-card-header {
+.flowexa-auth-card-header {
     padding: 2.5rem 2rem 0.5rem;
     text-align: center;
 }
 
-.synkra-auth-card-title {
+.flowexa-auth-card-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0 0 0.5rem 0;
 }
 
-.synkra-auth-card-subtitle {
+.flowexa-auth-card-subtitle {
     font-size: 0.95rem;
     color: var(--text-secondary);
     margin: 0;
 }
 
-.synkra-auth-logo {
+.flowexa-auth-logo {
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -66,20 +66,20 @@
     color: var(--text-primary);
 }
 
-.synkra-auth-logo i {
+.flowexa-auth-logo i {
     color: var(--primary);
     font-size: 2rem;
 }
 
-.synkra-auth-card-body {
+.flowexa-auth-card-body {
     padding: 2rem;
 }
 
-.synkra-form-group {
+.flowexa-form-group {
     margin-bottom: 1.25rem;
 }
 
-.synkra-form-error {
+.flowexa-form-error {
     color: var(--danger);
     font-size: 0.85rem;
     margin-top: 0.35rem;

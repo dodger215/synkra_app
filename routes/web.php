@@ -22,10 +22,97 @@ use App\Http\Controllers\SupplyChain\SupplierController;
 use App\Http\Controllers\SupplyChain\PurchasingController;
 use App\Http\Controllers\SupplyChain\ReceivingController;
 use App\Http\Controllers\SupplyChain\ForecastController;
+use App\Http\Controllers\SupplyChain\SupplierContractController;
+use App\Http\Controllers\SupplyChain\ShipmentController;
+use App\Http\Controllers\SupplyChain\ScmReportController;
 
-Route::get('/', function () {
-    return view('welcome');
+// CRM Controllers
+use App\Http\Controllers\Crm\CustomerController;
+use App\Http\Controllers\Crm\SegmentController;
+use App\Http\Controllers\Crm\InteractionController;
+use App\Http\Controllers\Crm\LoyaltyController;
+use App\Http\Controllers\Crm\CrmAnalyticsController;
+use App\Http\Controllers\Crm\AutomationController;
+
+// Marketing Controllers
+use App\Http\Controllers\Marketing\CampaignController;
+use App\Http\Controllers\Marketing\PlatformConnectionController;
+use App\Http\Controllers\Marketing\SubscriptionController;
+
+// Ecommerce Controllers
+use App\Http\Controllers\Ecommerce\EcommerceStoreController;
+use App\Http\Controllers\Ecommerce\EcommercePageController;
+use App\Http\Controllers\Ecommerce\EcommerceOrderController;
+use App\Http\Controllers\Ecommerce\EcommerceReviewController;
+use App\Http\Controllers\Ecommerce\EcommerceAnalyticsController;
+
+Route::get('/', [\App\Http\Controllers\Home\PageDisplayController::class, 'index'])->name('home.index');
+Route::get('/shops', [\App\Http\Controllers\Home\PageDisplayController::class, 'shops'])->name('home.shops');
+Route::get('/shop/{tenant}', [\App\Http\Controllers\Home\PageDisplayController::class, 'shop'])->name('home.shop');
+Route::get('/shop/{tenant}/p/{product}', [\App\Http\Controllers\Home\PageDisplayController::class, 'productDetails'])->name('home.product.details');
+
+// Cart & Checkout for Home Marketplace
+Route::get('/cart', [\App\Http\Controllers\Home\ShopCartController::class, 'index'])->name('home.cart.index');
+Route::get('/cart/api', [\App\Http\Controllers\Home\ShopCartController::class, 'getCart'])->name('home.cart.get');
+Route::post('/cart/add', [\App\Http\Controllers\Home\ShopCartController::class, 'addToCart'])->name('home.cart.add');
+Route::post('/cart/remove', [\App\Http\Controllers\Home\ShopCartController::class, 'removeFromCart'])->name('home.cart.remove');
+Route::post('/cart/update', [\App\Http\Controllers\Home\ShopCartController::class, 'updateQuantity'])->name('home.cart.update');
+
+Route::middleware('auth:customer')->group(function () {
+    Route::get('/shop/{tenant}/checkout', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'showCheckout'])->name('home.checkout.show');
+    Route::post('/shop/{tenant}/checkout', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'processPayment'])->name('home.checkout.process');
+    Route::post('/shop/{tenant}/checkout/quote', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'getDeliveryQuote'])->name('home.checkout.quote');
+    Route::post('/shop/{tenant}/checkout/pickup-distance', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'getPickupDistance'])->name('home.checkout.pickup_distance');
+    Route::get('/shop/{tenant}/checkout/callback', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'callback'])->name('home.checkout.callback');
+    Route::get('/shop/{tenant}/order/{order}/tracking', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'trackOrder'])->name('home.order.tracking');
+    Route::post('/shop/{tenant}/order/{order}/arrived', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'confirmArrival'])->name('home.order.arrived');
+    Route::post('/shop/{tenant}/order/{order}/collected', [\App\Http\Controllers\Home\ShopCheckoutController::class, 'confirmCollection'])->name('home.order.collected');
 });
+
+// Customer Auth for Home Marketplace
+Route::get('/customer/login', [\App\Http\Controllers\Home\CustomerAuthController::class, 'showLogin'])->name('home.customer.login');
+Route::post('/customer/login', [\App\Http\Controllers\Home\CustomerAuthController::class, 'login']);
+
+Route::prefix('customer')->name('home.customer.')->group(function () {
+    Route::get('/register', [\App\Http\Controllers\Home\CustomerAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [\App\Http\Controllers\Home\CustomerAuthController::class, 'register']);
+    Route::post('/logout', [\App\Http\Controllers\Home\CustomerAuthController::class, 'logout'])->name('logout');
+
+    // Google Auth for Customer
+    Route::get('/auth/google', [\App\Http\Controllers\Home\CustomerAuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [\App\Http\Controllers\Home\CustomerAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+    // Protected Customer Routes
+    Route::middleware('auth:customer')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/orders', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'orders'])->name('orders');
+        Route::get('/saved-items', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'savedItems'])->name('saved_items');
+        Route::get('/settings', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'settings'])->name('settings');
+        Route::post('/settings', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'updateSettings'])->name('settings.update');
+        Route::post('/settings/password', [\App\Http\Controllers\Home\CustomerDashboardController::class, 'updatePassword'])->name('settings.password');
+
+        // Marketplace Interactions
+        Route::post('/product/{product}/like', [\App\Http\Controllers\Home\MarketplaceInteractionController::class, 'toggleLike'])->name('product.like');
+        Route::post('/tenant/{tenant}/follow', [\App\Http\Controllers\Home\MarketplaceInteractionController::class, 'toggleFollow'])->name('tenant.follow');
+        Route::post('/product/{product}/review', [\App\Http\Controllers\Home\MarketplaceInteractionController::class, 'storeReview'])->name('product.review');
+    });
+});
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
 
 Route::post('/invite', [InviteController::class, 'store'])->middleware(['auth', 'permission:settings,invite_users']);
 Route::get('/invites', [InviteController::class, 'index'])->middleware(['auth', 'permission:settings,manage_users']);
@@ -65,6 +152,10 @@ Route::middleware(['auth'])->group(function () {
 
 // Settings Routes
 Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(function () {
+    // Hub
+    Route::get('/', [\App\Http\Controllers\Settings\SettingsController::class, 'index'])->name('index');
+    Route::post('/theme', [\App\Http\Controllers\Settings\SettingsController::class, 'storeTheme'])->name('theme.store');
+
     // Profile
     Route::get('/profile', [\App\Http\Controllers\Settings\ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [\App\Http\Controllers\Settings\ProfileController::class, 'update'])->name('profile.update');
@@ -120,6 +211,13 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
     Route::prefix('stocks')->name('stocks.')->group(function () {
         Route::get('/', [StocksManagementController::class, 'index'])->name('index');
         Route::get('/movements', [StocksManagementController::class, 'movements'])->name('movements');
+        Route::get('/adjustments', [StocksManagementController::class, 'adjustments'])->name('adjustments.index');
+        Route::get('/transfers', [StocksManagementController::class, 'transfers'])->name('transfers.index');
+        Route::get('/damages', [StocksManagementController::class, 'damages'])->name('damages.index');
+        Route::get('/counts', [StocksManagementController::class, 'counts'])->name('counts.index');
+        Route::get('/returns', [StocksManagementController::class, 'returns'])->name('returns.index');
+        Route::get('/reorder-alerts', [StocksManagementController::class, 'reorderAlerts'])->name('reorder_alerts.index');
+        Route::post('/reorder-alerts/{id}/resolve', [StocksManagementController::class, 'resolveReorderAlert'])->name('reorder_alerts.resolve');
 
         Route::get('/receive/create', [StocksManagementController::class, 'createReceive'])->name('receive.create');
         Route::post('/receive', [StocksManagementController::class, 'storeReceive'])->name('receive.store');
@@ -132,6 +230,7 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
 
         Route::get('/adjustment/create', [StocksManagementController::class, 'createAdjustment'])->name('adjustment.create');
         Route::post('/adjustment', [StocksManagementController::class, 'storeAdjustment'])->name('adjustment.store');
+        Route::post('/adjustment-reasons', [StocksManagementController::class, 'storeAdjustmentReason'])->name('adjustment_reasons.store');
 
         Route::get('/damage/create', [StocksManagementController::class, 'createDamage'])->name('damage.create');
         Route::post('/damage', [StocksManagementController::class, 'storeDamage'])->name('damage.store');
@@ -150,6 +249,14 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
         Route::get('/bins', [StocksManagementController::class, 'bins'])->name('bins.index');
         Route::post('/bins', [StocksManagementController::class, 'storeBin'])->name('bins.store');
 
+        Route::post('/import/{productId}', [StocksManagementController::class, 'importStock'])->name('import');
+
+        // Manufacturing / BOM Routes
+        Route::get('/bill-of-materials', [StocksManagementController::class, 'bomIndex'])->name('bom.index');
+        Route::post('/bill-of-materials', [StocksManagementController::class, 'storeBom'])->name('bom.store');
+        Route::get('/production-orders', [StocksManagementController::class, 'productionOrders'])->name('production.index');
+        Route::post('/production-orders', [StocksManagementController::class, 'storeProductionOrder'])->name('production.store');
+
         Route::get('/{id}', [StocksManagementController::class, 'show'])->name('show');
     });
 
@@ -163,8 +270,18 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
         Route::get('/orders', [PosController::class, 'orders'])->name('orders');
         Route::get('/orders/{id}', [PosController::class, 'showOrder'])->name('order.show');
         Route::get('/sessions', [PosController::class, 'sessions'])->name('sessions');
+        Route::get('/daily-sales', [PosController::class, 'dailySales'])->name('daily-sales');
+        Route::get('/devices', [PosController::class, 'devices'])->name('devices');
+        Route::get('/drawer-access', [PosController::class, 'drawerAccess'])->name('drawer-access');
+
+        // Restaurant POS Routes
+        Route::get('/tables', [PosController::class, 'tables'])->name('tables');
+        Route::post('/tables', [PosController::class, 'storeTable'])->name('tables.store');
+        Route::get('/kitchen', [PosController::class, 'kitchen'])->name('kitchen');
+        Route::post('/kitchen/{id}/complete', [PosController::class, 'completeKitchenOrder'])->name('kitchen.complete');
 
         // POS Device Integrations
+        Route::post('/device/store', [PosController::class, 'storeDevice'])->name('device.store');
         Route::post('/device/connect', [PosController::class, 'connectDevice'])->name('device.connect');
         Route::post('/device/test-print', [PosController::class, 'testPrint'])->name('device.test-print');
         Route::post('/device/open-drawer', [PosController::class, 'openDrawer'])->name('device.open-drawer');
@@ -202,12 +319,18 @@ Route::middleware(['auth'])->prefix('product-service')->name('product_service.')
 Route::middleware(['auth'])->prefix('supply-chain')->name('supply_chain.')->group(function () {
     // Suppliers
     Route::resource('suppliers', SupplierController::class);
+    Route::post('/suppliers/{id}/link-product', [SupplierController::class, 'linkProduct'])->name('suppliers.link_product');
 
     // Purchasing (Purchase Orders)
     Route::resource('purchasing', PurchasingController::class);
+    Route::post('purchasing/{id}/approve', [PurchasingController::class, 'approve'])->name('purchasing.approve');
+    Route::post('purchasing/{id}/cancel', [PurchasingController::class, 'cancel'])->name('purchasing.cancel');
 
     // Receiving (Receiving Reports)
     Route::resource('receiving', ReceivingController::class)->only(['index', 'create', 'store', 'show']);
+
+    // Contracts
+    Route::resource('contracts', SupplierContractController::class);
 
     // Forecasting & Alerts
     Route::prefix('forecast')->name('forecast.')->group(function () {
@@ -215,6 +338,124 @@ Route::middleware(['auth'])->prefix('supply-chain')->name('supply_chain.')->grou
         Route::post('/generate', [ForecastController::class, 'generateForecast'])->name('generate');
         Route::post('/alert/{id}/resolve', [ForecastController::class, 'resolveAlert'])->name('resolve');
     });
+
+    // Shipments & Tracking
+    Route::prefix('shipments')->name('shipments.')->group(function () {
+        Route::get('/', [ShipmentController::class, 'index'])->name('index');
+        Route::get('/{id}', [ShipmentController::class, 'show'])->name('show');
+        Route::post('/{id}/status', [ShipmentController::class, 'updateStatus'])->name('update-status');
+    });
+
+    // Supplier Mode Specific
+    Route::get('/product-supplier-list', [SupplierController::class, 'supplierList'])->name('supplier_list.index');
+    Route::get('/import-stocks', [SupplierController::class, 'importStocks'])->name('import_stocks.index');
+    Route::post('/import-stocks', [SupplierController::class, 'processImportStocks'])->name('import_stocks.process');
+    Route::delete('/import-stocks/{id}', [SupplierController::class, 'removeStockFromSupply'])->name('import_stocks.remove');
+
+    // Approvals
+    Route::get('/approvals', [SupplierController::class, 'approvals'])->name('approvals.index');
+    Route::post('/approvals/{id}/approve', [SupplierController::class, 'approveRequest'])->name('approvals.approve');
+    Route::post('/approvals/{id}/reject', [SupplierController::class, 'rejectRequest'])->name('approvals.reject');
+
+    // Reports & Exports
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [ScmReportController::class, 'index'])->name('index');
+        Route::get('/suppliers', [ScmReportController::class, 'exportSuppliers'])->name('suppliers');
+        Route::get('/purchase-orders', [ScmReportController::class, 'exportPurchaseOrders'])->name('purchase-orders');
+    });
+});
+
+// CRM Routes
+Route::middleware(['auth'])->prefix('crm')->name('crm.')->group(function () {
+    // Customers
+    Route::resource('customers', CustomerController::class);
+    Route::post('customers/{id}/message', [CustomerController::class, 'sendMessage'])->name('customers.message');
+
+    // Segments
+    Route::resource('segments', SegmentController::class);
+
+    // Interactions
+    Route::resource('interactions', InteractionController::class);
+    Route::get('/communication-history', [InteractionController::class, 'history'])->name('communication_history');
+
+    // Loyalty
+    Route::prefix('loyalty')->name('loyalty.')->group(function () {
+        Route::get('/', [LoyaltyController::class, 'index'])->name('index');
+        Route::get('/programs', [LoyaltyController::class, 'programs'])->name('programs.index');
+        Route::post('/programs', [LoyaltyController::class, 'storeProgram'])->name('programs.store');
+        Route::post('/adjust-points', [LoyaltyController::class, 'adjustPoints'])->name('adjust_points');
+    });
+
+    // Automation
+    Route::resource('automations', AutomationController::class);
+
+    // Analytics
+    Route::get('/analytics', [CrmAnalyticsController::class, 'index'])->name('analytics');
+});
+
+// Marketing Routes
+Route::middleware(['auth'])->prefix('marketing')->name('marketing.')->group(function () {
+    Route::resource('campaigns', CampaignController::class);
+
+    Route::get('/connections', [PlatformConnectionController::class, 'index'])->name('connections.index');
+    Route::get('/connections/{platform}/connect', [PlatformConnectionController::class, 'connect'])->name('connections.connect');
+    Route::get('/connections/callback', [PlatformConnectionController::class, 'callback'])->name('connections.callback');
+    Route::delete('/connections/{id}', [PlatformConnectionController::class, 'disconnect'])->name('connections.disconnect');
+
+    Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+    Route::post('/subscriptions', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');
+    Route::get('/subscriptions/callback', [SubscriptionController::class, 'callback'])->name('subscriptions.callback');
+});
+
+// Ecommerce Routes
+Route::middleware(['auth'])->prefix('ecommerce')->name('ecommerce.')->group(function () {
+    Route::resource('stores', EcommerceStoreController::class);
+
+    Route::prefix('stores/{store}')->group(function () {
+        Route::resource('pages', EcommercePageController::class);
+        Route::get('pages/{page}/builder', [EcommercePageController::class, 'builder'])->name('pages.builder');
+        Route::post('pages/{page}/builder/save', [EcommercePageController::class, 'saveContent'])->name('pages.save-content');
+        Route::get('templates', [EcommercePageController::class, 'templates'])->name('templates.index');
+        Route::post('templates/apply', [EcommercePageController::class, 'applyTemplate'])->name('templates.apply');
+
+        Route::get('orders', [EcommerceOrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{order}', [EcommerceOrderController::class, 'show'])->name('orders.show');
+        Route::post('orders/{order}/status', [EcommerceOrderController::class, 'updateStatus'])->name('orders.update-status');
+
+        // Reviews
+        Route::get('reviews', [EcommerceReviewController::class, 'index'])->name('reviews.index');
+        Route::post('reviews/{review}/approve', [EcommerceReviewController::class, 'approve'])->name('reviews.approve');
+        Route::post('reviews/{review}/reject', [EcommerceReviewController::class, 'reject'])->name('reviews.reject');
+        Route::delete('reviews/{review}', [EcommerceReviewController::class, 'destroy'])->name('reviews.destroy');
+
+        // Analytics
+        Route::get('analytics', [EcommerceAnalyticsController::class, 'index'])->name('analytics');
+    });
+});
+
+// Public Storefront Routes
+Route::prefix('s/{store}')->name('storefront.')->group(function () {
+    Route::get('/', [EcommercePageController::class, 'show'])->name('home');
+    Route::get('/p/{page}', [EcommercePageController::class, 'show'])->name('page');
+
+    // Customer Auth
+    Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [CustomerAuthController::class, 'login']);
+    Route::get('/register', [CustomerAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [CustomerAuthController::class, 'register']);
+    Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
+
+    // Checkout
+    Route::post('/checkout', [EcommerceCheckoutController::class, 'process'])->name('checkout');
+});
+
+// Reporting Routes
+Route::middleware(['auth'])->prefix('reporting')->name('reporting.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Reporting\ReportingController::class, 'index'])->name('index');
+    Route::get('/dashboards', [\App\Http\Controllers\Reporting\ReportingController::class, 'dashboards'])->name('dashboards');
+    Route::get('/reports', [\App\Http\Controllers\Reporting\ReportingController::class, 'reports'])->name('reports');
+    Route::get('/kpi', [\App\Http\Controllers\Reporting\ReportingController::class, 'kpi'])->name('kpi');
+    Route::get('/audit-logs', [\App\Http\Controllers\Reporting\ReportingController::class, 'auditLogs'])->name('audit_logs');
 });
 
 Route::get('/ui', function () {

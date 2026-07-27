@@ -10,7 +10,7 @@ class CustomerInteraction extends Model
     use HasUuidV5;
 
     protected $fillable = [
-        'customer_id', 'interaction_type', 'channel', 'subject',
+        'tenant_id', 'customer_id', 'interaction_type', 'channel', 'subject',
         'content', 'created_by', 'follow_up_date', 'resolved_at',
     ];
 

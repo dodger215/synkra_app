@@ -5,25 +5,25 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-tooltip-container {{ $class }}">
-  <button type="button" class="synkra-tooltip-trigger">
+<div class="flowexa-tooltip-container {{ $class }}">
+  <button type="button" class="flowexa-tooltip-trigger">
     @if($icon)
       <i class="{{ $icon }}"></i>
     @endif
     <span>{{ $text }}</span>
   </button>
-  <div role="tooltip" class="synkra-tooltip">
+  <div role="tooltip" class="flowexa-tooltip">
     {!! $tooltip !!}
   </div>
 </div>
 
 <style>
-.synkra-tooltip-container {
+.flowexa-tooltip-container {
   position: relative;
   display: inline-block;
 }
 
-.synkra-tooltip-trigger {
+.flowexa-tooltip-trigger {
   background: var(--surface-secondary);
   color: var(--text-primary);
   border: 1px solid var(--border);
@@ -38,13 +38,13 @@
   gap: 6px;
 }
 
-.synkra-tooltip-trigger:hover {
+.flowexa-tooltip-trigger:hover {
   background: var(--surface);
   border-color: var(--primary);
   transform: translateY(-1px);
 }
 
-.synkra-tooltip {
+.flowexa-tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
@@ -64,7 +64,7 @@
   pointer-events: none;
 }
 
-.synkra-tooltip::after {
+.flowexa-tooltip::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -75,7 +75,7 @@
   border-color: var(--border) transparent transparent transparent;
 }
 
-.synkra-tooltip-container:hover .synkra-tooltip {
+.flowexa-tooltip-container:hover .flowexa-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);

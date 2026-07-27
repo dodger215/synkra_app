@@ -1,17 +1,17 @@
 @props(['id', 'width' => '260px', 'header' => null])
 
-<div class="synkra-ui-dropdown-wrapper" onclick="toggleSynkraUiDropdown(event, '{{ $id }}')">
+<div class="flowexa-ui-dropdown-wrapper" onclick="toggleflowexaUiDropdown(event, '{{ $id }}')">
     {{ $trigger }}
-    
-    <div class="synkra-ui-dropdown-content" id="{{ $id }}" style="width: {{ $width }};">
+
+    <div class="flowexa-ui-dropdown-content" id="{{ $id }}" style="width: {{ $width }};">
         @if($header)
-            <div class="synkra-ui-dropdown-header">
+            <div class="flowexa-ui-dropdown-header">
                 {{ $header }}
             </div>
-            <div class="synkra-ui-dropdown-divider"></div>
+            <div class="flowexa-ui-dropdown-divider"></div>
         @endif
-        
-        <div class="synkra-ui-dropdown-body">
+
+        <div class="flowexa-ui-dropdown-body">
             {{ $slot }}
         </div>
     </div>
@@ -19,12 +19,12 @@
 
 @once
 <style>
-.synkra-ui-dropdown-wrapper {
+.flowexa-ui-dropdown-wrapper {
   position: relative;
   display: inline-block;
 }
 
-.synkra-ui-dropdown-content {
+.flowexa-ui-dropdown-content {
   position: absolute;
   top: calc(100% + 15px);
   right: 0;
@@ -43,25 +43,25 @@
   cursor: default;
 }
 
-.synkra-ui-dropdown-content.active {
+.flowexa-ui-dropdown-content.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.synkra-ui-dropdown-header {
+.flowexa-ui-dropdown-header {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
 }
 
-.synkra-ui-dropdown-divider {
+.flowexa-ui-dropdown-divider {
   height: 1px;
   background: var(--border);
   margin: 0.5rem 0;
 }
 
-.synkra-ui-dropdown-item {
+.flowexa-ui-dropdown-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -80,22 +80,22 @@
   width: 100%;
 }
 
-.synkra-ui-dropdown-item:hover {
+.flowexa-ui-dropdown-item:hover {
   background: var(--surface-secondary);
   color: var(--primary);
 }
 
-.synkra-ui-dropdown-item.danger:hover {
+.flowexa-ui-dropdown-item.danger:hover {
   color: var(--danger);
   background: rgba(239, 68, 68, 0.1);
 }
 </style>
 
 <script>
-function toggleSynkraUiDropdown(e, dropdownId) {
+function toggleflowexaUiDropdown(e, dropdownId) {
     e.stopPropagation();
-    
-    document.querySelectorAll('.synkra-ui-dropdown-content').forEach(el => {
+
+    document.querySelectorAll('.flowexa-ui-dropdown-content').forEach(el => {
         if (el.id !== dropdownId) el.classList.remove('active');
     });
 
@@ -106,9 +106,9 @@ function toggleSynkraUiDropdown(e, dropdownId) {
 }
 
 document.addEventListener('click', function(e) {
-    const isClickInsideDropdown = e.target.closest('.synkra-ui-dropdown-content');
+    const isClickInsideDropdown = e.target.closest('.flowexa-ui-dropdown-content');
     if (!isClickInsideDropdown) {
-        document.querySelectorAll('.synkra-ui-dropdown-content').forEach(el => {
+        document.querySelectorAll('.flowexa-ui-dropdown-content').forEach(el => {
             el.classList.remove('active');
         });
     }

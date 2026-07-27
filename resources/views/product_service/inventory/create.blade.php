@@ -1,6 +1,6 @@
 <x-layouts.app title="Create Product">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:1100px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:1100px;margin:0 auto;">
             <div style="margin-bottom:1.5rem;">
                 <a href="{{ route('product_service.products.index') }}" style="color:var(--text-secondary);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Inventory
@@ -26,7 +26,7 @@
                     <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                         {{-- Basic Info --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Basic Information</h3>
                             <div style="display:flex;flex-direction:column;gap:1.1rem;">
                                 <div>
@@ -70,7 +70,7 @@
                         </div>
 
                         {{-- Pricing --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Pricing</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
                                 <div>
@@ -98,7 +98,7 @@
                         </div>
 
                         {{-- Inventory Limits --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Inventory Limits</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                                 <div>
@@ -133,7 +133,7 @@
                         </div>
 
                         {{-- Dimensions --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Dimensions (Optional)</h3>
                             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
                                 <div>
@@ -161,7 +161,7 @@
                         </div>
 
                         {{-- Attributes --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Product Attributes</h3>
                                 <button type="button" onclick="addAttributeField()" style="background:var(--surface-secondary);border:1px solid var(--border);border-radius:6px;padding:.3rem .75rem;font-size:.75rem;color:var(--primary);cursor:pointer;">
@@ -187,7 +187,7 @@
                         </div>
 
                         {{-- Image Upload --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Product Images</h3>
                                 <x-ui.tooltip text="?" tooltip="Upload up to 8 images (JPEG, PNG, WebP). The first image is used as the primary thumbnail." />
@@ -213,7 +213,7 @@
                     <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                         {{-- Organisation --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Organisation</h3>
 
                             <div style="margin-bottom:1.1rem;">
@@ -239,7 +239,7 @@
                                     @endforeach
                                 </select>
 
-                                <button type="button" onclick="openSynkraModal('createCategoryModal')"
+                                <button type="button" onclick="openflowexaModal('createCategoryModal')"
                                         style="width:100%;padding:.55rem 1rem;background:var(--surface-secondary);border:1px dashed var(--border);border-radius:8px;color:var(--primary);font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;">
                                     <i class="fa-solid fa-plus"></i> Create New Category
                                 </button>
@@ -255,7 +255,7 @@
                         </div>
 
                         {{-- Physical --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1.25rem;font-size:1.05rem;color:var(--headings);">Physical Details</h3>
                             <div style="display:flex;flex-direction:column;gap:1rem;">
                                 <div>
@@ -276,7 +276,7 @@
                         </div>
 
                         {{-- Status --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:1rem;">
                                 <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Status</h3>
                                 <x-ui.tooltip text="?" tooltip="Inactive products are hidden from POS and ordering flows." />
@@ -288,7 +288,7 @@
                         </div>
 
                         {{-- Initial Stock Import toggle --}}
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
                                 <div>
                                     <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
@@ -305,7 +305,7 @@
                         </div>
 
                         {{-- Import to Stock panel --}}
-                        <div id="stockImportPanel" class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--primary);display:none;">
+                        <div id="stockImportPanel" class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--primary);display:none;">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                                 <div style="display:flex;align-items:center;gap:.5rem;">
                                     <i class="fa-solid fa-boxes-stacked" style="color:var(--primary);"></i>
@@ -334,7 +334,7 @@
                                         @endforeach
                                     </select>
 
-                                    <button type="button" onclick="openSynkraModal('createLocationModal')"
+                                    <button type="button" onclick="openflowexaModal('createLocationModal')"
                                             style="width:100%;padding:.55rem 1rem;background:var(--surface-secondary);border:1px dashed var(--border);border-radius:8px;color:var(--primary);font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;">
                                         <i class="fa-solid fa-plus"></i> Create New Location
                                     </button>
@@ -392,7 +392,7 @@
                 </div>
             </form>
             <x-slot:footer>
-                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeSynkraModal('createCategoryModal')">Cancel</button>
+                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeflowexaModal('createCategoryModal')">Cancel</button>
                 <button type="button" id="createCategorySubmitBtn" style="background:var(--primary);border:none;color:white;cursor:pointer;padding:.5rem 1rem;border-radius:8px;font-weight:600;" onclick="submitCategoryModal()">Save Category</button>
             </x-slot:footer>
         </x-ui.modal>
@@ -403,7 +403,7 @@
                 <div id="createLocationError" style="display:none;margin-top:1rem;padding:.75rem 1rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:8px;color:var(--danger);font-size:.85rem;"></div>
             </form>
             <x-slot:footer>
-                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeSynkraModal('createLocationModal')">Cancel</button>
+                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeflowexaModal('createLocationModal')">Cancel</button>
                 <button type="button" id="createLocationSubmitBtn" style="background:var(--primary);border:none;color:white;cursor:pointer;padding:.5rem 1rem;border-radius:8px;font-weight:600;" onclick="submitLocationModal()">Save Location</button>
             </x-slot:footer>
         </x-ui.modal>
@@ -572,7 +572,7 @@
                 if (emptyState) emptyState.style.display = 'none';
 
                 form.reset();
-                closeSynkraModal('createCategoryModal');
+                closeflowexaModal('createCategoryModal');
             } catch (e) {
                 if (errorEl) { errorEl.textContent = 'Network error. Please try again.'; errorEl.style.display = 'block'; }
             } finally {
@@ -622,7 +622,7 @@
                 form.reset();
                 const activeCheckbox = form.querySelector('[name="is_active"]');
                 if (activeCheckbox) activeCheckbox.checked = true;
-                closeSynkraModal('createLocationModal');
+                closeflowexaModal('createLocationModal');
             } catch (e) {
                 if (errorEl) { errorEl.textContent = 'Network error. Please try again.'; errorEl.style.display = 'block'; }
             } finally {

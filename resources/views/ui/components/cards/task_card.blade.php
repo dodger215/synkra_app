@@ -10,41 +10,41 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-task-card {{ $class }}" draggable="true">
-  <div class="synkra-task-header">
-    <span class="synkra-task-tag" style="background-color: {{ $tagColor }}">{{ $tag }}</span>
-    <button class="synkra-task-options" aria-label="Task options">
+<div class="flowexa-task-card {{ $class }}" draggable="true">
+  <div class="flowexa-task-header">
+    <span class="flowexa-task-tag" style="background-color: {{ $tagColor }}">{{ $tag }}</span>
+    <button class="flowexa-task-options" aria-label="Task options">
       <i class="fa-solid fa-ellipsis"></i>
     </button>
   </div>
-  
-  <h4 class="synkra-task-title">{{ $title }}</h4>
-  <p class="synkra-task-desc">{{ $description }}</p>
-  
-  <div class="synkra-task-footer">
-    <div class="synkra-task-stats">
+
+  <h4 class="flowexa-task-title">{{ $title }}</h4>
+  <p class="flowexa-task-desc">{{ $description }}</p>
+
+  <div class="flowexa-task-footer">
+    <div class="flowexa-task-stats">
       @if($date)
-        <div class="synkra-task-stat" title="Due Date">
+        <div class="flowexa-task-stat" title="Due Date">
           <i class="fa-regular fa-calendar"></i>
           <span>{{ $date }}</span>
         </div>
       @endif
-      
-      <div class="synkra-task-stat" title="Comments">
+
+      <div class="flowexa-task-stat" title="Comments">
         <i class="fa-regular fa-comment"></i>
         <span>{{ $commentsCount }}</span>
       </div>
-      
-      <div class="synkra-task-stat" title="Attachments">
+
+      <div class="flowexa-task-stat" title="Attachments">
         <i class="fa-solid fa-paperclip"></i>
         <span>{{ $attachmentsCount }}</span>
       </div>
     </div>
-    
+
     @if(!empty($assignees))
-      <div class="synkra-task-assignees">
+      <div class="flowexa-task-assignees">
         @foreach(array_slice($assignees, 0, 3) as $assignee)
-          <span class="synkra-task-avatar" title="{{ $assignee['name'] ?? 'Assignee' }}">
+          <span class="flowexa-task-avatar" title="{{ $assignee['name'] ?? 'Assignee' }}">
             @if(isset($assignee['avatar']) && $assignee['avatar'])
               <img src="{{ $assignee['avatar'] }}" alt="{{ $assignee['name'] ?? 'Avatar' }}">
             @else
@@ -53,7 +53,7 @@
           </span>
         @endforeach
         @if(count($assignees) > 3)
-          <span class="synkra-task-avatar synkra-task-avatar-more">
+          <span class="flowexa-task-avatar flowexa-task-avatar-more">
             +{{ count($assignees) - 3 }}
           </span>
         @endif
@@ -63,7 +63,7 @@
 </div>
 
 <style>
-.synkra-task-card {
+.flowexa-task-card {
   position: relative;
   background-color: var(--surface);
   border: 1px solid var(--border);
@@ -78,17 +78,17 @@
   color: var(--body-text);
 }
 
-.synkra-task-card:hover {
+.flowexa-task-card:hover {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
   border-color: var(--primary);
   transform: translateY(-2px);
 }
 
-.synkra-task-card:active {
+.flowexa-task-card:active {
   cursor: grabbing;
 }
 
-.synkra-task-header {
+.flowexa-task-header {
   width: 100%;
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@
   margin-bottom: 0.75rem;
 }
 
-.synkra-task-tag {
+.flowexa-task-tag {
   border-radius: 100px;
   padding: 3px 10px;
   font-size: 11px;
@@ -104,7 +104,7 @@
   color: #ffffff;
 }
 
-.synkra-task-options {
+.flowexa-task-options {
   background: transparent;
   border: 0;
   color: var(--text-secondary);
@@ -115,26 +115,26 @@
   transition: background-color 0.2s;
 }
 
-.synkra-task-options:hover {
+.flowexa-task-options:hover {
   background-color: var(--surface-secondary);
   color: var(--text-primary);
 }
 
-.synkra-task-title {
+.flowexa-task-title {
   font-size: 1rem;
   font-weight: 600;
   color: var(--headings);
   margin: 0 0 0.5rem 0;
 }
 
-.synkra-task-desc {
+.flowexa-task-desc {
   font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0 0 1.25rem 0;
   line-height: 1.5;
 }
 
-.synkra-task-footer {
+.flowexa-task-footer {
   width: 100%;
   display: flex;
   align-items: center;
@@ -143,7 +143,7 @@
   padding-top: 0.75rem;
 }
 
-.synkra-task-stats {
+.flowexa-task-stats {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -151,23 +151,23 @@
   font-size: 12px;
 }
 
-.synkra-task-stat {
+.flowexa-task-stat {
   display: flex;
   align-items: center;
   gap: 4px;
   cursor: pointer;
 }
 
-.synkra-task-stat:hover {
+.flowexa-task-stat:hover {
   color: var(--text-primary);
 }
 
-.synkra-task-assignees {
+.flowexa-task-assignees {
   display: flex;
   align-items: center;
 }
 
-.synkra-task-avatar {
+.flowexa-task-avatar {
   height: 28px;
   width: 28px;
   background-color: var(--primary);
@@ -184,18 +184,18 @@
   transition: transform 0.2s;
 }
 
-.synkra-task-avatar:hover {
+.flowexa-task-avatar:hover {
   transform: translateY(-4px);
   z-index: 10;
 }
 
-.synkra-task-avatar img {
+.flowexa-task-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.synkra-task-avatar-more {
+.flowexa-task-avatar-more {
   background-color: var(--surface-secondary);
   color: var(--text-secondary);
   font-weight: 600;

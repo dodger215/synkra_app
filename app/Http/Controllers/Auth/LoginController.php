@@ -35,8 +35,8 @@ class LoginController extends Controller
                     $response = \Illuminate\Support\Facades\Http::withHeaders([
                         'api-key' => env('ARKESEL_API_KEY', 'YOUR_ARKESEL_API_KEY'),
                     ])->post('https://sms.arkesel.com/api/v2/sms/send', [
-                        'sender' => env('ARKESEL_SENDER_ID', 'SYNKRA'),
-                        'message' => "Synkra Security: Your verification code is: {$code}. It expires in 15 minutes.",
+                        'sender' => env('ARKESEL_SENDER_ID', 'flowexa'),
+                        'message' => "flowexa Security: Your verification code is: {$code}. It expires in 15 minutes.",
                         'recipients' => [$user->phone_number],
                     ]);
 
@@ -54,14 +54,14 @@ class LoginController extends Controller
                 $target = '';
                 if ($user->mfa_type === 'sms') {
                     $phone = $user->phone_number;
-                    $obfuscated = strlen($phone) > 5 
+                    $obfuscated = strlen($phone) > 5
                         ? substr($phone, 0, 3) . str_repeat('*', strlen($phone) - 5) . substr($phone, -2)
                         : '***';
                     $target = "phone ({$obfuscated})";
                 } else {
                     $email = $user->email;
                     $parts = explode('@', $email);
-                    $obfuscated = count($parts) === 2 
+                    $obfuscated = count($parts) === 2
                         ? substr($parts[0], 0, 2) . str_repeat('*', max(0, strlen($parts[0]) - 2)) . '@' . $parts[1]
                         : '***';
                     $target = "email ({$obfuscated})";

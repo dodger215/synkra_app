@@ -1,67 +1,89 @@
 @php
-
   $menu = $sidebarMenu ?? [];
+  $currentPath = trim(request()->path(), '/');
 @endphp
 
-<div class="synkra-sidebar-overlay" id="synkraSidebarOverlay" onclick="toggleMobileSidebar()"></div>
-<aside class="synkra-sidebar" id="synkraSidebar">
-  <div class="synkra-sidebar-header">
-    <div class="synkra-sidebar-logo">
+<div class="flowexa-sidebar-overlay" id="flowexaSidebarOverlay" onclick="toggleMobileSidebar()"></div>
+<aside class="flowexa-sidebar" id="flowexaSidebar">
+  <div class="flowexa-sidebar-header">
+    <div class="flowexa-sidebar-logo">
       <i class="fa-solid fa-cube text-primary"></i>
-      <span class="synkra-sidebar-brand">Synkra</span>
+      <span class="flowexa-sidebar-brand">flowexa</span>
     </div>
     <!-- The hamburger controls the view of the slide to show text with icon or icon with no text -->
-    <x-ui.hamburger id="sidebarToggleBtn" onChange="toggleSynkraSidebar(this.checked)" />
+    <x-ui.hamburger id="sidebarToggleBtn" onChange="toggleflowexaSidebar(this.checked)" />
   </div>
 
-  <nav class="synkra-sidebar-nav">
+  <nav class="flowexa-sidebar-nav">
     @foreach($menu as $item)
       @if(isset($item['subitems']))
-        <div class="synkra-sidebar-group">
-          <div class="synkra-sidebar-link" onclick="toggleSubmenu(this)">
-            <div class="synkra-sidebar-link-content">
-              <i class="{{ $item['icon'] }}"></i>
-              <span class="synkra-sidebar-text">{{ $item['label'] }}</span>
+        <div class="flowexa-sidebar-group">
+          <div class="flowexa-sidebar-link" onclick="toggleSubmenu(this)">
+            <div class="flowexa-sidebar-link-content">
+              <span class="flowexa-sidebar-icon-wrap">
+                <i class="{{ $item['icon'] }}"></i>
+                @if(!empty($item['indicator']['count']))
+                  @php
+                    $indicatorTooltip = collect([
+                        !empty($item['indicator']['critical']) ? $item['indicator']['critical'] . ' critical' : null,
+                        !empty($item['indicator']['low']) ? $item['indicator']['low'] . ' low' : null,
+                        !empty($item['indicator']['active_alerts']) ? $item['indicator']['active_alerts'] . ' active' : null,
+                    ])->filter()->implode(', ');
+                  @endphp
+                  <span class="flowexa-sidebar-indicator-dot flowexa-sidebar-indicator-dot-{{ $item['indicator']['variant'] ?? 'info' }}" title="{{ $indicatorTooltip ?: $item['indicator']['count'] . ' alert(s)' }}"></span>
+                @endif
+              </span>
+              <span class="flowexa-sidebar-text">{{ $item['label'] }}</span>
+              @if(!empty($item['indicator']))
+                @include('ui.components.navigation.sidebar-indicator', ['indicator' => $item['indicator']])
+              @endif
             </div>
-            <i class="fa-solid fa-chevron-down synkra-sidebar-chevron"></i>
+            <i class="fa-solid fa-chevron-down flowexa-sidebar-chevron"></i>
           </div>
-          <div class="synkra-sidebar-submenu">
+          <div class="flowexa-sidebar-submenu">
             @foreach($item['subitems'] as $sub)
-              <a href="{{ $sub['url'] }}" class="synkra-sidebar-sublink">
-                <span class="synkra-sidebar-text">{{ $sub['label'] }}</span>
+              @php
+                $subPath = trim(parse_url($sub['url'], PHP_URL_PATH) ?? '', '/');
+                $isActive = $subPath !== '' && $subPath !== '#' && ($currentPath === $subPath || str_starts_with($currentPath, $subPath . '/'));
+              @endphp
+              <a href="{{ $sub['url'] }}" class="flowexa-sidebar-sublink {{ $isActive ? 'flowexa-sidebar-sublink-active' : '' }}">
+                <span class="flowexa-sidebar-text">{{ $sub['label'] }}</span>
+                @if(!empty($sub['indicator']))
+                  @include('ui.components.navigation.sidebar-indicator', ['indicator' => $sub['indicator']])
+                @endif
               </a>
             @endforeach
           </div>
         </div>
       @else
-        <a href="{{ $item['url'] }}" class="synkra-sidebar-link">
-          <div class="synkra-sidebar-link-content">
+        <a href="{{ $item['url'] }}" class="flowexa-sidebar-link">
+          <div class="flowexa-sidebar-link-content">
             <i class="{{ $item['icon'] }}"></i>
-            <span class="synkra-sidebar-text">{{ $item['label'] }}</span>
+            <span class="flowexa-sidebar-text">{{ $item['label'] }}</span>
           </div>
         </a>
       @endif
     @endforeach
   </nav>
 
-  <div class="synkra-sidebar-footer">
+  <div class="flowexa-sidebar-footer">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
       @csrf
     </form>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="synkra-sidebar-link">
-      <div class="synkra-sidebar-link-content">
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flowexa-sidebar-link">
+      <div class="flowexa-sidebar-link-content">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span class="synkra-sidebar-text">Logout</span>
+        <span class="flowexa-sidebar-text">Logout</span>
       </div>
     </a>
   </div>
 </aside>
 
 <script>
-if (typeof toggleSynkraSidebar !== 'function') {
-  function toggleSynkraSidebar(isCollapsed) {
-    const sidebar = document.getElementById('synkraSidebar');
-    const mainContent = document.getElementById('synkraMainContent');
+if (typeof toggleflowexaSidebar !== 'function') {
+  function toggleflowexaSidebar(isCollapsed) {
+    const sidebar = document.getElementById('flowexaSidebar');
+    const mainContent = document.getElementById('flowexaMainContent');
     if (isCollapsed) {
       sidebar.classList.add('collapsed');
       if (mainContent) mainContent.classList.add('expanded');
@@ -72,30 +94,30 @@ if (typeof toggleSynkraSidebar !== 'function') {
   }
 
   function toggleMobileSidebar() {
-    const sidebar = document.getElementById('synkraSidebar');
-    const overlay = document.getElementById('synkraSidebarOverlay');
+    const sidebar = document.getElementById('flowexaSidebar');
+    const overlay = document.getElementById('flowexaSidebarOverlay');
     if (sidebar) sidebar.classList.toggle('mobile-open');
     if (overlay) overlay.classList.toggle('mobile-open');
   }
 
   function toggleSubmenu(el) {
-    const sidebar = document.getElementById('synkraSidebar');
+    const sidebar = document.getElementById('flowexaSidebar');
     // If sidebar is collapsed, open it before showing submenu
     if (sidebar.classList.contains('collapsed')) {
       const toggleBtn = document.getElementById('sidebarToggleBtn');
       if(toggleBtn) {
         toggleBtn.checked = false;
-        toggleSynkraSidebar(false);
+        toggleflowexaSidebar(false);
       }
     }
-    const group = el.closest('.synkra-sidebar-group');
+    const group = el.closest('.flowexa-sidebar-group');
     group.classList.toggle('open');
   }
 }
 </script>
 
 <style>
-.synkra-sidebar {
+.flowexa-sidebar {
   width: 260px;
   background-color: var(--surface);
   border: none;
@@ -111,11 +133,11 @@ if (typeof toggleSynkraSidebar !== 'function') {
   box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); /* Deep premium shadow */
 }
 
-.synkra-sidebar.collapsed {
+.flowexa-sidebar.collapsed {
   width: 80px;
 }
 
-.synkra-sidebar-overlay {
+.flowexa-sidebar-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -126,23 +148,23 @@ if (typeof toggleSynkraSidebar !== 'function') {
 }
 
 @media (max-width: 768px) {
-  .synkra-sidebar {
+  .flowexa-sidebar {
     transform: translateX(-100%);
     width: 260px !important;
   }
-  .synkra-sidebar.mobile-open {
+  .flowexa-sidebar.mobile-open {
     transform: translateX(0);
   }
-  .synkra-sidebar-overlay.mobile-open {
+  .flowexa-sidebar-overlay.mobile-open {
     display: block;
   }
   /* Hide the desktop collapse hamburger on mobile */
-  .synkra-sidebar-header > *:nth-child(2) {
+  .flowexa-sidebar-header > *:nth-child(2) {
     display: none;
   }
 }
 
-.synkra-sidebar-header {
+.flowexa-sidebar-header {
   height: 70px;
   display: flex;
   align-items: center;
@@ -151,7 +173,7 @@ if (typeof toggleSynkraSidebar !== 'function') {
   border-bottom: none;
 }
 
-.synkra-sidebar-logo {
+.flowexa-sidebar-logo {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -162,26 +184,26 @@ if (typeof toggleSynkraSidebar !== 'function') {
   white-space: nowrap;
 }
 
-.synkra-sidebar-logo i {
+.flowexa-sidebar-logo i {
   color: var(--primary);
   font-size: 1.5rem;
   flex-shrink: 0;
 }
 
-.synkra-sidebar.collapsed .synkra-sidebar-brand {
+.flowexa-sidebar.collapsed .flowexa-sidebar-brand {
   opacity: 0;
   display: none;
 }
 
-.synkra-sidebar.collapsed .synkra-sidebar-header {
+.flowexa-sidebar.collapsed .flowexa-sidebar-header {
   justify-content: center;
   padding: 0;
 }
-.synkra-sidebar.collapsed .synkra-sidebar-logo {
+.flowexa-sidebar.collapsed .flowexa-sidebar-logo {
   display: none;
 }
 
-.synkra-sidebar-nav {
+.flowexa-sidebar-nav {
   padding: 1.5rem 1rem;
   flex-grow: 1;
   overflow-y: auto;
@@ -192,15 +214,15 @@ if (typeof toggleSynkraSidebar !== 'function') {
 }
 
 /* Hide scrollbar for clean look */
-.synkra-sidebar-nav::-webkit-scrollbar {
+.flowexa-sidebar-nav::-webkit-scrollbar {
   width: 4px;
 }
-.synkra-sidebar-nav::-webkit-scrollbar-thumb {
+.flowexa-sidebar-nav::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
 }
 
-.synkra-sidebar-link {
+.flowexa-sidebar-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -215,13 +237,95 @@ if (typeof toggleSynkraSidebar !== 'function') {
   font-weight: 500;
 }
 
-.synkra-sidebar-link-content {
+.flowexa-sidebar-link-content {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex: 1;
+  min-width: 0;
 }
 
-.synkra-sidebar-link i {
+.flowexa-sidebar-icon-wrap {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.flowexa-sidebar-indicator-dot {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+}
+
+.flowexa-sidebar-indicator-dot-danger { background: #ef4444; }
+.flowexa-sidebar-indicator-dot-warning { background: #f59e0b; }
+.flowexa-sidebar-indicator-dot-info { background: #3b82f6; }
+
+.flowexa-sidebar-item-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.flowexa-sidebar-indicator-group {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.flowexa-sidebar-indicator-numbers {
+  display: inline-flex;
+  align-items: center;
+  gap: .2rem;
+}
+
+.flowexa-sidebar-indicator-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: .62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.flowexa-sidebar-indicator-num-danger {
+  background: rgba(239, 68, 68, .15);
+  color: #dc2626;
+}
+
+.flowexa-sidebar-indicator-num-warning {
+  background: rgba(245, 158, 11, .15);
+  color: #d97706;
+}
+
+.flowexa-sidebar-indicator-num-info {
+  background: rgba(59, 130, 246, .12);
+  color: #2563eb;
+}
+
+.flowexa-sidebar.collapsed .flowexa-sidebar-item-badge,
+.flowexa-sidebar.collapsed .flowexa-sidebar-indicator-numbers {
+  display: none;
+}
+
+.flowexa-sidebar.collapsed .flowexa-sidebar-indicator-dot {
+  display: block;
+}
+
+.flowexa-sidebar-link i {
   font-size: 1.1rem;
   width: 24px;
   text-align: center;
@@ -229,30 +333,30 @@ if (typeof toggleSynkraSidebar !== 'function') {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.synkra-sidebar-link:hover {
+.flowexa-sidebar-link:hover {
   background-color: var(--surface-secondary);
   color: var(--text-primary);
 }
 
-.synkra-sidebar-link:hover i {
+.flowexa-sidebar-link:hover i {
   color: var(--primary);
   transform: scale(1.1);
 }
 
-.synkra-sidebar.collapsed .synkra-sidebar-text,
-.synkra-sidebar.collapsed .synkra-sidebar-chevron {
+.flowexa-sidebar.collapsed .flowexa-sidebar-text,
+.flowexa-sidebar.collapsed .flowexa-sidebar-chevron {
   display: none;
 }
 
-.synkra-sidebar.collapsed .synkra-sidebar-link {
+.flowexa-sidebar.collapsed .flowexa-sidebar-link {
   justify-content: center;
   padding: 12px 0;
 }
-.synkra-sidebar.collapsed .synkra-sidebar-link-content {
+.flowexa-sidebar.collapsed .flowexa-sidebar-link-content {
   justify-content: center;
 }
 
-.synkra-sidebar-submenu {
+.flowexa-sidebar-submenu {
   display: none;
   flex-direction: column;
   padding-left: 45px;
@@ -260,20 +364,20 @@ if (typeof toggleSynkraSidebar !== 'function') {
   margin-top: 5px;
 }
 
-.synkra-sidebar-group.open .synkra-sidebar-submenu {
+.flowexa-sidebar-group.open .flowexa-sidebar-submenu {
   display: flex;
 }
 
-.synkra-sidebar-group.open .synkra-sidebar-chevron {
+.flowexa-sidebar-group.open .flowexa-sidebar-chevron {
   transform: rotate(180deg);
 }
 
-.synkra-sidebar-chevron {
+.flowexa-sidebar-chevron {
   font-size: 0.8rem !important;
   transition: transform 0.3s;
 }
 
-.synkra-sidebar-sublink {
+.flowexa-sidebar-sublink {
   color: var(--text-secondary);
   text-decoration: none;
   padding: 8px;
@@ -281,18 +385,28 @@ if (typeof toggleSynkraSidebar !== 'function') {
   border-radius: 6px;
   transition: all 0.2s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
 }
 
-.synkra-sidebar-sublink:hover {
+.flowexa-sidebar-sublink:hover {
   color: var(--primary);
   background: var(--surface-secondary);
 }
 
-.synkra-sidebar.collapsed .synkra-sidebar-submenu {
+.flowexa-sidebar-sublink-active {
+  color: var(--primary) !important;
+  background: rgba(249, 115, 22, 0.08);
+  font-weight: 600;
+}
+
+.flowexa-sidebar.collapsed .flowexa-sidebar-submenu {
   display: none !important;
 }
 
-.synkra-sidebar-footer {
+.flowexa-sidebar-footer {
   padding: 1rem;
   border-top: none;
 }

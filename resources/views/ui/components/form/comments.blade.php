@@ -15,35 +15,35 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-comments-card {{ $class }}">
-  <h3 class="synkra-comments-title">{{ $title }}</h3>
-  
-  <div class="synkra-comments-list">
+<div class="flowexa-comments-card {{ $class }}">
+  <h3 class="flowexa-comments-title">{{ $title }}</h3>
+
+  <div class="flowexa-comments-list">
     @foreach($comments as $comment)
-      <div class="synkra-comment-item">
-        <div class="synkra-comment-react">
-          <button type="button" class="synkra-react-btn" aria-label="Like comment">
+      <div class="flowexa-comment-item">
+        <div class="flowexa-comment-react">
+          <button type="button" class="flowexa-react-btn" aria-label="Like comment">
             <i class="fa-regular fa-heart"></i>
           </button>
-          <hr class="synkra-react-divider">
-          <span class="synkra-react-count">{{ $comment['likes'] ?? 0 }}</span>
+          <hr class="flowexa-react-divider">
+          <span class="flowexa-react-count">{{ $comment['likes'] ?? 0 }}</span>
         </div>
-        
-        <div class="synkra-comment-container">
-          <div class="synkra-comment-user">
-            <div class="synkra-comment-avatar {{ ($comment['online'] ?? false) ? 'synkra-user-online' : '' }}">
+
+        <div class="flowexa-comment-container">
+          <div class="flowexa-comment-user">
+            <div class="flowexa-comment-avatar {{ ($comment['online'] ?? false) ? 'flowexa-user-online' : '' }}">
               @if($comment['user_avatar'] ?? null)
                 <img src="{{ $comment['user_avatar'] }}" alt="{{ $comment['user_name'] }}">
               @else
                 <i class="fa-regular fa-user"></i>
               @endif
             </div>
-            <div class="synkra-comment-user-info">
-              <span class="synkra-user-name">{{ $comment['user_name'] }}</span>
-              <span class="synkra-comment-date">{{ $comment['date_time'] }}</span>
+            <div class="flowexa-comment-user-info">
+              <span class="flowexa-user-name">{{ $comment['user_name'] }}</span>
+              <span class="flowexa-comment-date">{{ $comment['date_time'] }}</span>
             </div>
           </div>
-          <p class="synkra-comment-body">
+          <p class="flowexa-comment-body">
             {{ $comment['content'] }}
           </p>
         </div>
@@ -51,19 +51,19 @@
     @endforeach
   </div>
 
-  <form action="{{ $submitUrl }}" method="POST" class="synkra-comment-form">
+  <form action="{{ $submitUrl }}" method="POST" class="flowexa-comment-form">
     @csrf
-    <div class="synkra-comment-textarea-wrapper">
+    <div class="flowexa-comment-textarea-wrapper">
       <textarea name="comment" placeholder="{{ $placeholder }}" required></textarea>
-      <div class="synkra-comment-form-toolbar">
-        <div class="synkra-comment-formatting">
+      <div class="flowexa-comment-form-toolbar">
+        <div class="flowexa-comment-formatting">
           <button type="button" title="Bold"><i class="fa-solid fa-bold"></i></button>
           <button type="button" title="Italic"><i class="fa-solid fa-italic"></i></button>
           <button type="button" title="Underline"><i class="fa-solid fa-underline"></i></button>
           <button type="button" title="Strikethrough"><i class="fa-solid fa-strikethrough"></i></button>
           <button type="button" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
         </div>
-        <button type="submit" class="synkra-comment-send" title="Send">
+        <button type="submit" class="flowexa-comment-send" title="Send">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
       </div>
@@ -72,7 +72,7 @@
 </div>
 
 <style>
-.synkra-comments-card {
+.flowexa-comments-card {
   width: 100%;
   max-width: 500px;
   background-color: var(--surface);
@@ -85,7 +85,7 @@
   flex-direction: column;
 }
 
-.synkra-comments-title {
+.flowexa-comments-title {
   padding: 1.25rem;
   border-bottom: 1px solid var(--divider);
   font-size: 1rem;
@@ -94,7 +94,7 @@
   margin: 0;
 }
 
-.synkra-comments-list {
+.flowexa-comments-list {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -103,13 +103,13 @@
   overflow-y: auto;
 }
 
-.synkra-comment-item {
+.flowexa-comment-item {
   display: grid;
   grid-template-columns: 40px 1fr;
   gap: 1rem;
 }
 
-.synkra-comment-react {
+.flowexa-comment-react {
   display: flex;
   flex-direction: column;
   background-color: var(--surface-secondary);
@@ -121,7 +121,7 @@
   height: fit-content;
 }
 
-.synkra-react-btn {
+.flowexa-react-btn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -134,37 +134,37 @@
   transition: color 0.2s, transform 0.2s;
 }
 
-.synkra-react-btn:hover {
+.flowexa-react-btn:hover {
   color: #ef4444;
   transform: scale(1.15);
 }
 
-.synkra-react-divider {
+.flowexa-react-divider {
   width: 60%;
   border: 0;
   border-top: 1px solid var(--border);
   margin: 4px 0;
 }
 
-.synkra-react-count {
+.flowexa-react-count {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.synkra-comment-container {
+.flowexa-comment-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.synkra-comment-user {
+.flowexa-comment-user {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.synkra-comment-avatar {
+.flowexa-comment-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -178,14 +178,14 @@
   position: relative;
 }
 
-.synkra-comment-avatar img {
+.flowexa-comment-avatar img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.synkra-user-online::after {
+.flowexa-user-online::after {
   content: '';
   width: 8px;
   height: 8px;
@@ -197,36 +197,36 @@
   right: 0;
 }
 
-.synkra-comment-user-info {
+.flowexa-comment-user-info {
   display: flex;
   flex-direction: column;
 }
 
-.synkra-user-name {
+.flowexa-user-name {
   font-weight: 700;
   font-size: 0.85rem;
   color: var(--headings);
 }
 
-.synkra-comment-date {
+.flowexa-comment-date {
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
-.synkra-comment-body {
+.flowexa-comment-body {
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--body-text);
   margin: 0;
 }
 
-.synkra-comment-form {
+.flowexa-comment-form {
   background-color: var(--surface-secondary);
   padding: 0.75rem;
   border-top: 1px solid var(--border);
 }
 
-.synkra-comment-textarea-wrapper {
+.flowexa-comment-textarea-wrapper {
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -235,7 +235,7 @@
   flex-direction: column;
 }
 
-.synkra-comment-textarea-wrapper textarea {
+.flowexa-comment-textarea-wrapper textarea {
   width: 100%;
   min-height: 60px;
   border: none;
@@ -248,7 +248,7 @@
   font-family: inherit;
 }
 
-.synkra-comment-form-toolbar {
+.flowexa-comment-form-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -257,12 +257,12 @@
   background-color: var(--surface-secondary);
 }
 
-.synkra-comment-formatting {
+.flowexa-comment-formatting {
   display: flex;
   gap: 0.5rem;
 }
 
-.synkra-comment-formatting button {
+.flowexa-comment-formatting button {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -277,12 +277,12 @@
   transition: all 0.2s;
 }
 
-.synkra-comment-formatting button:hover {
+.flowexa-comment-formatting button:hover {
   background-color: var(--surface);
   color: var(--text-primary);
 }
 
-.synkra-comment-send {
+.flowexa-comment-send {
   background-color: var(--primary);
   border: none;
   color: #ffffff;
@@ -297,7 +297,7 @@
   transition: background-color 0.2s, transform 0.2s;
 }
 
-.synkra-comment-send:hover {
+.flowexa-comment-send:hover {
   background-color: var(--primary-hover);
   transform: scale(1.05);
 }

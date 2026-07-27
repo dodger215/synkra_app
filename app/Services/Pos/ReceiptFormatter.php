@@ -17,7 +17,7 @@ class ReceiptFormatter
     /**
      * Build a full ESC/POS byte string for a given POS order.
      */
-    public function format(PosOrder $order, string $storeName = 'Synkra POS'): string
+    public function format(PosOrder $order, string $storeName = 'flowexa POS'): string
     {
         $esc = "\x1B";
         $gs = "\x1D";

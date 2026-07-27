@@ -14,20 +14,20 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-select-group {{ $class }}" id="group_{{ $id }}">
-  <label for="{{ $id }}" class="synkra-select-label">
+<div class="flowexa-select-group {{ $class }}" id="group_{{ $id }}">
+  <label for="{{ $id }}" class="flowexa-select-label">
     {{ $label }}
     @if($required)
-      <span class="synkra-select-required">*</span>
+      <span class="flowexa-select-required">*</span>
     @endif
   </label>
-  <div class="synkra-select-container {{ $isLoading ? 'synkra-select-loading' : '' }}">
+  <div class="flowexa-select-container {{ $isLoading ? 'flowexa-select-loading' : '' }}">
     <select
       name="{{ $name }}"
       id="{{ $id }}"
       {{ $required }}
       {{ $isLoading ? 'disabled' : '' }}
-      class="synkra-select-field"
+      class="flowexa-select-field"
       @if($onChange) onchange="{{ $onChange }}" @endif
     >
       @foreach($options as $option)
@@ -36,28 +36,28 @@
         </option>
       @endforeach
     </select>
-    <span class="synkra-select-arrow synkra-select-arrow-normal">
+    <span class="flowexa-select-arrow flowexa-select-arrow-normal">
       <i class="fa-solid fa-chevron-down"></i>
     </span>
-    <span class="synkra-select-arrow synkra-select-arrow-spinner">
+    <span class="flowexa-select-arrow flowexa-select-arrow-spinner">
       <i class="fa-solid fa-circle-notch fa-spin"></i>
     </span>
   </div>
 </div>
 
 <script>
-if (typeof toggleSynkraSelectLoading !== 'function') {
-  function toggleSynkraSelectLoading(selectId, isLoading) {
+if (typeof toggleflowexaSelectLoading !== 'function') {
+  function toggleflowexaSelectLoading(selectId, isLoading) {
     const group = document.getElementById('group_' + selectId);
     const select = document.getElementById(selectId);
     if (!group || !select) return;
-    
-    const container = group.querySelector('.synkra-select-container');
+
+    const container = group.querySelector('.flowexa-select-container');
     if (isLoading) {
-      container.classList.add('synkra-select-loading');
+      container.classList.add('flowexa-select-loading');
       select.setAttribute('disabled', 'true');
     } else {
-      container.classList.remove('synkra-select-loading');
+      container.classList.remove('flowexa-select-loading');
       select.removeAttribute('disabled');
     }
   }
@@ -65,7 +65,7 @@ if (typeof toggleSynkraSelectLoading !== 'function') {
 </script>
 
 <style>
-.synkra-select-group {
+.flowexa-select-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -74,7 +74,7 @@ if (typeof toggleSynkraSelectLoading !== 'function') {
   margin-bottom: 1rem;
 }
 
-.synkra-select-label {
+.flowexa-select-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--headings);
@@ -83,18 +83,18 @@ if (typeof toggleSynkraSelectLoading !== 'function') {
   gap: 2px;
 }
 
-.synkra-select-required {
+.flowexa-select-required {
   color: var(--danger);
 }
 
-.synkra-select-container {
+.flowexa-select-container {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.synkra-select-field {
+.flowexa-select-field {
   width: 100%;
   border-radius: 8px;
   padding: 0.625rem 2.25rem 0.625rem 0.75rem;
@@ -111,12 +111,12 @@ if (typeof toggleSynkraSelectLoading !== 'function') {
   cursor: pointer;
 }
 
-.synkra-select-field:focus {
+.flowexa-select-field:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
 
-.synkra-select-arrow {
+.flowexa-select-arrow {
   position: absolute;
   right: 0.85rem;
   color: var(--text-secondary);
@@ -127,22 +127,22 @@ if (typeof toggleSynkraSelectLoading !== 'function') {
   justify-content: center;
 }
 
-.synkra-select-arrow-spinner {
+.flowexa-select-arrow-spinner {
   display: none;
   color: var(--primary);
 }
 
 /* Loading State */
-.synkra-select-loading .synkra-select-field {
+.flowexa-select-loading .flowexa-select-field {
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-.synkra-select-loading .synkra-select-arrow-normal {
+.flowexa-select-loading .flowexa-select-arrow-normal {
   display: none;
 }
 
-.synkra-select-loading .synkra-select-arrow-spinner {
+.flowexa-select-loading .flowexa-select-arrow-spinner {
   display: flex;
 }
 </style>

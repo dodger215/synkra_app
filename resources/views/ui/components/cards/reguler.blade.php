@@ -4,24 +4,24 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-card {{ $class }}">
+<div class="flowexa-card {{ $class }}">
   @if($title || $subtitle)
-    <div class="synkra-card-header">
+    <div class="flowexa-card-header">
       @if($title)
-        <h3 class="synkra-card-title">{{ $title }}</h3>
+        <h3 class="flowexa-card-title">{{ $title }}</h3>
       @endif
       @if($subtitle)
-        <p class="synkra-card-subtitle">{{ $subtitle }}</p>
+        <p class="flowexa-card-subtitle">{{ $subtitle }}</p>
       @endif
     </div>
   @endif
-  <div class="synkra-card-body">
+  <div class="flowexa-card-body">
     {!! $slot ?? ($content ?? 'Card content goes here...') !!}
   </div>
 </div>
 
 <style>
-.synkra-card {
+.flowexa-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1rem;
@@ -31,26 +31,26 @@
   color: var(--body-text);
 }
 
-.synkra-card-header {
+.flowexa-card-header {
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--divider);
   padding-bottom: 0.75rem;
 }
 
-.synkra-card-title {
+.flowexa-card-title {
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--headings);
   margin: 0;
 }
 
-.synkra-card-subtitle {
+.flowexa-card-subtitle {
   font-size: 0.825rem;
   color: var(--text-secondary);
   margin: 0.25rem 0 0 0;
 }
 
-.synkra-card-body {
+.flowexa-card-body {
   font-size: 0.9rem;
   line-height: 1.5;
 }

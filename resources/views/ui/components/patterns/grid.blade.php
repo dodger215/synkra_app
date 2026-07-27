@@ -2,15 +2,15 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-grid-wrapper {{ $class }}">
-  <div class="synkra-grid-background"></div>
-  <div class="synkra-grid-content">
+<div class="flowexa-grid-wrapper {{ $class }}">
+  <div class="flowexa-grid-background"></div>
+  <div class="flowexa-grid-content">
     {!! $slot ?? ($content ?? '') !!}
   </div>
 </div>
 
 <style>
-.synkra-grid-wrapper {
+.flowexa-grid-wrapper {
   position: relative;
   width: 100%;
   min-height: 100%;
@@ -18,7 +18,7 @@
   overflow: hidden;
 }
 
-.synkra-grid-background {
+.flowexa-grid-background {
   position: absolute;
   top: 0;
   right: 0;
@@ -42,7 +42,7 @@
   pointer-events: none;
 }
 
-.synkra-grid-content {
+.flowexa-grid-content {
   position: relative;
   z-index: 1;
   width: 100%;

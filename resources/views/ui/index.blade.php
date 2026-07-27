@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Synkra UI Library - Design System</title>
-  
+  <title>flowexa UI Library - Design System</title>
+
+  <script>
+    (function () {
+      var saved = localStorage.getItem('appearance') || 'system';
+      var theme = saved;
+      if (saved === 'system') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Google Fonts: Instrument Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +41,7 @@
     }
 
     /* Page Header */
-    .synkra-doc-header {
+    .flowexa-doc-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -43,7 +54,7 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
     }
 
-    .synkra-doc-logo {
+    .flowexa-doc-logo {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -52,11 +63,11 @@
       color: var(--primary);
     }
 
-    .synkra-doc-logo i {
+    .flowexa-doc-logo i {
       font-size: 1.5rem;
     }
 
-    .synkra-doc-theme-btn {
+    .flowexa-doc-theme-btn {
       background: var(--surface-secondary);
       border: 1px solid var(--border);
       color: var(--text-primary);
@@ -71,19 +82,19 @@
       transition: all 0.2s ease;
     }
 
-    .synkra-doc-theme-btn:hover {
+    .flowexa-doc-theme-btn:hover {
       background: var(--border);
       transform: translateY(-1px);
     }
 
     /* Sidebar and Layout */
-    .synkra-doc-layout {
+    .flowexa-doc-layout {
       display: grid;
       grid-template-columns: 260px 1fr;
       min-height: calc(100vh - 70px);
     }
 
-    .synkra-doc-sidebar {
+    .flowexa-doc-sidebar {
       background-color: var(--surface);
       border-right: 1px solid var(--border);
       padding: 2rem 1.5rem;
@@ -93,7 +104,7 @@
       overflow-y: auto;
     }
 
-    .synkra-sidebar-title {
+    .flowexa-sidebar-title {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -102,14 +113,14 @@
       font-weight: 700;
     }
 
-    .synkra-sidebar-menu {
+    .flowexa-sidebar-menu {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
       margin-bottom: 2rem;
     }
 
-    .synkra-sidebar-link {
+    .flowexa-sidebar-link {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -122,12 +133,12 @@
       transition: all 0.2s ease;
     }
 
-    .synkra-sidebar-link:hover {
+    .flowexa-sidebar-link:hover {
       color: var(--primary);
       background-color: var(--surface-secondary);
     }
 
-    .synkra-sidebar-link.active {
+    .flowexa-sidebar-link.active {
       color: var(--primary);
       background-color: var(--active-menu);
       border-left: 3px solid var(--active-menu-border);
@@ -135,18 +146,18 @@
       border-bottom-left-radius: 0;
     }
 
-    .synkra-doc-content {
+    .flowexa-doc-content {
       padding: 3rem 4rem;
       overflow-y: auto;
     }
 
     /* Showcase Sections */
-    .synkra-showcase-section {
+    .flowexa-showcase-section {
       margin-bottom: 4rem;
       scroll-margin-top: 100px;
     }
 
-    .synkra-showcase-title {
+    .flowexa-showcase-title {
       font-size: 1.75rem;
       font-weight: 700;
       color: var(--headings);
@@ -156,20 +167,20 @@
       width: fit-content;
     }
 
-    .synkra-showcase-desc {
+    .flowexa-showcase-desc {
       color: var(--text-secondary);
       font-size: 0.95rem;
       margin-bottom: 2rem;
     }
 
-    .synkra-showcase-grid {
+    .flowexa-showcase-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
     }
 
     /* Component Card Showcase */
-    .synkra-showcase-card {
+    .flowexa-showcase-card {
       background-color: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -179,7 +190,7 @@
       flex-direction: column;
     }
 
-    .synkra-showcase-card-header {
+    .flowexa-showcase-card-header {
       padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -187,13 +198,13 @@
       align-items: center;
     }
 
-    .synkra-component-name {
+    .flowexa-component-name {
       font-weight: 700;
       color: var(--headings);
       font-size: 1rem;
     }
 
-    .synkra-component-badge {
+    .flowexa-component-badge {
       font-size: 0.7rem;
       background-color: var(--surface-secondary);
       border: 1px solid var(--border);
@@ -203,7 +214,7 @@
       font-weight: 600;
     }
 
-    .synkra-showcase-card-body {
+    .flowexa-showcase-card-body {
       padding: 2rem 1.5rem;
       background-color: var(--surface-secondary);
       display: flex;
@@ -214,12 +225,12 @@
       position: relative;
     }
 
-    .synkra-showcase-card-footer {
+    .flowexa-showcase-card-footer {
       border-top: 1px solid var(--border);
       background-color: var(--surface);
     }
 
-    .synkra-code-toggle {
+    .flowexa-code-toggle {
       width: 100%;
       background: transparent;
       border: none;
@@ -235,11 +246,11 @@
       transition: color 0.2s;
     }
 
-    .synkra-code-toggle:hover {
+    .flowexa-code-toggle:hover {
       color: var(--primary);
     }
 
-    .synkra-code-block {
+    .flowexa-code-block {
       display: none;
       padding: 1.25rem;
       background-color: #0f172a;
@@ -251,11 +262,11 @@
       position: relative;
     }
 
-    .synkra-code-block.open {
+    .flowexa-code-block.open {
       display: block;
     }
 
-    .synkra-copy-code-btn {
+    .flowexa-copy-code-btn {
       position: absolute;
       top: 10px;
       right: 10px;
@@ -270,12 +281,12 @@
       transition: background-color 0.2s;
     }
 
-    .synkra-copy-code-btn:hover {
+    .flowexa-copy-code-btn:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Full width showcase option */
-    .synkra-showcase-card-full {
+    .flowexa-showcase-card-full {
       grid-column: 1 / -1;
     }
   </style>
@@ -283,57 +294,57 @@
 <body>
 
   <!-- Header -->
-  <header class="synkra-doc-header">
-    <div class="synkra-doc-logo">
+  <header class="flowexa-doc-header">
+    <div class="flowexa-doc-logo">
       <i class="fa-solid fa-cube"></i>
-      <span>Synkra System Component Library</span>
+      <span>flowexa System Component Library</span>
     </div>
-    <button class="synkra-doc-theme-btn" id="themeToggler" onclick="toggleTheme()" aria-label="Toggle Theme">
+    <button class="flowexa-doc-theme-btn" id="themeToggler" onclick="toggleTheme()" aria-label="Toggle Theme">
       <i class="fa-solid fa-moon"></i>
       <span id="themeText">Dark Mode</span>
     </button>
   </header>
 
   <!-- Main Layout -->
-  <div class="synkra-doc-layout">
-    
+  <div class="flowexa-doc-layout">
+
     <!-- Sidebar Menu -->
-    <aside class="synkra-doc-sidebar">
-      <div class="synkra-sidebar-title">Core Abstractions</div>
-      <nav class="synkra-sidebar-menu">
-        <a href="#buttons" class="synkra-sidebar-link active"><i class="fa-solid fa-circle-play"></i> Buttons & Badges</a>
-        <a href="#cards" class="synkra-sidebar-link"><i class="fa-regular fa-square"></i> Cards System</a>
-        <a href="#inputs" class="synkra-sidebar-link"><i class="fa-regular fa-keyboard"></i> Inputs & Selects</a>
-        <a href="#toggles" class="synkra-sidebar-link"><i class="fa-solid fa-toggle-on"></i> Toggles & Switches</a>
-        <a href="#tooltips" class="synkra-sidebar-link"><i class="fa-regular fa-message"></i> Tooltips & Modals</a>
-        <a href="#tables" class="synkra-sidebar-link"><i class="fa-solid fa-table-list"></i> Navigation & Tables</a>
-        <a href="#loaders" class="synkra-sidebar-link"><i class="fa-solid fa-spinner"></i> Loaders & States</a>
-        <a href="#patterns" class="synkra-sidebar-link"><i class="fa-solid fa-border-all"></i> Grid Patterns</a>
+    <aside class="flowexa-doc-sidebar">
+      <div class="flowexa-sidebar-title">Core Abstractions</div>
+      <nav class="flowexa-sidebar-menu">
+        <a href="#buttons" class="flowexa-sidebar-link active"><i class="fa-solid fa-circle-play"></i> Buttons & Badges</a>
+        <a href="#cards" class="flowexa-sidebar-link"><i class="fa-regular fa-square"></i> Cards System</a>
+        <a href="#inputs" class="flowexa-sidebar-link"><i class="fa-regular fa-keyboard"></i> Inputs & Selects</a>
+        <a href="#toggles" class="flowexa-sidebar-link"><i class="fa-solid fa-toggle-on"></i> Toggles & Switches</a>
+        <a href="#tooltips" class="flowexa-sidebar-link"><i class="fa-regular fa-message"></i> Tooltips & Modals</a>
+        <a href="#tables" class="flowexa-sidebar-link"><i class="fa-solid fa-table-list"></i> Navigation & Tables</a>
+        <a href="#loaders" class="flowexa-sidebar-link"><i class="fa-solid fa-spinner"></i> Loaders & States</a>
+        <a href="#patterns" class="flowexa-sidebar-link"><i class="fa-solid fa-border-all"></i> Grid Patterns</a>
       </nav>
     </aside>
 
     <!-- Main Content -->
-    <main class="synkra-doc-content">
+    <main class="flowexa-doc-content">
 
       <!-- Buttons & Badges Section -->
-      <section id="buttons" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Buttons & Badges</h2>
-        <p class="synkra-showcase-desc">Modern button variants and status badges built to reflect brand styling variables.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="buttons" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Buttons & Badges</h2>
+        <p class="flowexa-showcase-desc">Modern button variants and status badges built to reflect brand styling variables.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Regular Button -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Regular Button</span>
-              <span class="synkra-component-badge">Blade Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Regular Button</span>
+              <span class="flowexa-component-badge">Blade Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.button text="Create Account" icon="fa-solid fa-circle-user" variant="primary" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.button text="Create Account" icon="fa-solid fa-circle-user" variant="primary" /&gt;
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.button text="Create Account" icon="fa-solid fa-circle-user" variant="primary" /&gt;
 
 &lcub;&lcub;-- Or using standard include --&rcub;&rcub;
 &commat;include('ui.components.buttons.regular', ['text' => 'Create Account', 'icon' => 'fa-solid fa-circle-user', 'variant' => 'primary'])</code></pre>
@@ -341,19 +352,19 @@
           </div>
 
           <!-- Badges -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Badges / Indicators</span>
-              <span class="synkra-component-badge">Blade Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Badges / Indicators</span>
+              <span class="flowexa-component-badge">Blade Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="gap: 10px; flex-wrap: wrap;">
+            <div class="flowexa-showcase-card-body" style="gap: 10px; flex-wrap: wrap;">
               <x-ui.badge text="Primary" variant="primary" />
               <x-ui.badge text="Success" variant="success" pill="true" icon="fa-solid fa-check" />
               <x-ui.badge text="Alert" variant="danger" icon="fa-solid fa-circle-exclamation" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.badge text="Success" variant="success" pill="true" icon="fa-solid fa-check" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.badge text="Success" variant="success" pill="true" icon="fa-solid fa-check" /&gt;</code></pre>
             </div>
           </div>
 
@@ -361,53 +372,53 @@
       </section>
 
       <!-- Cards Section -->
-      <section id="cards" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Cards System</h2>
-        <p class="synkra-showcase-desc">Information cards, premium feature cards, and draggable project task cards.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="cards" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Cards System</h2>
+        <p class="flowexa-showcase-desc">Information cards, premium feature cards, and draggable project task cards.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Regular Card -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Regular Card</span>
-              <span class="synkra-component-badge">Container</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Regular Card</span>
+              <span class="flowexa-component-badge">Container</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.card title="Project Statistics" subtitle="Live updates for workspace operations">
                 <p style="margin: 0; font-size: 0.95rem;">Workspace metrics are syncing successfully with our main database clusters.</p>
               </x-ui.card>
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.card title="Project Statistics" subtitle="Live updates for workspace operations"&gt;
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.card title="Project Statistics" subtitle="Live updates for workspace operations"&gt;
   &lt;p&gt;Workspace metrics are syncing successfully...&lt;/p&gt;
 &lt;/x-ui.card&gt;</code></pre>
             </div>
           </div>
 
           <!-- Premium Card -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Premium Ribbon Card</span>
-              <span class="synkra-component-badge">Showcase Card</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Premium Ribbon Card</span>
+              <span class="flowexa-component-badge">Showcase Card</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.premium-card title="AI Copilot" badgeText="Plus" description="Unleash automated workflows with modern AI assistant models." icon="fa-solid fa-wand-magic-sparkles" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.premium-card title="AI Copilot" badgeText="Plus" description="Unleash automated workflows..." icon="fa-solid fa-wand-magic-sparkles" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.premium-card title="AI Copilot" badgeText="Plus" description="Unleash automated workflows..." icon="fa-solid fa-wand-magic-sparkles" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Task Card -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Task Card (Draggable)</span>
-              <span class="synkra-component-badge">Kanban Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Task Card (Draggable)</span>
+              <span class="flowexa-component-badge">Kanban Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               @php
                 $mockAssignees = [
                   ['name' => 'John Doe', 'avatar' => null],
@@ -418,9 +429,9 @@
               @endphp
               <x-ui.task-card tag="In Progress" tagColor="var(--secondary)" title="Refactor Auth Models" description="Clean up Eloquent schemas, add indexes to user columns, and document migrations." commentsCount="12" attachmentsCount="4" :assignees="$mockAssignees" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.task-card tag="In Progress" tagColor="var(--secondary)" title="Refactor Auth Models" description="Clean up Eloquent schemas..." commentsCount="12" attachmentsCount="4" :assignees="$assignees" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.task-card tag="In Progress" tagColor="var(--secondary)" title="Refactor Auth Models" description="Clean up Eloquent schemas..." commentsCount="12" attachmentsCount="4" :assignees="$assignees" /&gt;</code></pre>
             </div>
           </div>
 
@@ -428,34 +439,34 @@
       </section>
 
       <!-- Inputs Section -->
-      <section id="inputs" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Inputs & Selects</h2>
-        <p class="synkra-showcase-desc">Beautiful, highly functional text inputs, search fields, quantity adjusters, link-sharing tools, and select dropdowns.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="inputs" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Inputs & Selects</h2>
+        <p class="flowexa-showcase-desc">Beautiful, highly functional text inputs, search fields, quantity adjusters, link-sharing tools, and select dropdowns.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Text Input -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Text Input with Icon</span>
-              <span class="synkra-component-badge">Form Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Text Input with Icon</span>
+              <span class="flowexa-component-badge">Form Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.input label="Workspace URL" placeholder="my-awesome-workspace" icon="fa-solid fa-globe" description="This will be used for your public profile routing." required="true" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.input label="Workspace URL" placeholder="my-awesome-workspace" icon="fa-solid fa-globe" description="..." required="true" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.input label="Workspace URL" placeholder="my-awesome-workspace" icon="fa-solid fa-globe" description="..." required="true" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Select Menu -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Custom Select Dropdown</span>
-              <span class="synkra-component-badge">Form Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Custom Select Dropdown</span>
+              <span class="flowexa-component-badge">Form Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               @php
                 $mockOptions = [
                   ['value' => 'dev', 'label' => 'Developer Mode'],
@@ -465,69 +476,69 @@
               @endphp
               <x-ui.select label="Deployment Environment" :options="$mockOptions" selected="prod" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.select label="Deployment Environment" :options="$options" selected="prod" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.select label="Deployment Environment" :options="$options" selected="prod" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Search Input -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Pill Search Bar</span>
-              <span class="synkra-component-badge">Search Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Pill Search Bar</span>
+              <span class="flowexa-component-badge">Search Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.search placeholder="Search orders, transactions..." />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.search placeholder="Search orders, transactions..." /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.search placeholder="Search orders, transactions..." /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Quantity Input -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Interactive Quantity Input</span>
-              <span class="synkra-component-badge">E-Commerce Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Interactive Quantity Input</span>
+              <span class="flowexa-component-badge">E-Commerce Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.quantity label="Stock Quantity Selector" min="1" max="100" value="5" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.quantity label="Stock Quantity Selector" min="1" max="100" value="5" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.quantity label="Stock Quantity Selector" min="1" max="100" value="5" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Link Share Input -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Link Sharing & Copy Input</span>
-              <span class="synkra-component-badge">Utility Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Link Sharing & Copy Input</span>
+              <span class="flowexa-component-badge">Utility Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
-              <x-ui.url-input prefix="https://" value="synkra.io/invite/tenant_a48f93" />
+            <div class="flowexa-showcase-card-body">
+              <x-ui.url-input prefix="https://" value="flowexa.io/invite/tenant_a48f93" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.url-input prefix="https://" value="synkra.io/invite/tenant_a48f93" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.url-input prefix="https://" value="flowexa.io/invite/tenant_a48f93" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- File Upload -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Drag & Drop File Upload</span>
-              <span class="synkra-component-badge">Form Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Drag & Drop File Upload</span>
+              <span class="flowexa-component-badge">Form Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.file-upload text="Drop invoices or click to browse" accept="application/pdf" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.file-upload text="Drop invoices or click to browse" accept="application/pdf" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.file-upload text="Drop invoices or click to browse" accept="application/pdf" /&gt;</code></pre>
             </div>
           </div>
 
@@ -535,86 +546,86 @@
       </section>
 
       <!-- Toggles Section -->
-      <section id="toggles" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Toggles & Switches</h2>
-        <p class="synkra-showcase-desc">Modern toggles including custom checkboxes, basic sliding switches, lock buttons, and HSL glow toggles.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="toggles" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Toggles & Switches</h2>
+        <p class="flowexa-showcase-desc">Modern toggles including custom checkboxes, basic sliding switches, lock buttons, and HSL glow toggles.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Checkbox -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Custom Checkbox</span>
-              <span class="synkra-component-badge">Toggle Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Custom Checkbox</span>
+              <span class="flowexa-component-badge">Toggle Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div class="flowexa-showcase-card-body" style="flex-direction: column; align-items: flex-start; gap: 10px;">
               <x-ui.checkbox label="I accept all developer terms" checked="true" />
               <x-ui.checkbox label="Send me product newsletters" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.checkbox label="I accept all developer terms" checked="true" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.checkbox label="I accept all developer terms" checked="true" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Switch -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Sliding Switch</span>
-              <span class="synkra-component-badge">Toggle Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Sliding Switch</span>
+              <span class="flowexa-component-badge">Toggle Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div class="flowexa-showcase-card-body" style="flex-direction: column; align-items: flex-start; gap: 10px;">
               <x-ui.switch label="Enable push notifications" checked="true" />
               <x-ui.switch label="Maintenance mode status" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.switch label="Enable push notifications" checked="true" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.switch label="Enable push notifications" checked="true" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Lock Button -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Lock Toggle Button</span>
-              <span class="synkra-component-badge">Interactive Toggle</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Lock Toggle Button</span>
+              <span class="flowexa-component-badge">Interactive Toggle</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.lock checked="true" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.lock checked="true" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.lock checked="true" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Advanced Switch -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">HSL Glow Switch</span>
-              <span class="synkra-component-badge">Premium Toggle</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">HSL Glow Switch</span>
+              <span class="flowexa-component-badge">Premium Toggle</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.switch-adv label="Multi-factor Authentication" checked="true" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.switch-adv label="Multi-factor Authentication" checked="true" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.switch-adv label="Multi-factor Authentication" checked="true" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Hamburger Toggle -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Animated Hamburger Menu</span>
-              <span class="synkra-component-badge">Toggle Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Animated Hamburger Menu</span>
+              <span class="flowexa-component-badge">Toggle Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.hamburger />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.hamburger /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.hamburger /&gt;</code></pre>
             </div>
           </div>
 
@@ -622,99 +633,99 @@
       </section>
 
       <!-- Tooltips & Modals Section -->
-      <section id="tooltips" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Tooltips & Modals</h2>
-        <p class="synkra-showcase-desc">User assistance tools, interactive modals, add-to-cart animations, and dismissible alerts.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="tooltips" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Tooltips & Modals</h2>
+        <p class="flowexa-showcase-desc">User assistance tools, interactive modals, add-to-cart animations, and dismissible alerts.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Standard Tooltip -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Hover Tooltip</span>
-              <span class="synkra-component-badge">Assistance Tool</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Hover Tooltip</span>
+              <span class="flowexa-component-badge">Assistance Tool</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.tooltip text="Need Help?" tooltip="💡 Get assistance with setting up billing models!" icon="fa-regular fa-lightbulb" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.tooltip text="Need Help?" tooltip="💡 Get assistance..." icon="fa-regular fa-lightbulb" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.tooltip text="Need Help?" tooltip="💡 Get assistance..." icon="fa-regular fa-lightbulb" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- FAQ Floating Button -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Floating Help / FAQ</span>
-              <span class="synkra-component-badge">Assistance Tool</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Floating Help / FAQ</span>
+              <span class="flowexa-component-badge">Assistance Tool</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.faq tooltip="Open Documentation Portal" icon="fa-solid fa-book-open" url="#" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.faq tooltip="Open Documentation Portal" icon="fa-solid fa-book-open" url="#" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.faq tooltip="Open Documentation Portal" icon="fa-solid fa-book-open" url="#" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Add to Cart with Slide & Price Tooltip -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Animated Add To Cart</span>
-              <span class="synkra-component-badge">Animated Button</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Animated Add To Cart</span>
+              <span class="flowexa-component-badge">Animated Button</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.cart-btn price="$49.00" text="Purchase Pack" icon="fa-solid fa-bolt" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.cart-btn price="$49.00" text="Purchase Pack" icon="fa-solid fa-bolt" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.cart-btn price="$49.00" text="Purchase Pack" icon="fa-solid fa-bolt" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Modal Trigger and Dialog -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Interactive Modal Dialog</span>
-              <span class="synkra-component-badge">Modal Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Interactive Modal Dialog</span>
+              <span class="flowexa-component-badge">Modal Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               <x-ui.modal title="Confirm Database Reset" id="dbResetModal">
                 <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">Are you sure you want to reset the tenant database structure? This action will permanently erase all testing transactions and cannot be undone.</p>
               </x-ui.modal>
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.modal title="Confirm Database Reset" id="dbResetModal"&gt;
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.modal title="Confirm Database Reset" id="dbResetModal"&gt;
   &lt;p&gt;Are you sure you want to reset the database...&lt;/p&gt;
 &lt;/x-ui.modal&gt;</code></pre>
             </div>
           </div>
 
           <!-- Dismissible Alert -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Alerts & Notifications</span>
-              <span class="synkra-component-badge">Alert Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Alerts & Notifications</span>
+              <span class="flowexa-component-badge">Alert Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="flex-direction: column; gap: 15px; align-items: stretch;">
+            <div class="flowexa-showcase-card-body" style="flex-direction: column; gap: 15px; align-items: stretch;">
               <x-ui.alert type="success" title="Backup Complete" message="Tenant transaction history database tables have been safely exported to secure S3 storage." />
               <x-ui.alert type="warning" title="API Deprecation Alert" message="Restricted keys will expire in 15 days. Please update your backend calls to use standard tokens." />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.alert type="success" title="Backup Complete" message="..." /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.alert type="success" title="Backup Complete" message="..." /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Comments Feed -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Comments Feed Card</span>
-              <span class="synkra-component-badge">Form Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Comments Feed Card</span>
+              <span class="flowexa-component-badge">Form Component</span>
             </div>
-            <div class="synkra-showcase-card-body">
+            <div class="flowexa-showcase-card-body">
               @php
                 $mockComments = [
                   [
@@ -737,9 +748,9 @@
               @endphp
               <x-ui.comments title="Task Discussions" :comments="$mockComments" placeholder="Write a response..." />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.comments title="Task Discussions" :comments="$comments" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.comments title="Task Discussions" :comments="$comments" /&gt;</code></pre>
             </div>
           </div>
 
@@ -747,19 +758,19 @@
       </section>
 
       <!-- Navigation & Tables Section -->
-      <section id="tables" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Navigation & Tables</h2>
-        <p class="synkra-showcase-desc">Modern sub-navigation tab lists and clean data tables built with CSS variables.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="tables" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Navigation & Tables</h2>
+        <p class="flowexa-showcase-desc">Modern sub-navigation tab lists and clean data tables built with CSS variables.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Navigation Tabs -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Tabs Menu Navigation</span>
-              <span class="synkra-component-badge">Navigation Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Tabs Menu Navigation</span>
+              <span class="flowexa-component-badge">Navigation Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="align-items: stretch; flex-direction: column;">
+            <div class="flowexa-showcase-card-body" style="align-items: stretch; flex-direction: column;">
               @php
                 $mockTabs = [
                   ['id' => 'profile', 'label' => 'Team Profile', 'icon' => 'fa-regular fa-id-card'],
@@ -769,19 +780,19 @@
               @endphp
               <x-ui.tabs :tabs="$mockTabs" activeTab="security" id="settingsTabs" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.tabs :tabs="$tabs" activeTab="security" id="settingsTabs" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.tabs :tabs="$tabs" activeTab="security" id="settingsTabs" /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Data Table -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Data Table</span>
-              <span class="synkra-component-badge">Data Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Data Table</span>
+              <span class="flowexa-component-badge">Data Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="align-items: stretch;">
+            <div class="flowexa-showcase-card-body" style="align-items: stretch;">
               @php
                 $mockHeaders = ['ID', 'Employee', 'Status', 'Designation', 'Actions'];
                 $mockRows = [
@@ -792,9 +803,9 @@
               @endphp
               <x-ui.table :headers="$mockHeaders" :rows="$mockRows" />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.table :headers="$headers" :rows="$rows" /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.table :headers="$headers" :rows="$rows" /&gt;</code></pre>
             </div>
           </div>
 
@@ -802,54 +813,54 @@
       </section>
 
       <!-- Loaders & States Section -->
-      <section id="loaders" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Loaders & States</h2>
-        <p class="synkra-showcase-desc">Beautifully animated components for loading transitions, errors, and connectivity drops.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="loaders" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Loaders & States</h2>
+        <p class="flowexa-showcase-desc">Beautifully animated components for loading transitions, errors, and connectivity drops.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Custom Loader -->
-          <div class="synkra-showcase-card">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Custom App Loader</span>
-              <span class="synkra-component-badge">Animation Component</span>
+          <div class="flowexa-showcase-card">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Custom App Loader</span>
+              <span class="flowexa-component-badge">Animation Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="min-height: 350px;">
+            <div class="flowexa-showcase-card-body" style="min-height: 350px;">
               <x-ui.loader />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.loader /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.loader /&gt;</code></pre>
             </div>
           </div>
 
           <!-- 404 Error -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">404 Error State</span>
-              <span class="synkra-component-badge">State Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">404 Error State</span>
+              <span class="flowexa-component-badge">State Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="padding: 2rem;">
+            <div class="flowexa-showcase-card-body" style="padding: 2rem;">
               <x-ui.error-404 />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.error-404 /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.error-404 /&gt;</code></pre>
             </div>
           </div>
 
           <!-- Offline / No Internet State -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Offline / Connection Lost</span>
-              <span class="synkra-component-badge">State Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Offline / Connection Lost</span>
+              <span class="flowexa-component-badge">State Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="padding: 2rem;">
+            <div class="flowexa-showcase-card-body" style="padding: 2rem;">
               <x-ui.offline />
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.offline /&gt;</code></pre>
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.offline /&gt;</code></pre>
             </div>
           </div>
 
@@ -857,19 +868,19 @@
       </section>
 
       <!-- Patterns Section -->
-      <section id="patterns" class="synkra-showcase-section">
-        <h2 class="synkra-showcase-title">Grid Patterns</h2>
-        <p class="synkra-showcase-desc">Clean background grid overlay systems designed to fit behind landing pages or dashboards.</p>
-        
-        <div class="synkra-showcase-grid">
-          
+      <section id="patterns" class="flowexa-showcase-section">
+        <h2 class="flowexa-showcase-title">Grid Patterns</h2>
+        <p class="flowexa-showcase-desc">Clean background grid overlay systems designed to fit behind landing pages or dashboards.</p>
+
+        <div class="flowexa-showcase-grid">
+
           <!-- Background Grid -->
-          <div class="synkra-showcase-card synkra-showcase-card-full">
-            <div class="synkra-showcase-card-header">
-              <span class="synkra-component-name">Geometric Grid Background Overlay</span>
-              <span class="synkra-component-badge">Pattern Component</span>
+          <div class="flowexa-showcase-card flowexa-showcase-card-full">
+            <div class="flowexa-showcase-card-header">
+              <span class="flowexa-component-name">Geometric Grid Background Overlay</span>
+              <span class="flowexa-component-badge">Pattern Component</span>
             </div>
-            <div class="synkra-showcase-card-body" style="padding: 0; min-height: 250px; overflow: hidden; border-radius: 0 0 16px 16px;">
+            <div class="flowexa-showcase-card-body" style="padding: 0; min-height: 250px; overflow: hidden; border-radius: 0 0 16px 16px;">
               <x-ui.grid>
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 250px; text-align: center; padding: 2rem;">
                   <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; color: var(--headings);">Dashboard Overlay Area</h3>
@@ -877,9 +888,9 @@
                 </div>
               </x-ui.grid>
             </div>
-            <div class="synkra-showcase-card-footer">
-              <button class="synkra-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
-              <pre class="synkra-code-block"><button class="synkra-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.grid&gt;
+            <div class="flowexa-showcase-card-footer">
+              <button class="flowexa-code-toggle" onclick="toggleCode(this)"><i class="fa-solid fa-code"></i> Show Code</button>
+              <pre class="flowexa-code-block"><button class="flowexa-copy-code-btn" onclick="copySnippet(this)">Copy</button><code>&lt;x-ui.grid&gt;
   &lt;div&gt;Your dashboard content here...&lt;/div&gt;
 &lt;/x-ui.grid&gt;</code></pre>
             </div>
@@ -900,25 +911,46 @@
       const themeToggler = document.getElementById('themeToggler');
       const themeText = document.getElementById('themeText');
       const icon = themeToggler.querySelector('i');
-      
+
       const currentTheme = html.getAttribute('data-theme');
-      
-      if (currentTheme === 'light') {
-        html.setAttribute('data-theme', 'dark');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('appearance', newTheme);
+
+      if (newTheme === 'dark') {
         themeText.textContent = 'Light Mode';
         icon.className = 'fa-solid fa-sun';
       } else {
-        html.setAttribute('data-theme', 'light');
         themeText.textContent = 'Dark Mode';
         icon.className = 'fa-solid fa-moon';
       }
     }
 
+    // Initialize button state on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+      const themeToggler = document.getElementById('themeToggler');
+      const themeText = document.getElementById('themeText');
+      const icon = themeToggler.querySelector('i');
+      if (!themeToggler || !themeText || !icon) return;
+
+      const currentTheme = html.getAttribute('data-theme');
+
+      if (currentTheme === 'dark') {
+        themeText.textContent = 'Light Mode';
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        themeText.textContent = 'Dark Mode';
+        icon.className = 'fa-solid fa-moon';
+      }
+    });
+
     // Code Accordion Toggle Logic
     function toggleCode(btn) {
-      const cardFooter = btn.closest('.synkra-showcase-card-footer');
-      const codeBlock = cardFooter.querySelector('.synkra-code-block');
-      
+      const cardFooter = btn.closest('.flowexa-showcase-card-footer');
+      const codeBlock = cardFooter.querySelector('.flowexa-code-block');
+
       if (codeBlock.classList.contains('open')) {
         codeBlock.classList.remove('open');
         btn.innerHTML = '<i class="fa-solid fa-code"></i> Show Code';
@@ -935,7 +967,7 @@
         const originalText = btn.textContent;
         btn.textContent = 'Copied!';
         btn.style.backgroundColor = 'rgba(34, 197, 94, 0.4)';
-        
+
         setTimeout(() => {
           btn.textContent = originalText;
           btn.style.backgroundColor = '';
@@ -949,7 +981,7 @@
         entries.forEach(entry => {
           const id = entry.target.getAttribute('id');
           if (entry.intersectionRatio > 0.15) {
-            document.querySelectorAll('.synkra-sidebar-link').forEach(link => {
+            document.querySelectorAll('.flowexa-sidebar-link').forEach(link => {
               link.classList.remove('active');
               if (link.getAttribute('href') === `#${id}`) {
                 link.classList.add('active');
@@ -960,7 +992,7 @@
       }, { threshold: [0.15, 0.5] });
 
       // Track all sections
-      document.querySelectorAll('.synkra-showcase-section').forEach(section => {
+      document.querySelectorAll('.flowexa-showcase-section').forEach(section => {
         observer.observe(section);
       });
     });

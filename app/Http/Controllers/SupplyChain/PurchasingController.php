@@ -72,7 +72,25 @@ class PurchasingController extends Controller
         $tenantId = Auth::user()->tenant_id;
         $po = PurchaseOrder::where('tenant_id', $tenantId)->findOrFail($id);
         $po->delete();
-        
+
         return redirect()->route('supply_chain.purchasing.index')->with('success', 'Purchase Order deleted.');
+    }
+
+    public function approve($id)
+    {
+        $tenantId = Auth::user()->tenant_id;
+        $po = PurchaseOrder::where('tenant_id', $tenantId)->findOrFail($id);
+        $po->update(['status' => 'approved', 'approved_by' => Auth::id(), 'approved_at' => now()]);
+
+        return redirect()->back()->with('success', 'Purchase Order approved.');
+    }
+
+    public function cancel($id)
+    {
+        $tenantId = Auth::user()->tenant_id;
+        $po = PurchaseOrder::where('tenant_id', $tenantId)->findOrFail($id);
+        $po->update(['status' => 'cancelled']);
+
+        return redirect()->back()->with('success', 'Purchase Order cancelled.');
     }
 }

@@ -1,16 +1,16 @@
 @php
-  $value = $value ?? 'synkra.io/workspace';
+  $value = $value ?? 'flowexa.io/workspace';
   $prefix = $prefix ?? 'https://';
   $id = $id ?? 'url_' . uniqid();
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-url-input-container {{ $class }}">
-  <span class="synkra-url-prefix">{{ $prefix }}</span>
-  <input id="{{ $id }}" class="synkra-url-field" value="{{ $value }}" readonly />
-  <button type="button" class="synkra-url-copy-btn" onclick="copyUrlToClipboard('{{ $id }}', this)" title="Copy Link">
+<div class="flowexa-url-input-container {{ $class }}">
+  <span class="flowexa-url-prefix">{{ $prefix }}</span>
+  <input id="{{ $id }}" class="flowexa-url-field" value="{{ $value }}" readonly />
+  <button type="button" class="flowexa-url-copy-btn" onclick="copyUrlToClipboard('{{ $id }}', this)" title="Copy Link">
     <i class="fa-regular fa-copy"></i>
-    <span class="synkra-url-tooltip">Copy</span>
+    <span class="flowexa-url-tooltip">Copy</span>
   </button>
 </div>
 
@@ -20,14 +20,14 @@ if (typeof copyUrlToClipboard !== 'function') {
     const input = document.getElementById(inputId);
     input.select();
     input.setSelectionRange(0, 99999);
-    
+
     navigator.clipboard.writeText(input.value).then(() => {
-      const tooltip = buttonEl.querySelector('.synkra-url-tooltip');
+      const tooltip = buttonEl.querySelector('.flowexa-url-tooltip');
       const icon = buttonEl.querySelector('i');
-      
+
       tooltip.textContent = 'Copied!';
       icon.className = 'fa-solid fa-check';
-      
+
       setTimeout(() => {
         tooltip.textContent = 'Copy';
         icon.className = 'fa-regular fa-copy';
@@ -38,7 +38,7 @@ if (typeof copyUrlToClipboard !== 'function') {
 </script>
 
 <style>
-.synkra-url-input-container {
+.flowexa-url-input-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,7 +53,7 @@ if (typeof copyUrlToClipboard !== 'function') {
   overflow: hidden;
 }
 
-.synkra-url-prefix {
+.flowexa-url-prefix {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@ if (typeof copyUrlToClipboard !== 'function') {
   user-select: none;
 }
 
-.synkra-url-field {
+.flowexa-url-field {
   flex: 1;
   outline: none;
   font-weight: 500;
@@ -79,7 +79,7 @@ if (typeof copyUrlToClipboard !== 'function') {
   font-size: 0.85rem;
 }
 
-.synkra-url-copy-btn {
+.flowexa-url-copy-btn {
   background-color: transparent;
   border: none;
   font-size: 0.95rem;
@@ -95,12 +95,12 @@ if (typeof copyUrlToClipboard !== 'function') {
   border-left: 1px solid var(--border);
 }
 
-.synkra-url-copy-btn:hover {
+.flowexa-url-copy-btn:hover {
   background-color: var(--surface-secondary);
   color: var(--primary);
 }
 
-.synkra-url-tooltip {
+.flowexa-url-tooltip {
   position: absolute;
   top: -36px;
   right: 50%;
@@ -119,7 +119,7 @@ if (typeof copyUrlToClipboard !== 'function') {
   z-index: 10;
 }
 
-.synkra-url-tooltip::before {
+.flowexa-url-tooltip::before {
   position: absolute;
   content: "";
   width: 6px;
@@ -130,7 +130,7 @@ if (typeof copyUrlToClipboard !== 'function') {
   left: 50%;
 }
 
-.synkra-url-copy-btn:hover .synkra-url-tooltip {
+.flowexa-url-copy-btn:hover .flowexa-url-tooltip {
   opacity: 1;
   top: -40px;
 }

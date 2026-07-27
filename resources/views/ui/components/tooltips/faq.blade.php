@@ -5,20 +5,20 @@
   $class = $class ?? '';
 @endphp
 
-<a href="{{ $url }}" class="synkra-faq-btn-wrapper {{ $class }}" aria-label="{{ $tooltip }}">
-  <div class="synkra-faq-btn">
+<a href="{{ $url }}" class="flowexa-faq-btn-wrapper {{ $class }}" aria-label="{{ $tooltip }}">
+  <div class="flowexa-faq-btn">
     <i class="{{ $icon }}"></i>
-    <span class="synkra-faq-tooltip">{{ $tooltip }}</span>
+    <span class="flowexa-faq-tooltip">{{ $tooltip }}</span>
   </div>
 </a>
 
 <style>
-.synkra-faq-btn-wrapper {
+.flowexa-faq-btn-wrapper {
   text-decoration: none;
   display: inline-block;
 }
 
-.synkra-faq-btn {
+.flowexa-faq-btn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -34,21 +34,21 @@
   font-size: 1.15rem;
 }
 
-.synkra-faq-btn:hover {
+.flowexa-faq-btn:hover {
   background: var(--primary-hover);
   transform: scale(1.1);
   box-shadow: 0 6px 14px rgba(234, 88, 12, 0.4);
 }
 
-.synkra-faq-btn i {
+.flowexa-faq-btn i {
   transition: transform 0.3s ease;
 }
 
-.synkra-faq-btn:hover i {
-  animation: synkra-jello 0.8s both;
+.flowexa-faq-btn:hover i {
+  animation: flowexa-jello 0.8s both;
 }
 
-@keyframes synkra-jello {
+@keyframes flowexa-jello {
   0% { transform: scale3d(1, 1, 1); }
   30% { transform: scale3d(0.75, 1.25, 1); }
   40% { transform: scale3d(1.25, 0.75, 1); }
@@ -58,7 +58,7 @@
   100% { transform: scale3d(1, 1, 1); }
 }
 
-.synkra-faq-tooltip {
+.flowexa-faq-tooltip {
   position: absolute;
   bottom: calc(100% + 12px);
   right: 50%;
@@ -76,7 +76,7 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-faq-tooltip::after {
+.flowexa-faq-tooltip::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -87,7 +87,7 @@
   border-color: var(--text-primary) transparent transparent transparent;
 }
 
-.synkra-faq-btn:hover .synkra-faq-tooltip {
+.flowexa-faq-btn:hover .flowexa-faq-tooltip {
   opacity: 1;
   visibility: visible;
   bottom: calc(100% + 8px);

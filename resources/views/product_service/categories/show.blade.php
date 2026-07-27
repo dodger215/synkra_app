@@ -1,6 +1,6 @@
 <x-layouts.app title="{{ $category->name }}">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:900px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:900px;margin:0 auto;">
             <div style="margin-bottom:1.5rem;">
                 <a href="{{ route('product_service.categories.index') }}" style="color:var(--text-secondary);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Categories
@@ -21,7 +21,7 @@
                 <x-ui.alert type="success" title="Success" :message="session('success')" style="margin-bottom:1.5rem;" />
             @endif
 
-            <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);margin-bottom:1.5rem;">
+            <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);margin-bottom:1.5rem;">
                 <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);">Details</h3>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
                     <div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="synkra-card" style="background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;">
+            <div class="flowexa-card" style="background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;">
                 <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);">
                     <h3 style="margin:0;font-size:1.05rem;color:var(--headings);">Products in this Category</h3>
                 </div>

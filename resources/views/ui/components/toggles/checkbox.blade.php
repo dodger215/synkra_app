@@ -9,37 +9,37 @@
   $class = $class ?? '';
 @endphp
 
-<label class="synkra-checkbox-wrapper {{ $isLoading ? 'synkra-checkbox-loading' : '' }} {{ $class }}" for="{{ $id }}" id="group_{{ $id }}">
-  <input 
-    type="checkbox" 
-    name="{{ $name }}" 
-    id="{{ $id }}" 
+<label class="flowexa-checkbox-wrapper {{ $isLoading ? 'flowexa-checkbox-loading' : '' }} {{ $class }}" for="{{ $id }}" id="group_{{ $id }}">
+  <input
+    type="checkbox"
+    name="{{ $name }}"
+    id="{{ $id }}"
     value="{{ $value }}"
-    {{ $checked }} 
+    {{ $checked }}
     {{ $isLoading ? 'disabled' : '' }}
-    class="synkra-checkbox-input"
+    class="flowexa-checkbox-input"
     @if($onChange) onchange="{{ $onChange }}" @endif
   >
-  <span class="synkra-checkbox-custom">
-    <i class="fa-solid fa-check synkra-checkbox-icon"></i>
+  <span class="flowexa-checkbox-custom">
+    <i class="fa-solid fa-check flowexa-checkbox-icon"></i>
   </span>
   @if($label)
-    <span class="synkra-checkbox-label">{{ $label }}</span>
+    <span class="flowexa-checkbox-label">{{ $label }}</span>
   @endif
 </label>
 
 <script>
-if (typeof toggleSynkraCheckboxLoading !== 'function') {
-  function toggleSynkraCheckboxLoading(checkboxId, isLoading) {
+if (typeof toggleflowexaCheckboxLoading !== 'function') {
+  function toggleflowexaCheckboxLoading(checkboxId, isLoading) {
     const group = document.getElementById('group_' + checkboxId);
     const input = document.getElementById(checkboxId);
     if (!group || !input) return;
-    
+
     if (isLoading) {
-      group.classList.add('synkra-checkbox-loading');
+      group.classList.add('flowexa-checkbox-loading');
       input.setAttribute('disabled', 'true');
     } else {
-      group.classList.remove('synkra-checkbox-loading');
+      group.classList.remove('flowexa-checkbox-loading');
       input.removeAttribute('disabled');
     }
   }
@@ -47,7 +47,7 @@ if (typeof toggleSynkraCheckboxLoading !== 'function') {
 </script>
 
 <style>
-.synkra-checkbox-wrapper {
+.flowexa-checkbox-wrapper {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -59,16 +59,16 @@ if (typeof toggleSynkraCheckboxLoading !== 'function') {
   transition: opacity 0.2s;
 }
 
-.synkra-checkbox-loading {
+.flowexa-checkbox-loading {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.synkra-checkbox-input {
+.flowexa-checkbox-input {
   display: none;
 }
 
-.synkra-checkbox-custom {
+.flowexa-checkbox-custom {
   width: 20px;
   height: 20px;
   border: 2px solid var(--border);
@@ -80,7 +80,7 @@ if (typeof toggleSynkraCheckboxLoading !== 'function') {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-checkbox-icon {
+.flowexa-checkbox-icon {
   font-size: 0.75rem;
   color: #ffffff;
   opacity: 0;
@@ -88,21 +88,21 @@ if (typeof toggleSynkraCheckboxLoading !== 'function') {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-checkbox-input:checked + .synkra-checkbox-custom {
+.flowexa-checkbox-input:checked + .flowexa-checkbox-custom {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
-.synkra-checkbox-input:checked + .synkra-checkbox-custom .synkra-checkbox-icon {
+.flowexa-checkbox-input:checked + .flowexa-checkbox-custom .flowexa-checkbox-icon {
   opacity: 1;
   transform: scale(1);
 }
 
-.synkra-checkbox-wrapper:not(.synkra-checkbox-loading):hover .synkra-checkbox-custom {
+.flowexa-checkbox-wrapper:not(.flowexa-checkbox-loading):hover .flowexa-checkbox-custom {
   border-color: var(--primary);
 }
 
-.synkra-checkbox-label {
+.flowexa-checkbox-label {
   font-weight: 500;
 }
 </style>

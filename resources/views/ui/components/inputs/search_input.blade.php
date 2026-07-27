@@ -8,11 +8,11 @@
   $class = $class ?? '';
 @endphp
 
-<div class="synkra-search-wrapper {{ $isLoading ? 'synkra-search-loading' : '' }} {{ $class }}" id="group_{{ $id }}">
-  <span class="synkra-search-icon synkra-search-icon-normal">
+<div class="flowexa-search-wrapper {{ $isLoading ? 'flowexa-search-loading' : '' }} {{ $class }}" id="group_{{ $id }}">
+  <span class="flowexa-search-icon flowexa-search-icon-normal">
     <i class="fa-solid fa-magnifying-glass"></i>
   </span>
-  <span class="synkra-search-icon synkra-search-icon-spinner" style="display: none;">
+  <span class="flowexa-search-icon flowexa-search-icon-spinner" style="display: none;">
     <i class="fa-solid fa-circle-notch fa-spin"></i>
   </span>
   <input
@@ -22,23 +22,23 @@
     value="{{ $value }}"
     placeholder="{{ $placeholder }}"
     {{ $isLoading ? 'readonly' : '' }}
-    class="synkra-search-field"
+    class="flowexa-search-field"
     @if($onInput) oninput="{{ $onInput }}" @endif
   />
 </div>
 
 <script>
-if (typeof toggleSynkraSearchLoading !== 'function') {
-  function toggleSynkraSearchLoading(searchId, isLoading) {
+if (typeof toggleflowexaSearchLoading !== 'function') {
+  function toggleflowexaSearchLoading(searchId, isLoading) {
     const group = document.getElementById('group_' + searchId);
     const input = document.getElementById(searchId);
     if (!group || !input) return;
-    
+
     if (isLoading) {
-      group.classList.add('synkra-search-loading');
+      group.classList.add('flowexa-search-loading');
       input.setAttribute('readonly', 'true');
     } else {
-      group.classList.remove('synkra-search-loading');
+      group.classList.remove('flowexa-search-loading');
       input.removeAttribute('readonly');
     }
   }
@@ -46,7 +46,7 @@ if (typeof toggleSynkraSearchLoading !== 'function') {
 </script>
 
 <style>
-.synkra-search-wrapper {
+.flowexa-search-wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -54,7 +54,7 @@ if (typeof toggleSynkraSearchLoading !== 'function') {
   max-width: 320px;
 }
 
-.synkra-search-field {
+.flowexa-search-field {
   width: 100%;
   border-radius: 9999px;
   padding: 0.625rem 0.75rem 0.625rem 2.5rem;
@@ -67,18 +67,18 @@ if (typeof toggleSynkraSearchLoading !== 'function') {
   transition: all 0.2s ease-in-out;
 }
 
-.synkra-search-field::placeholder {
+.flowexa-search-field::placeholder {
   color: var(--text-secondary);
   opacity: 0.7;
 }
 
-.synkra-search-field:focus:not([readonly]) {
+.flowexa-search-field:focus:not([readonly]) {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
   background-color: var(--surface);
 }
 
-.synkra-search-icon {
+.flowexa-search-icon {
   position: absolute;
   left: 0.9rem;
   color: var(--text-secondary);
@@ -90,16 +90,16 @@ if (typeof toggleSynkraSearchLoading !== 'function') {
 }
 
 /* Loading State */
-.synkra-search-loading .synkra-search-icon-normal {
+.flowexa-search-loading .flowexa-search-icon-normal {
   display: none;
 }
 
-.synkra-search-loading .synkra-search-icon-spinner {
+.flowexa-search-loading .flowexa-search-icon-spinner {
   display: flex !important;
   color: var(--primary);
 }
 
-.synkra-search-loading .synkra-search-field {
+.flowexa-search-loading .flowexa-search-field {
   opacity: 0.7;
 }
 </style>

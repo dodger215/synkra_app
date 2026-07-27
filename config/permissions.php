@@ -44,6 +44,7 @@ return [
             'open_session' => true,
             'close_session' => true,
             'cash_drawer_access' => true,
+            'view_drawer_access' => true,
             'view_daily_sales' => true,
             'export_pos_reports' => true,
             'manage_devices' => true
@@ -109,7 +110,12 @@ return [
             'manage_forecasts' => true,
             'view_shipments' => true,
             'track_shipments' => true,
-            'export_scm_reports' => true
+            'view_scm_reports' => true,
+            'export_scm_reports' => true,
+            'view_product_supplier_list' => true,
+            'manage_import_stocks' => true,
+            'view_approvals' => true,
+            'manage_approvals' => true,
         ],
         'payments' => [
             'view_payments' => true,

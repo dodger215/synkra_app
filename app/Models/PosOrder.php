@@ -10,9 +10,9 @@ class PosOrder extends Model
     use HasUuidV5;
 
     protected $fillable = [
-        'tenant_id', 'pos_session_id', 'order_number', 'customer_id', 'order_type',
-        'subtotal', 'discount_amount', 'tax_amount', 'total_amount', 'paid_amount',
-        'change_amount', 'payment_status', 'payment_method', 'notes', 'completed_at',
+        'tenant_id', 'pos_session_id', 'order_number', 'customer_id', 'pos_table_id',
+        'order_type', 'status', 'subtotal', 'discount_amount', 'tax_amount', 'total_amount',
+        'paid_amount', 'change_amount', 'payment_status', 'payment_method', 'notes', 'completed_at',
     ];
 
     protected $casts = [
@@ -25,5 +25,6 @@ class PosOrder extends Model
     public function tenant() { return $this->belongsTo(Tenant::class); }
     public function session() { return $this->belongsTo(PosSession::class, 'pos_session_id'); }
     public function customer() { return $this->belongsTo(Customer::class); }
+    public function table() { return $this->belongsTo(PosTable::class, 'pos_table_id'); }
     public function items() { return $this->hasMany(PosOrderItem::class, 'pos_order_id'); }
 }

@@ -1,14 +1,19 @@
-// Theme logic for Synkra
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check local storage for a saved theme, or fallback to 'system'
-    const savedTheme = localStorage.getItem('synkra_theme') || 'system';
-    
+    // Use the same key as the settings page, fallback to server-side session preference
+    const savedTheme = localStorage.getItem('appearance') ||
+                       document.documentElement.getAttribute('data-theme-preference') ||
+                       'system';
+
     applyTheme(savedTheme);
 
     // Listen for system theme changes in real-time
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (localStorage.getItem('synkra_theme') === 'system' || !localStorage.getItem('synkra_theme')) {
+        const currentTheme = localStorage.getItem('appearance') ||
+                             document.documentElement.getAttribute('data-theme-preference') ||
+                             'system';
+        if (currentTheme === 'system') {
             applyTheme('system');
         }
     });
@@ -25,6 +30,7 @@ window.applyTheme = function(theme) {
     }
 
     htmlEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    htmlEl.setAttribute('data-theme-preference', theme);
 
     // Update the UI Showcase toggle button text if it exists
     const themeText = document.getElementById('themeText');
@@ -38,8 +44,18 @@ window.applyTheme = function(theme) {
 window.toggleTheme = function() {
     const htmlEl = document.documentElement;
     const currentTheme = htmlEl.getAttribute('data-theme');
-    
+
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('synkra_theme', newTheme);
+    localStorage.setItem('appearance', newTheme); // Use the same key
     applyTheme(newTheme);
+
+    // Also sync with the server
+    fetch('/settings/theme', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? '',
+        },
+        body: JSON.stringify({ theme: newTheme }),
+    }).catch(() => {});
 }

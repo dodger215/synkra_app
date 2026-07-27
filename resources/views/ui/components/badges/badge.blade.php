@@ -6,15 +6,15 @@
   $class = $class ?? '';
 @endphp
 
-<span class="synkra-badge synkra-badge-{{ $variant }} {{ $pill ? 'synkra-badge-pill' : '' }} {{ $class }}">
+<span class="flowexa-badge flowexa-badge-{{ $variant }} {{ $pill ? 'flowexa-badge-pill' : '' }} {{ $class }}">
   @if($icon)
-    <i class="{{ $icon }} synkra-badge-icon"></i>
+    <i class="{{ $icon }} flowexa-badge-icon"></i>
   @endif
   <span>{{ $slot->isEmpty() ? $text : $slot }}</span>
 </span>
 
 <style>
-.synkra-badge {
+.flowexa-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -26,64 +26,64 @@
   width: fit-content;
 }
 
-.synkra-badge-pill {
+.flowexa-badge-pill {
   border-radius: 9999px;
 }
 
-.synkra-badge-icon {
+.flowexa-badge-icon {
   font-size: 0.8em;
 }
 
 /* Primary Badge */
-.synkra-badge-primary {
+.flowexa-badge-primary {
   background-color: rgba(249, 115, 22, 0.1);
   color: var(--primary);
 }
 
 /* Secondary Badge */
-.synkra-badge-secondary {
+.flowexa-badge-secondary {
   background-color: rgba(20, 184, 166, 0.1);
   color: var(--secondary);
 }
 
 /* Success Badge */
-.synkra-badge-success {
+.flowexa-badge-success {
   background-color: rgba(34, 197, 94, 0.1);
   color: #166534;
 }
-[data-theme="dark"] .synkra-badge-success {
+[data-theme="dark"] .flowexa-badge-success {
   color: #4ade80;
 }
 
 /* Warning Badge */
-.synkra-badge-warning {
+.flowexa-badge-warning {
   background-color: rgba(245, 158, 11, 0.1);
   color: #9a3412;
 }
-[data-theme="dark"] .synkra-badge-warning {
+[data-theme="dark"] .flowexa-badge-warning {
   color: #fbbf24;
 }
 
 /* Danger Badge */
-.synkra-badge-danger {
+.flowexa-badge-danger {
   background-color: rgba(239, 68, 68, 0.1);
   color: #991b1b;
 }
-[data-theme="dark"] .synkra-badge-danger {
+[data-theme="dark"] .flowexa-badge-danger {
   color: #f87171;
 }
 
 /* Info Badge */
-.synkra-badge-info {
+.flowexa-badge-info {
   background-color: rgba(14, 165, 233, 0.1);
   color: #0369a1;
 }
-[data-theme="dark"] .synkra-badge-info {
+[data-theme="dark"] .flowexa-badge-info {
   color: #38bdf8;
 }
 
 /* Neutral Badge */
-.synkra-badge-neutral {
+.flowexa-badge-neutral {
   background-color: var(--surface-secondary);
   color: var(--text-secondary);
   border: 1px solid var(--border);

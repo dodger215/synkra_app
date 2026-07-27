@@ -14,11 +14,30 @@ class Tenant extends Model
         'name',
         'subdomain',
         'settings',
+        'supply_chain_mode',
+        'country',
+        'city',
+        'address',
+        'landmark',
+        'latitude',
+        'longitude',
     ];
 
     protected $casts = [
         'settings' => 'array',
     ];
+
+    public function getRouteKey()
+    {
+        return $this->subdomain ?: str_replace(' ', '_', $this->name);
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('subdomain', $value)
+            ->orWhere('name', str_replace('_', ' ', $value))
+            ->first() ?? abort(404);
+    }
 
     public function newUniqueId(): string
     {
@@ -87,5 +106,46 @@ class Tenant extends Model
     public function auditLogs() { return $this->hasMany(AuditLog::class); }
     public function systemNotifications() { return $this->hasMany(SystemNotification::class); }
 
+    public function followers() { return $this->hasMany(TenantFollow::class); }
+
+    public function receivedSupplierRequests()
+    {
+        return $this->hasMany(Supplier::class, 'supplier_tenant_id');
+    }
+
+    public function isSupplier()
+    {
+        return in_array($this->supply_chain_mode, ['supplier', 'both']);
+    }
+
+    public function isBuyer()
+    {
+        return in_array($this->supply_chain_mode, ['buyer', 'both']);
+    }
+
+    /**
+     * Check if a specific service is active and optionally has a specific sub-category.
+     */
+    public function hasServiceModule(string $serviceName, ?string $subCategory = null): bool
+    {
+        $query = $this->services()->where('service_name', $serviceName)->where('is_active', true);
+
+        if ($subCategory) {
+            $query->where('sub_category', $subCategory);
+        }
+
+        return $query->exists();
+    }
+
+    /**
+     * Get the sub-category for an active service.
+     */
+    public function getServiceSubCategory(string $serviceName): ?string
+    {
+        return $this->services()
+            ->where('service_name', $serviceName)
+            ->where('is_active', true)
+            ->value('sub_category');
+    }
 }
 

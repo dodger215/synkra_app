@@ -1,6 +1,6 @@
 <x-layouts.app title="Create Category">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:700px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:700px;margin:0 auto;">
             <div style="margin-bottom:1.5rem;">
                 @if($fromProduct)
                     <a href="{{ route('product_service.products.create') }}" style="color:var(--text-secondary);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;">
@@ -25,7 +25,7 @@
                 <x-ui.alert type="danger" title="Validation Error" :message="$errors->first()" style="margin-bottom:1.5rem;" />
             @endif
 
-            <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+            <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                 <form action="{{ route('product_service.categories.store') }}" method="POST">
                     @csrf
                     @if($fromProduct)

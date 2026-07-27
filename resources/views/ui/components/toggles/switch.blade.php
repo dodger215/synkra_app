@@ -9,35 +9,35 @@
   $class = $class ?? '';
 @endphp
 
-<label class="synkra-switch-wrapper {{ $isLoading ? 'synkra-switch-loading' : '' }} {{ $class }}" for="{{ $id }}" id="group_{{ $id }}">
-  <input 
-    type="checkbox" 
-    name="{{ $name }}" 
-    id="{{ $id }}" 
+<label class="flowexa-switch-wrapper {{ $isLoading ? 'flowexa-switch-loading' : '' }} {{ $class }}" for="{{ $id }}" id="group_{{ $id }}">
+  <input
+    type="checkbox"
+    name="{{ $name }}"
+    id="{{ $id }}"
     value="{{ $value }}"
-    {{ $checked }} 
+    {{ $checked }}
     {{ $isLoading ? 'disabled' : '' }}
-    class="synkra-switch-input"
+    class="flowexa-switch-input"
     @if($onChange) onchange="{{ $onChange }}" @endif
   >
-  <span class="synkra-switch-slider"></span>
+  <span class="flowexa-switch-slider"></span>
   @if($label)
-    <span class="synkra-switch-label">{{ $label }}</span>
+    <span class="flowexa-switch-label">{{ $label }}</span>
   @endif
 </label>
 
 <script>
-if (typeof toggleSynkraSwitchLoading !== 'function') {
-  function toggleSynkraSwitchLoading(switchId, isLoading) {
+if (typeof toggleflowexaSwitchLoading !== 'function') {
+  function toggleflowexaSwitchLoading(switchId, isLoading) {
     const group = document.getElementById('group_' + switchId);
     const input = document.getElementById(switchId);
     if (!group || !input) return;
-    
+
     if (isLoading) {
-      group.classList.add('synkra-switch-loading');
+      group.classList.add('flowexa-switch-loading');
       input.setAttribute('disabled', 'true');
     } else {
-      group.classList.remove('synkra-switch-loading');
+      group.classList.remove('flowexa-switch-loading');
       input.removeAttribute('disabled');
     }
   }
@@ -45,7 +45,7 @@ if (typeof toggleSynkraSwitchLoading !== 'function') {
 </script>
 
 <style>
-.synkra-switch-wrapper {
+.flowexa-switch-wrapper {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -57,16 +57,16 @@ if (typeof toggleSynkraSwitchLoading !== 'function') {
   transition: opacity 0.2s;
 }
 
-.synkra-switch-loading {
+.flowexa-switch-loading {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.synkra-switch-input {
+.flowexa-switch-input {
   display: none;
 }
 
-.synkra-switch-slider {
+.flowexa-switch-slider {
   display: inline-block;
   width: 44px;
   height: 24px;
@@ -76,7 +76,7 @@ if (typeof toggleSynkraSwitchLoading !== 'function') {
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.synkra-switch-slider::after {
+.flowexa-switch-slider::after {
   content: "";
   display: block;
   width: 18px;
@@ -90,23 +90,23 @@ if (typeof toggleSynkraSwitchLoading !== 'function') {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.synkra-switch-input:checked + .synkra-switch-slider {
+.flowexa-switch-input:checked + .flowexa-switch-slider {
   background-color: var(--primary);
 }
 
-.synkra-switch-input:checked + .synkra-switch-slider::after {
+.flowexa-switch-input:checked + .flowexa-switch-slider::after {
   transform: translateX(20px);
 }
 
-.synkra-switch-input:active:not(:disabled) + .synkra-switch-slider::after {
+.flowexa-switch-input:active:not(:disabled) + .flowexa-switch-slider::after {
   width: 24px;
 }
 
-.synkra-switch-input:checked:active:not(:disabled) + .synkra-switch-slider::after {
+.flowexa-switch-input:checked:active:not(:disabled) + .flowexa-switch-slider::after {
   transform: translateX(14px);
 }
 
-.synkra-switch-label {
+.flowexa-switch-label {
   font-weight: 500;
 }
 </style>

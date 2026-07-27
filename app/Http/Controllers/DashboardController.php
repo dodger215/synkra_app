@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function metrics(Request $request)
     {
         $tenant = $request->user()->tenant;
-        
+
         if (!$tenant) {
             return response()->json(['error' => 'No active workspace found for user.'], 403);
         }
@@ -32,6 +32,7 @@ class DashboardController extends Controller
         $totalEcommerceOrders = $tenant->ecommerceOrders()->count();
         $totalOrders = $totalPosOrders + $totalEcommerceOrders;
         $transactionsCount = $tenant->transactions()->count();
+        $pendingSupplierRequests = $tenant->receivedSupplierRequests()->where('status', 'pending')->count();
 
         return response()->json([
             'metrics' => [
@@ -41,6 +42,7 @@ class DashboardController extends Controller
                 'pos_orders' => $totalPosOrders,
                 'ecommerce_orders' => $totalEcommerceOrders,
                 'transactions_count' => $transactionsCount,
+                'pending_supplier_requests' => $pendingSupplierRequests,
             ],
             'timestamp' => now()->toIso8601String()
         ]);

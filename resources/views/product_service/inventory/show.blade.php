@@ -1,6 +1,6 @@
 <x-layouts.app title="{{ $product->name }}">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:1200px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:1200px;margin:0 auto;">
             <div style="margin-bottom:1.5rem;">
                 <a href="{{ route('product_service.products.index') }}" style="color:var(--text-secondary);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Inventory
@@ -51,7 +51,7 @@
                 <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                     {{-- Description --}}
-                    <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                    <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                         <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);border-bottom:1px solid var(--border);padding-bottom:.6rem;">Product Overview</h3>
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
                             <div>
@@ -67,16 +67,16 @@
 
                     {{-- Pricing + Inventory side by side --}}
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);border-bottom:1px solid var(--border);padding-bottom:.6rem;">Pricing</h3>
                             <div style="display:flex;flex-direction:column;gap:.9rem;">
                                 <div style="display:flex;justify-content:space-between;">
                                     <span style="color:var(--text-secondary);font-size:.9rem;">Selling Price</span>
-                                    <span style="color:var(--text-primary);font-weight:600;">${{ number_format($product->unit_price, 2) }}</span>
+                                    <span style="color:var(--text-primary);font-weight:600;">GH₵ {{ number_format($product->unit_price, 2) }}</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;">
                                     <span style="color:var(--text-secondary);font-size:.9rem;">Cost Price</span>
-                                    <span style="color:var(--text-primary);font-weight:600;">${{ number_format($product->cost_price, 2) }}</span>
+                                    <span style="color:var(--text-primary);font-weight:600;">GH₵ {{ number_format($product->cost_price, 2) }}</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;">
                                     <span style="color:var(--text-secondary);font-size:.9rem;">Profit Margin</span>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                        <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                             <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);border-bottom:1px solid var(--border);padding-bottom:.6rem;">Inventory Config</h3>
                             <div style="display:flex;flex-direction:column;gap:.9rem;">
                                 <div style="display:flex;justify-content:space-between;">
@@ -122,7 +122,7 @@
                 <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
                     {{-- Image Gallery --}}
-                    <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                    <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                         @if($product->images && count($product->images) > 0)
                             {{-- Main preview image --}}
                             <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:1rem;aspect-ratio:1;background:var(--surface-secondary);">
@@ -150,7 +150,7 @@
                     </div>
 
                     {{-- Physical Details --}}
-                    <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                    <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                         <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);border-bottom:1px solid var(--border);padding-bottom:.6rem;">Physical Details</h3>
                         <div style="display:flex;flex-direction:column;gap:.9rem;">
                             <div style="display:flex;justify-content:space-between;">
@@ -169,7 +169,7 @@
                     </div>
 
                     {{-- Metadata --}}
-                    <div class="synkra-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
+                    <div class="flowexa-card" style="background:var(--surface);border-radius:16px;padding:1.5rem;border:1px solid var(--border);">
                         <h3 style="margin:0 0 1rem;font-size:1.05rem;color:var(--headings);border-bottom:1px solid var(--border);padding-bottom:.6rem;">Record Info</h3>
                         <div style="display:flex;flex-direction:column;gap:.75rem;font-size:.85rem;">
                             <div style="display:flex;justify-content:space-between;">

@@ -1,8 +1,8 @@
 <x-layouts.auth>
     <x-ui.auth.card>
         <x-slot:header>
-            <h2 class="synkra-auth-card-title">Accept Invitation</h2>
-            <p class="synkra-auth-card-subtitle">Complete your account setup to join the workspace</p>
+            <h2 class="flowexa-auth-card-title">Accept Invitation</h2>
+            <p class="flowexa-auth-card-subtitle">Complete your account setup to join the workspace</p>
         </x-slot:header>
 
         @if (session('status'))
@@ -16,38 +16,38 @@
         <form method="POST" action="{{ url('/accept-invite/' . request()->route('token')) }}">
             @csrf
 
-            <div class="synkra-form-group">
-                <x-ui.input 
-                    type="text" 
-                    name="name" 
-                    placeholder="Full Name" 
-                    value="{{ old('name') }}" 
+            <div class="flowexa-form-group">
+                <x-ui.input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value="{{ old('name') }}"
                     icon="fa-solid fa-user"
-                    required 
+                    required
                     autofocus
                 />
                 @error('name')
-                    <span class="synkra-form-error">{{ $message }}</span>
+                    <span class="flowexa-form-error">{{ $message }}</span>
                 @enderror
             </div>
 
-            <div class="synkra-form-group">
-                <x-ui.input 
-                    type="password" 
-                    name="password" 
+            <div class="flowexa-form-group">
+                <x-ui.input
+                    type="password"
+                    name="password"
                     placeholder="Create Password"
                     icon="fa-solid fa-lock"
                     required
                 />
                 @error('password')
-                    <span class="synkra-form-error">{{ $message }}</span>
+                    <span class="flowexa-form-error">{{ $message }}</span>
                 @enderror
             </div>
 
-            <div class="synkra-form-group">
-                <x-ui.input 
-                    type="password" 
-                    name="password_confirmation" 
+            <div class="flowexa-form-group">
+                <x-ui.input
+                    type="password"
+                    name="password_confirmation"
                     placeholder="Confirm Password"
                     icon="fa-solid fa-lock"
                     required
@@ -58,7 +58,7 @@
         </form>
 
 <style>
-    .synkra-form-group { width: 100%; margin-bottom: 1.25rem; display: flex; justify-content: center; align-items: center;}
+    .flowexa-form-group { width: 100%; margin-bottom: 1.25rem; display: flex; justify-content: center; align-items: center;}
 </style>
     </x-ui.auth.card>
 </x-layouts.auth>

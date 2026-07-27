@@ -93,7 +93,7 @@
                             </p>
                             @endif
                             <p style="margin: 0; color: #bbbbbb; font-size: 11px; line-height: 1.5; text-align: center;">
-                                Powered by <strong style="color: #6C5CE7;">Synkra</strong>
+                                Powered by <strong style="color: #6C5CE7;">flowexa</strong>
                             </p>
                         </td>
                     </tr>

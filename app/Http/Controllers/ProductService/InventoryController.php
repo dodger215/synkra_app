@@ -48,7 +48,6 @@ class InventoryController extends Controller implements HasMiddleware
         $categories = ProductCategory::where('tenant_id', Auth::user()->tenant_id)->get();
         $locations   = StockLocation::where('tenant_id', Auth::user()->tenant_id)->where('is_active', true)->get();
 
-        // Restore any product data saved to session before category quick-create redirect
         $restored = session()->pull('product_create_draft', []);
 
         return view('product_service.inventory.create', compact('categories', 'locations', 'restored'));

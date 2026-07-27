@@ -3,7 +3,7 @@
         <meta name="description" content="Update your personal account settings.">
     </x-slot:head>
 
-    <div class="synkra-dashboard-container" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+    <div class="flowexa-dashboard-container" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
         <div style="margin-bottom: 2rem;">
             <h1 style="color: var(--headings); margin: 0 0 0.5rem 0;">Profile Settings</h1>
             <p style="color: var(--text-secondary); margin: 0;">Update your personal account details and security settings.</p>
@@ -17,12 +17,12 @@
             <x-ui.alert type="danger" title="Error" message="Please fix the errors below." style="margin-bottom: 2rem;" />
         @endif
 
-        <div class="synkra-card" style="padding: 2rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+        <div class="flowexa-card" style="padding: 2rem; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06); border: 1px solid var(--border);">
             <form action="{{ route('settings.profile.update') }}" method="POST">
                 @csrf
-                
+
                 <h3 style="color: var(--headings); margin: 0 0 1.5rem 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">Account Details</h3>
-                
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                     <x-ui.input name="name" label="Full Name" placeholder="John Doe" value="{{ old('name', $user->name) }}" required />
                     <x-ui.input name="email" label="Email Address" type="email" placeholder="john@example.com" value="{{ old('email', $user->email) }}" required />
@@ -30,7 +30,7 @@
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                     <x-ui.input type="tel" name="phone_number" label="Phone Number" placeholder="e.g. 0241234567" value="{{ old('phone_number', $user->phone_number) }}" minlength="10" maxlength="15" pattern="\+?[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)" />
-                    
+
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <label style="font-size: 0.85rem; font-weight: 600; color: var(--headings);">Two-Factor Authentication Method</label>
                         <select name="mfa_type" style="width: 100%; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text-primary); outline: none; font-family: inherit; transition: all 0.2s;">
@@ -51,7 +51,7 @@
                 </div>
 
                 <div style="display: flex; justify-content: flex-end; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-                    <button type="submit" class="synkra-btn synkra-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;">Save Changes</button>
+                    <button type="submit" class="flowexa-btn flowexa-btn-primary" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 600;">Save Changes</button>
                 </div>
             </form>
         </div>

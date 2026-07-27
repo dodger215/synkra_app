@@ -1,13 +1,13 @@
 <x-layouts.app title="Product Categories">
     <x-ui.grid>
-        <div class="synkra-dashboard-container" style="padding:2rem;max-width:1200px;margin:0 auto;">
+        <div class="flowexa-dashboard-container" style="padding:2rem;max-width:1200px;margin:0 auto;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;">
                 <div>
                     <h1 style="color:var(--headings);margin:0 0 .5rem 0;">Product Categories</h1>
                     <p style="color:var(--text-secondary);margin:0;">Organise your product catalog into categories for filtering and reporting.</p>
                 </div>
-                <button type="button" onclick="openSynkraModal('addCategoryModal')"
-                        class="synkra-btn synkra-btn-primary"
+                <button type="button" onclick="openflowexaModal('addCategoryModal')"
+                        class="flowexa-btn flowexa-btn-primary"
                         style="background:var(--primary);border:none;color:white;cursor:pointer;padding:.6rem 1.25rem;border-radius:8px;font-weight:600;display:flex;align-items:center;gap:8px;">
                     <i class="fa-solid fa-plus"></i> Add Category
                 </button>
@@ -20,7 +20,7 @@
                 <x-ui.alert type="danger" title="Error" :message="$errors->first()" style="margin-bottom:2rem;" />
             @endif
 
-            <div class="synkra-card" style="background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;">
+            <div class="flowexa-card" style="background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;padding:1.5rem;">
                 @if($categories->isEmpty())
                     <div style="text-align:center;padding:4rem 2rem;">
                         <div style="width:64px;height:64px;background:var(--surface-secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem auto;font-size:1.5rem;color:var(--text-secondary);">
@@ -28,22 +28,24 @@
                         </div>
                         <h3 style="margin:0 0 .5rem 0;color:var(--text-primary);">No Categories Yet</h3>
                         <p style="color:var(--text-secondary);margin:0 0 1.5rem 0;font-size:.95rem;">Create your first category to start organising products.</p>
-                        <button type="button" onclick="openSynkraModal('addCategoryModal')"
+                        <button type="button" onclick="openflowexaModal('addCategoryModal')"
                                 style="background:var(--primary);border:none;color:white;cursor:pointer;padding:.6rem 1.5rem;border-radius:8px;font-weight:600;">
                             Add First Category
                         </button>
                     </div>
                 @else
+                    <x-ui.filter-bar searchPlaceholder="Search categories by name…" :filters="[]" />
+
                     @php
                         $headers = ['Name', 'Description', 'Products', 'Actions'];
                         $rows = $categories->map(function ($category) {
                             $actions = new \Illuminate\Support\HtmlString(
-                                '<div class="synkra-table-actions" style="padding-right: 3px;">'
-                                . '<a href="' . e(route('product_service.categories.edit', $category->id)) . '" class="synkra-table-action-btn" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>'
-                                . '<a href="' . e(route('product_service.categories.show', $category->id)) . '" class="synkra-table-action-btn" title="View"><i class="fa-solid fa-eye"></i></a>'
+                                '<div class="flowexa-table-actions" style="padding-right: 3px;">'
+                                . '<a href="' . e(route('product_service.categories.edit', $category->id)) . '" class="flowexa-table-action-btn" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>'
+                                . '<a href="' . e(route('product_service.categories.show', $category->id)) . '" class="flowexa-table-action-btn" title="View"><i class="fa-solid fa-eye"></i></a>'
                                 . '<form action="' . e(route('product_service.categories.destroy', $category->id)) . '" method="POST" onsubmit="return confirm(\'Delete this category?\');" style="margin:0;display:inline;">'
                                 . csrf_field() . method_field('DELETE')
-                                . '<button type="submit" class="synkra-table-action-btn" style="color:var(--danger);" title="Delete"><i class="fa-solid fa-trash"></i></button>'
+                                . '<button type="submit" class="flowexa-table-action-btn" style="color:var(--danger);" title="Delete"><i class="fa-solid fa-trash"></i></button>'
                                 . '</form></div>'
                             );
 
@@ -73,7 +75,7 @@
                 </div>
             </form>
             <x-slot:footer>
-                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeSynkraModal('addCategoryModal')">Cancel</button>
+                <button type="button" style="background:transparent;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;padding:.5rem 1rem;border-radius:8px;" onclick="closeflowexaModal('addCategoryModal')">Cancel</button>
                 <button type="button" style="background:var(--primary);border:none;color:white;cursor:pointer;padding:.5rem 1rem;border-radius:8px;font-weight:600;" onclick="document.getElementById('addCategoryForm').submit()">Save Category</button>
             </x-slot:footer>
         </x-ui.modal>

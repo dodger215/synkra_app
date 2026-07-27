@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -57,7 +61,7 @@ return [
     | providers to represent the model / table. These providers may then
     | be assigned to any extra authentication guards you have defined.
     |
-    | Supported: "database", "eloquent"
+    | Supported: "session", "eloquent"
     |
     */
 
@@ -67,10 +71,10 @@ return [
             'model' => env('AUTH_MODEL', User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
     ],
 
     /*

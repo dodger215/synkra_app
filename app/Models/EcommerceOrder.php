@@ -12,7 +12,7 @@ class EcommerceOrder extends Model
     protected $fillable = [
         'tenant_id', 'store_id', 'order_number', 'customer_id', 'session_id',
         'subtotal', 'discount_amount', 'shipping_cost', 'tax_amount',
-        'total_amount', 'payment_status', 'fulfillment_status',
+        'total_amount', 'payment_status', 'fulfillment_status', 'delivery_type',
         'shipping_address', 'billing_address', 'customer_notes',
         'admin_notes', 'ip_address', 'user_agent', 'coupon_code',
         'ordered_at', 'paid_at', 'fulfilled_at', 'cancelled_at',
@@ -27,6 +27,15 @@ class EcommerceOrder extends Model
         'ordered_at' => 'datetime', 'paid_at' => 'datetime',
         'fulfilled_at' => 'datetime', 'cancelled_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($order) {
+            $order->order_number = 'ORD-' . strtoupper(str_replace('.', '', uniqid('', true)));
+            $order->ordered_at = now();
+        });
+    }
 
     public function tenant() { return $this->belongsTo(Tenant::class); }
     public function store() { return $this->belongsTo(EcommerceStore::class, 'store_id'); }

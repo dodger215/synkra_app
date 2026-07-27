@@ -20,7 +20,7 @@ class GoogleController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')->user();
-            
+
             $inviteToken = session('invite_token');
             $invite = null;
 
@@ -61,6 +61,7 @@ class GoogleController extends Controller
                         'email' => $googleUser->getEmail(),
                         'google_id' => $googleUser->getId(),
                         'role' => \App\Enums\UserRole::OWNER,
+                        'permissions' => config('permissions.modules'),
                     ]);
                 }
             } else {
@@ -84,7 +85,7 @@ class GoogleController extends Controller
             Auth::login($user);
 
             return redirect()->intended('dashboard');
-            
+
         } catch (\Exception $e) {
             return redirect('/')->with('error', 'Authentication failed or was canceled.');
         }

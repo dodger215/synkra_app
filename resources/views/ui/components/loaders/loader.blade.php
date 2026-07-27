@@ -1,9 +1,9 @@
-<div id="synkra-page-loader" class="synkra-page-loader-overlay">
+<div id="flowexa-page-loader" class="flowexa-page-loader-overlay">
   <span class="loader"></span>
 </div>
 
 <style>
-.synkra-page-loader-overlay {
+.flowexa-page-loader-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.synkra-page-loader-overlay.hidden {
+.flowexa-page-loader-overlay.hidden {
   opacity: 0;
   visibility: hidden;
 }
@@ -54,12 +54,12 @@
   100% {
     transform: translate(-50%, -100%) scale(0)
   }
-}    
-</style> 
+}
+</style>
 
 <script>
   window.addEventListener('load', function() {
-      const loader = document.getElementById('synkra-page-loader');
+      const loader = document.getElementById('flowexa-page-loader');
       if (loader) {
           loader.classList.add('hidden');
           setTimeout(() => {

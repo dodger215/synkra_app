@@ -1,0 +1,17 @@
+node_modules
+vendor
+.git
+.idea
+.env.example
+storage/*.key
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+public/hot
+public/storage
+docker/mysql
+tests
+phpunit.xml
+Dockerfile
+docker-compose.yml
+README.md
